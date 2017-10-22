@@ -19,4 +19,7 @@
 <resources>
     <!-- Set the automatic brightness mode on by default -->
     <bool name="def_screen_brightness_automatic_mode">true</bool>
+
+    <!-- Disable UI touch sounds by default -->
+    <bool name="def_sound_effects_enabled">false</bool>
 </resources>

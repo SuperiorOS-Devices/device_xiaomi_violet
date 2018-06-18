@@ -252,12 +252,6 @@ service qfp-daemon /vendor/bin/qfp-daemon
     user system
     group system drmrpc diag input
 
-service energy-awareness /system/vendor/bin/energy-awareness
-    class main
-    user system
-    group system
-    oneshot
-
 service nv_mac /vendor/bin/nv_mac
     class late_start
     user system

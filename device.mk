@@ -316,6 +316,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
 
+# Overlays
+PRODUCT_PACKAGES += \
+    NoCutoutOverlay
+
 # Perf
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.perf@2.0.vendor

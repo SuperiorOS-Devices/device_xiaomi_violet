@@ -30,6 +30,8 @@ import /vendor/etc/init/hw/init.msm.usb.configfs.rc
 import /vendor/etc/init/hw/init.target.rc
 
 on early-init
+    # Disable EAS
+    write /sys/kernel/debug/sched_features NO_ENERGY_AWARE
     mount debugfs debugfs /sys/kernel/debug
     chmod 0755 /sys/kernel/debug
 
@@ -480,6 +482,9 @@ on property:persist.vendor.sys.rawdump_copy=0
     write /sys/kernel/dload/emmc_dload 0
 
 on property:sys.boot_completed=1
+    # Enable EAS
+    write /sys/kernel/debug/sched_features ENERGY_AWARE
+
     write /dev/kmsg "Boot completed "
 
     #Reset read ahead for dm-0, dm-1, dm-3, dm-4, dm-5 and dm-6 to 128b
@@ -979,6 +984,11 @@ on charger
     setprop persist.sys.usb.config mass_storage
     load_system_props
     start qcom-post-boot
+    # Enable EAS
+    write /sys/kernel/debug/sched_features ENERGY_AWARE
+
+    # Enable powersaving
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
 #add poweroffhandler
 service poweroffhandler /system/vendor/bin/poweroffhandler

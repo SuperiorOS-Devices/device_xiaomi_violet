@@ -26,6 +26,9 @@ TARGET_KERNEL_CONFIG := vendor/lineage_violet_defconfig
 # Platform
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno612
 
+# HIDL
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+
 # Partitions
 BOARD_VENDORIMAGE_PARTITION_SIZE := 2147483648
 

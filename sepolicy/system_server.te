@@ -1,0 +1,2 @@
+# Smart charging
+allow system_server sysfs_battery_supply:file { getattr open read write };

@@ -135,6 +135,10 @@ on boot
    chown system system /sys/bus/platform/devices/soc/soc:fpc1020/wakeup_enable
    chmod 0666 /dev/qseecom
 
+# Battery charging
+    chown system system /sys/class/power_supply/battery/input_suspend
+    chmod 0666 /sys/class/power_supply/battery/input_suspend
+
 #Load WLAN driver
     chown wifi wifi /sys/module/wlan/parameters/fwpath
 

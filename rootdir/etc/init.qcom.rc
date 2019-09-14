@@ -1193,3 +1193,9 @@ service vendor.hwcomposer-2-2 /vendor/bin/hw/android.hardware.graphics.composer@
     onrestart restart surfaceflinger
     socket pps stream 0660 system system
     writepid /dev/cpuset/system-background/tasks
+
+# Access permission for smart charging
+    chown system system /sys/class/power_supply/battery/charging_enabled
+    chmod 0666 /sys/class/power_supply/battery/charging_enabled
+    chown system system /sys/class/power_supply/battery/input_suspend
+    chmod 0666 /sys/class/power_supply/battery/input_suspend

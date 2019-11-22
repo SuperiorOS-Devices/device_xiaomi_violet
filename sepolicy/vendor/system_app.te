@@ -1,2 +1,5 @@
 allow system_app sysfs_zram:dir search;
 allow system_app sysfs_zram:file r_file_perms;
+
+# Fps Info
+allow system_app vendor_sysfs_graphics:file { getattr open read };

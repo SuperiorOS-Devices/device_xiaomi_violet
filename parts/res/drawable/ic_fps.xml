@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2020 Chaldeastudio
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?android:attr/colorControlNormal">
+  <path
+      android:pathData="m10.428,5.7129 l-0.5254,1.3984v3.666l1.0488,1.0488 0.3496,-0.3496v-4.8906c-0.1164,-0.4656 -0.4074,-0.7566 -0.873,-0.873zM14.0979,11.3008 L13.3987,12 14.0979,12.6992h4.5391l0.6992,-0.6992 -0.6992,-0.6992h-4.5391z"
+      android:fillColor="#000"
+      android:fillAlpha="0.25"/>
+  <path
+      android:pathData="m4.8594,5.7129c-0.4656,0.1164 -0.7566,0.4074 -0.873,0.873l1.3965,0.5254h4.1738l0.5234,-1.3984zM13.5899,5.7129c-0.4656,0.1164 -0.7566,0.4074 -0.873,0.873l1.3965,0.5254h4.1738l0.5234,-1.3984zM19.1602,5.7129 L18.6348,7.1113v3.666l1.0488,1.0488 0.3496,-0.3496v-4.8906c-0.1164,-0.4656 -0.4074,-0.7566 -0.873,-0.873zM3.9672,6.9356v4.541l0.3496,0.3496 1.0488,-1.0488v-3.3164zM12.6996,6.9356v4.541l0.3477,0.3496 1.0488,-1.0488v-3.3164zM5.3656,11.3008 L4.6664,12 5.3656,12.6992h4.5391l0.6992,-0.6992 -0.6992,-0.6992zM4.3168,12.1739 L3.9672,12.5235v4.541l1.3984,-0.5254v-3.3164zM10.9535,12.1739 L9.9047,13.2227v3.666l0.5234,1.3984c0.4656,-0.1164 0.7566,-0.4074 0.873,-0.873v-4.8906zM13.0473,12.1739 L12.6996,12.5235v4.541l1.3965,-0.5254v-3.3164zM19.684,12.1739 L18.6352,13.2227v3.666l0.5254,1.3984c0.4656,-0.1164 0.7566,-0.4074 0.873,-0.873v-4.8906zM5.366,16.8886 L3.9676,17.414c0.1164,0.4656 0.4074,0.7566 0.873,0.873h5.2402l-0.5254,-1.3984zM14.0965,16.8886 L12.7,17.414c0.1164,0.4656 0.4074,0.7566 0.873,0.873h5.2383l-0.5234,-1.3984z"
+      android:fillColor="#000"/>
+</vector>

@@ -477,6 +477,10 @@ on property:persist.vendor.ssr.enable_ramdumps=1 && property:ro.boot.mode!=charg
 on property:sys.boot_completed=1
     setprop vendor.setup.power 1
 
+    # FPS Info permissions
+    chown system graphics /sys/class/drm/sde-crtc-0/measured_fps
+    chmod 0666 /sys/class/drm/sde-crtc-0/measured_fps
+
     # WDSP FW boot sysfs node used by STHAL
     chown media audio /sys/kernel/wdsp0/boot
     chown media audio /sys/kernel/wcd_cpe0/fw_name

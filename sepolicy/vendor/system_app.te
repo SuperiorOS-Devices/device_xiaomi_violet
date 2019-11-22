@@ -1,0 +1,2 @@
+# Fps Info
+allow system_app vendor_sysfs_graphics:file { getattr open read };

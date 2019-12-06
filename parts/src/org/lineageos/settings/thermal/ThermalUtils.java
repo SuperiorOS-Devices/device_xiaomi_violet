@@ -27,8 +27,6 @@ import org.lineageos.settings.utils.FileUtils;
 
 public final class ThermalUtils {
 
-    private static final String THERMAL_CONTROL = "thermal_control";
-
     protected static final int STATE_DEFAULT = 0;
     protected static final int STATE_BENCHMARK = 1;
     protected static final int STATE_BROWSER = 2;
@@ -36,7 +34,7 @@ public final class ThermalUtils {
     protected static final int STATE_DIALER = 4;
     protected static final int STATE_GAMING = 5;
     protected static final int STATE_STREAMING = 6;
-
+    private static final String THERMAL_CONTROL = "thermal_control";
     private static final String THERMAL_STATE_DEFAULT = "0";
     private static final String THERMAL_STATE_BENCHMARK = "10";
     private static final String THERMAL_STATE_BROWSER = "11";

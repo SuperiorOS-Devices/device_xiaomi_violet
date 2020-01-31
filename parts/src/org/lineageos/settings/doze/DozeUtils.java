@@ -25,7 +25,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.os.PowerManager;
 import android.util.Log;
+import android.os.SystemClock;
 import androidx.preference.PreferenceManager;
 
 import static android.provider.Settings.Secure.DOZE_ALWAYS_ON;
@@ -44,7 +46,9 @@ public final class DozeUtils {
     protected static final String CATEG_PROX_SENSOR = "proximity_sensor";
 
     protected static final String GESTURE_PICK_UP_KEY = "gesture_pick_up";
+    protected static final String GESTURE_RAISE_TO_WAKE_KEY = "gesture_raise_to_wake";
     protected static final String GESTURE_HAND_WAVE_KEY = "gesture_hand_wave";
+    protected static final String WAKE_ON_GESTURE_KEY = "wake_on_gesture";
     protected static final String GESTURE_POCKET_KEY = "gesture_pocket";
     protected static final String DOZE_ENABLE = "doze_enable";
 
@@ -88,11 +92,17 @@ public final class DozeUtils {
         return Settings.Secure.getInt(context.getContentResolver(),
                 DOZE_ENABLED, 1) != 0;
     }
-
-    protected static void launchDozePulse(Context context) {
+    
+    public static void wakeOrLaunchDozePulse(Context context) {
+        if (isWakeOnGestureEnabled(context)) {
+            if (DEBUG) Log.d(TAG, "Wake up display");
+            PowerManager powerManager = context.getSystemService(PowerManager.class);
+            powerManager.wakeUp(SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_GESTURE, TAG);
+        } else {
         if (DEBUG) Log.d(TAG, "Launch doze pulse");
         context.sendBroadcastAsUser(new Intent(DOZE_INTENT),
                 new UserHandle(UserHandle.USER_CURRENT));
+        }
     }
 
     protected static boolean enableAlwaysOn(Context context, boolean enable) {
@@ -117,9 +127,17 @@ public final class DozeUtils {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(gesture, false);
     }
+    
+    protected static boolean isWakeOnGestureEnabled(Context context) {
+        return isGestureEnabled(context, WAKE_ON_GESTURE_KEY);
+    }
 
     protected static boolean isPickUpEnabled(Context context) {
         return isGestureEnabled(context, GESTURE_PICK_UP_KEY);
+    }
+    
+    protected static boolean isRaiseToWakeEnabled(Context context) {
+        return isGestureEnabled(context, GESTURE_RAISE_TO_WAKE_KEY);
     }
 
     protected static boolean isHandwaveGestureEnabled(Context context) {
@@ -130,9 +148,9 @@ public final class DozeUtils {
         return isGestureEnabled(context, GESTURE_POCKET_KEY);
     }
 
-    public static boolean sensorsEnabled(Context context) {
-        return isPickUpEnabled(context) || isHandwaveGestureEnabled(context)
-                || isPocketGestureEnabled(context);
+    protected static boolean sensorsEnabled(Context context) {
+        return isPickUpEnabled(context) || isRaiseToWakeEnabled(context) ||
+                isHandwaveGestureEnabled(context) || isPocketGestureEnabled(context);
     }
 
     protected static Sensor getSensor(SensorManager sm, String type) {

@@ -69,4 +69,7 @@
     <!-- FPS Counter -->
     <string name="fps_info_title">FPS Counter</string>
 
+    <!-- Raise to wake strings-->
+    <string name="raise_to_wake_gesture_title">Raise to wake</string>
+    <string name="raise_to_wake_gesture_summary">Wake up the device instead of pulsing notification</string>
 </resources>

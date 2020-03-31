@@ -349,27 +349,27 @@
     <ctl name="TX SMIC MUX7" value="ZERO" />
 
     <!-- Volume controls -->
-    <ctl name="WSA_RX0 Digital Volume" value="84" />
-    <ctl name="WSA_RX1 Digital Volume" value="84" />
-    <ctl name="RX_RX0 Digital Volume" value="84" />
-    <ctl name="RX_RX1 Digital Volume" value="84" />
-    <ctl name="RX_RX2 Digital Volume" value="84" />
+    <ctl name="WSA_RX0 Digital Volume" value="90" />
+    <ctl name="WSA_RX1 Digital Volume" value="90" />
+    <ctl name="RX_RX0 Digital Volume" value="90" />
+    <ctl name="RX_RX1 Digital Volume" value="90" />
+    <ctl name="RX_RX2 Digital Volume" value="90" />
     <ctl name="HPHL Volume" value="20" />
     <ctl name="HPHR Volume" value="20" />
     <ctl name="EAR SPKR PA Gain" value="G_DEFAULT" />
 
-    <ctl name="TX_DEC0 Volume" value="84" />
-    <ctl name="TX_DEC1 Volume" value="84" />
-    <ctl name="TX_DEC2 Volume" value="84" />
-    <ctl name="TX_DEC3 Volume" value="84" />
-    <ctl name="TX_DEC4 Volume" value="84" />
-    <ctl name="TX_DEC5 Volume" value="84" />
-    <ctl name="TX_DEC6 Volume" value="84" />
-    <ctl name="TX_DEC7 Volume" value="84" />
+    <ctl name="TX_DEC0 Volume" value="90" />
+    <ctl name="TX_DEC1 Volume" value="90" />
+    <ctl name="TX_DEC2 Volume" value="90" />
+    <ctl name="TX_DEC3 Volume" value="90" />
+    <ctl name="TX_DEC4 Volume" value="90" />
+    <ctl name="TX_DEC5 Volume" value="90" />
+    <ctl name="TX_DEC6 Volume" value="90" />
+    <ctl name="TX_DEC7 Volume" value="90" />
 
-    <ctl name="ADC1 Volume" value="12" />
+    <ctl name="ADC1 Volume" value="6" />
     <ctl name="ADC2 Volume" value="12" />
-    <ctl name="ADC3 Volume" value="12" />
+    <ctl name="ADC3 Volume" value="6" />
 
     <!-- Compander controls -->
     <ctl name="WSA_COMP1 Switch" value="0" />
@@ -2725,14 +2725,14 @@
     <!-- Add by dzy for ce mode 20181206-->
     <path name="headphones-ce">
         <path name="headphones" />
-        <ctl name="RX_RX0 Digital Volume" value="74" />
-        <ctl name="RX_RX1 Digital Volume" value="74" />
+        <ctl name="RX_RX0 Digital Volume" value="80" />
+        <ctl name="RX_RX1 Digital Volume" value="80" />
     </path>
 
     <path name="headphones-no-ce">
         <path name="headphones" />
-        <ctl name="RX_RX0 Digital Volume" value="84" />
-        <ctl name="RX_RX1 Digital Volume" value="84" />
+        <ctl name="RX_RX0 Digital Volume" value="90" />
+        <ctl name="RX_RX1 Digital Volume" value="90" />
     </path>
     <!-- Add by dzy for ce mode end-->
     <path name="headphones-44.1">

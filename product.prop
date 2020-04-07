@@ -9,7 +9,6 @@ ro.qc.sdk.audio.fluencetype=none
 ro.qc.sdk.audio.ssr=false
 
 # WFD
-debug.sf.enable_hwc_vds=1
 persist.debug.wfd.enable=1
 persist.sys.wfd.virtual=0
 

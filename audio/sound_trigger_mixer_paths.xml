@@ -59,7 +59,7 @@
     <ctl name="TX DEC3 MUX" value="MSM_DMIC" />
     <ctl name="TX DMIC MUX3" value="ZERO" />
     <ctl name="AUDIO_REF_EC_UL1 MUX" value="None"/>
-    <ctl name="EC Reference Channels" value="One"/>
+    <ctl name="EC Reference Channels" value="Zero"/>
     <ctl name="EC Reference Bit Format" value="0"/>
     <ctl name="EC Reference SampleRate" value="0"/>
     <ctl name="TX_DEC0 Volume" value="84" />

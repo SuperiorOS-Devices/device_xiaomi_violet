@@ -85,11 +85,11 @@ void vendor_load_properties()
         for (const auto &source : ro_props_default_source_order)
         {
             set_ro_build_prop(source, "fingerprint",
-                              "Xiaomi/davinci/davinci:10/QKQ1.190825.002/V11.0.4.0.QFJCNXM:user/release-keys");
+                              "Xiaomi/davinci/davinci:10/QKQ1.190825.002/V11.0.6.0.QFJCNXM:user/release-keys");
             set_ro_product_prop(source, "device", "davinci");
             set_ro_product_prop(source, "model", "Redmi K20");
         }
-        property_override("ro.build.description", "davinci-user 10 QKQ1.190825.002 V11.0.4.0.QFJCNXM release-keys");
+        property_override("ro.build.description", "davinci-user 10 QKQ1.190825.002 V11.0.6.0.QFJCNXM release-keys");
     }
     else if (region == "INDIA")
     {
@@ -108,11 +108,11 @@ void vendor_load_properties()
         for (const auto &source : ro_props_default_source_order)
         {
             set_ro_build_prop(source, "fingerprint",
-                              "Xiaomi/davinci/davinci:10/QKQ1.190825.002/V11.0.4.0.QFJMIXM:user/release-keys");
+                              "Xiaomi/davinci/davinci:10/QKQ1.190825.002/V11.0.5.0.QFJMIXM:user/release-keys");
             set_ro_product_prop(source, "device", "davinci");
             set_ro_product_prop(source, "model", "Mi 9T");
         }
-        property_override("ro.build.description", "davinci-user 10 QKQ1.190825.002 V11.0.4.0.QFJMIXM release-keys");
+        property_override("ro.build.description", "davinci-user 10 QKQ1.190825.002 V11.0.5.0.QFJMIXM release-keys");
         property_override("ro.product.mod_device", "davinci_global");
     }
 }

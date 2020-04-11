@@ -24,3 +24,6 @@ It was announced in February 2019 and released in March 2019.
 ## Device picture
 
 ![Xiaomi Redmi Note 7 Pro](https://i01.appmifile.com/webfile/globalimg/products/pc/redmi-note-7-pro/gallery1.jpg)
+
+#### Proprietary-files.txt
+All unpinned blobs are extracted from [miui_VIOLET_20.8.4_d58aa6c195_10.0.zip](http://bigota.d.miui.com/20.8.4/miui_VIOLET_20.8.4_d58aa6c195_10.0.zip)

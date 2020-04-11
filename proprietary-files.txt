@@ -264,6 +264,10 @@ vendor/firmware/a612_zap.b02
 vendor/firmware/a612_zap.elf
 vendor/firmware/a612_zap.mdt
 
+# IPA Firmware
+vendor/firmware/ipa_fws.b02
+vendor/firmware/ipa_fws.mdt
+
 # Sensor
 vendor/etc/sensors/config/ak991x_dri_0.json
 vendor/etc/sensors/config/bma2x2_0.json

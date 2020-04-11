@@ -5,8 +5,8 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_davinci.mk
+    $(LOCAL_DIR)/lineage_violet.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_davinci-userdebug \
-    lineage_davinci-eng
+    lineage_violet-userdebug \
+    lineage_violet-eng

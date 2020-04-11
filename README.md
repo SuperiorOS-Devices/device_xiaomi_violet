@@ -1,27 +1,26 @@
-Copyright (C) 2019-2020 - The LineageOS Project
+Copyright (C) 2020 - The LineageOS Project
 
-The Xiaomi Mi 9T/Redmi K20 (codenamed _"davinci/davinciin"_) are mid range smartphones from Xiaomi.
+The Xiaomi Redmi Note 7 Pro (codenamed _"violet"_) is a mid range smartphone from Xiaomi.
 
-Both were announced and released in June 2019.
+It was announced in February 2019 and released in March 2019.
 
 ## Device specifications
 
-| Device       | Xiaomi Mi 9T/Redmi K20                          |
+| Device       | Xiaomi Redmi Note 7 Pro                         |
 | -----------: | :---------------------------------------------- |
-| SoC          | Qualcomm SM6150 Snapdragon 730                  |
-| CPU          | 2x2.2 GHz Kryo 470 & 6x1.8 GHz Kryo 470         |
-| GPU          | Adreno 618                                      |
-| Memory       | 6GM RAM (LPDDR4X)                               |
+| SoC          | Qualcomm SM6150 Snapdragon 675                  |
+| CPU          | 2 x 2 GHz Kryo 460 & 6 x 1.2 GHz Kryo 460       |
+| GPU          | Adreno 612                                      |
+| Memory       | 4GB / 6GB RAM (LPDDR4X)                         |
 | Shipped Android version | 9.0 with MIUI 10                     |
-| Storage      | 128GB UFS 2.1 flash storage                     |
+| Storage      | 64GB / 128GB eMMC 5.1 flash storage             |
 | Battery      | Non-removable Li-Po 4000 mAh                    |
-| Dimensions   | 156.7 x 74.3 x 8.8 mm                           |
+| Dimensions   | 159.21 x 75.21 x 8.1 mm                         |
 | Display      | 2340 x 1080 (19.5:9), 6.3  inch                 |
-| Rear camera 1 | 48 MP, f/1.8, Dual-LED flash, HDR, panorama    |
-| Rear camera 2 | 8 MP, f/2.4                                    |
-| Rear camera 3 | 13 MP, f/2.4                                   |
-| Front camera | 20MP, f/2.2 Motorized pop-up, 1080p@30fps       |
+| Rear Camera 1 | 48MP, 1.6-micron pixels, f/1.79 Dual LED flash |
+| Rear Camera 2 | 5 MP, 1.12-micron pixels, f/2.2                |
+| Front Camera | 13 MP, 1.12-micron pixels, f/2.0                |
 
 ## Device picture
 
-![Xiaomi Mi 9T/Redmi K20](https://xiaomi-mi.com/uploads/CatalogueImage/mi9t%20(1)_17539_1560516684.jpg "Xiaomi Redmi K20 in black")
+![Xiaomi Redmi Note 7 Pro](https://i01.appmifile.com/webfile/globalimg/products/pc/redmi-note-7-pro/gallery1.jpg)

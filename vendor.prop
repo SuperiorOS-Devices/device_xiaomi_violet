@@ -1,6 +1,3 @@
-# Audio
-persist.vendor.audio.hifi=false
-
 # ACDB
 persist.vendor.audio.calfile0=/vendor/etc/acdbdata/Forte/Forte_Speaker_cal.acdb
 persist.vendor.audio.calfile1=/vendor/etc/acdbdata/Forte/Forte_Headset_cal.acdb
@@ -10,11 +7,3 @@ persist.vendor.audio.calfile4=/vendor/etc/acdbdata/Forte/Forte_Bluetooth_cal.acd
 persist.vendor.audio.calfile5=/vendor/etc/acdbdata/Forte/Forte_Hdmi_cal.acdb
 persist.vendor.audio.calfile6=/vendor/etc/acdbdata/Forte/Forte_Global_cal.acdb
 persist.vendor.audio.calfile7=/vendor/etc/acdbdata/Forte/Forte_Handset_cal.acdb
-
-# Display post-processing
-ro.vendor.display.ad=1
-ro.vendor.display.ad.hdr_calib_data=/vendor/etc/hdr_config.cfg
-ro.vendor.display.ad.sdr_calib_data=/vendor/etc/sdr_config.cfg
-
-# NFC
-ro.vendor.se.type=eSE,HCE,UICC

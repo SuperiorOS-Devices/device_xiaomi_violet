@@ -273,19 +273,8 @@ vendor/lib64/mi.motor.daemon.so
 vendor/etc/hdr_config.cfg
 vendor/etc/sdr_config.cfg
 
-# Displayfeature
-vendor/bin/hw/vendor.xiaomi.hardware.displayfeature@1.0-service
-vendor/lib64/hw/vendor.xiaomi.hardware.displayfeature@1.0-impl.so
-vendor/lib64/hw/displayfeature.default.so
-vendor/lib64/libclient2slpi.notifier.so
-vendor/lib64/vendor.xiaomi.hardware.citsensorservice@1.0.so
-vendor/lib64/vendor.xiaomi.hardware.citsensorservice@1.1.so
-vendor/etc/dsi_ss_fhd_ea_f10_cmd_display_mi.xml
-vendor/etc/dsi_ss_fhd_eb_f10_cmd_display_mi.xml
-vendor/etc/init/vendor.xiaomi.hardware.displayfeature@1.0-service.rc
-
 # Fingerprint
-vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service:vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.xiaomi_davinci
+vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service:vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.xiaomi_violet
 vendor/lib64/hw/fingerprint.goodix_fod.so
 vendor/lib64/libgf_hal.so
 vendor/lib64/vendor.xiaomi.hardware.fingerprintextension@1.0_vendor.so

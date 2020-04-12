@@ -9,8 +9,6 @@ on init
 on post-fs-data
     mkdir /data/vendor/goodix 0770 system system
     mkdir /mnt/vendor/persist/goodix 0770 system system
-    on property:vendor.fps_hal.restartimes=max
-    stop vendor.fps_hal
 
 service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.xiaomi_davinci
     # "class hal" causes a race condition on some devices due to files created
@@ -19,3 +17,6 @@ service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.
     class late_start
     user system
     group system input
+
+on property:vendor.fps_hal.restartimes=max
+    stop vendor.fps_hal

@@ -20,7 +20,7 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 TARGET_OTA_ASSERT_DEVICE := davinci,davinciin
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_davinci
+TARGET_INIT_VENDOR_LIB := libinit_davinci
 TARGET_RECOVERY_DEVICE_MODULES := libinit_davinci
 
 # Kernel

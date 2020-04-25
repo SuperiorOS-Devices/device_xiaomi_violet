@@ -1,0 +1,8 @@
+# ANXCamera
+allow init system_file:file { execute_no_trans execute read write };
+allow init vendor_file:file { execute_no_trans execute read write };
+allow init vendor_toolbox_exec:file { execute_no_trans execute read write };
+allow init storage_file:lnk_file { read write };
+allow init mnt_user_file:lnk_file { read write };
+allow init sdcardfs:dir { search read write add_name create };
+allow init sdcardfs:file { create read write open };

@@ -321,6 +321,11 @@ PRODUCT_PACKAGES += \
     NoCutoutOverlay \
     NotchBarKiller
 
+# Packages
+PRODUCT_PACKAGES += \
+    SimpleGalleryPro \
+    SimpleCalculator
+
 # Perf
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.perf@2.0.vendor

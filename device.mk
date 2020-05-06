@@ -13,9 +13,6 @@ $(call inherit-product-if-exists, vendor/xiaomi/violet/violet-vendor.mk)
 # MiuiCamera
 $(call inherit-product-if-exists, vendor/MiuiCamera/config.mk)
 
-# Firmware
-$(call inherit-product, vendor/xiaomi/violet/firmware/firmware.mk)
-
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
@@ -375,6 +372,10 @@ PRODUCT_PACKAGES += \
 # RenderScript HAL
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
+
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_xiaomi
 
 # RIL
 PRODUCT_PACKAGES += \

@@ -44,5 +44,3 @@ persist.data.df.dev_name=rmnet_usb0
 # Netflix
 ro.netflix.bsp_rev=Q6150-17263-1
 
-# Recovery
-persist.sys.recovery_update=true

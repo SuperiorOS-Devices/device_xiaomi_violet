@@ -159,4 +159,8 @@
     <string name="default_value">Default Value</string>
     <string name="edit_hint">Value between %1$d and %2$d</string>
 
+    <!-- Torch Brightness -->
+    <string name="torch_title">Torch</string>
+    <string name="torch_brightness_title">Brightness</string>
+
 </resources>

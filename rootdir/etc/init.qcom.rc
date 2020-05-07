@@ -310,6 +310,13 @@ on boot
     chown system system /sys/class/sensors/apds9930-proximity/enable
     chown system system /sys/class/sensors/apds9930-proximity/poll_delay
 
+
+    # Torch permissions
+    chown system system /sys/devices/soc/soc:qcom,camera-flash/driver/soc:qcom,camera-flash/leds/torch-light0/max_brightness
+    chown system system /sys/devices/soc/soc:qcom,camera-flash/driver/soc:qcom,camera-flash/leds/torch-light1/max_brightness
+    chmod 0660 /sys/devices/soc/soc:qcom,camera-flash/driver/soc:qcom,camera-flash/leds/torch-light0/max_brightness
+    chmod 0660 /sys/devices/soc/soc:qcom,camera-flash/driver/soc:qcom,camera-flash/leds/torch-light1/max_brightness
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/vendor/hbtp 0750 system system

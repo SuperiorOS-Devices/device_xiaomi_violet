@@ -64,11 +64,17 @@ public class DeviceSettings extends PreferenceFragment implements
     // value of vtg_min and vtg_max
     public static final int MIN_VIBRATION = 116;
     public static final int MAX_VIBRATION = 3596;
+    final static String PREF_TORCH_BRIGHTNESS = "torch_brightness";
+    public static final String TORCH_1_BRIGHTNESS_PATH = "/sys/devices/soc/soc:qcom," +
+            "camera-flash/driver/soc:qcom,camera-flash/leds/torch-light0/max_brightness";
+    public static final String TORCH_2_BRIGHTNESS_PATH = "/sys/devices/soc/soc:qcom," +
+            "camera-flash/driver/soc:qcom,camera-flash/leds/torch-light1/max_brightness";
 
     private Preference mKcal;
     private SecureSettingSwitchPreference mFastcharge;
     private SwitchPreference mSelinuxMode;
     private SwitchPreference mSelinuxPersistence;
+    private CustomSeekBarPreference mTorchBrightness;
     private SecureSettingSwitchPreference mEnableDirac;
     private SecureSettingListPreference mHeadsetType;
     private SecureSettingListPreference mPreset;
@@ -143,6 +149,11 @@ public class DeviceSettings extends PreferenceFragment implements
         .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE)
         .contains(PREF_SELINUX_MODE));
 
+        mTorchBrightness = (CustomSeekBarPreference) findPreference(PREF_TORCH_BRIGHTNESS);
+        mTorchBrightness.setEnabled(FileUtils.fileWritable(TORCH_1_BRIGHTNESS_PATH) &&
+                FileUtils.fileWritable(TORCH_2_BRIGHTNESS_PATH));
+        mTorchBrightness.setOnPreferenceChangeListener(this);
+
         if (FileUtils.fileWritable(VIBRATION_STRENGTH_PATH)) {
             VibrationSeekBarPreference vibrationStrength = (VibrationSeekBarPreference) findPreference(PREF_VIBRATION_STRENGTH);
             vibrationStrength.setOnPreferenceChangeListener(this);
@@ -206,6 +217,11 @@ public class DeviceSettings extends PreferenceFragment implements
                 case PREF_VIBRATION_STRENGTH:
                 double vibrationValue = (int) value / 100.0 * (MAX_VIBRATION - MIN_VIBRATION) + MIN_VIBRATION;
                 FileUtils.setValue(VIBRATION_STRENGTH_PATH, vibrationValue);
+                break;
+
+            case PREF_TORCH_BRIGHTNESS:
+                FileUtils.setValue(TORCH_1_BRIGHTNESS_PATH, (int) value);
+                FileUtils.setValue(TORCH_2_BRIGHTNESS_PATH, (int) value);
                 break;
 
             default:

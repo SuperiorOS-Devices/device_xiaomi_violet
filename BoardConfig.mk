@@ -30,8 +30,5 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno612
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 ODM_MANIFEST_FILES := $(DEVICE_PATH)/manifest_odm.xml
 
-# Partitions
-BOARD_VENDORIMAGE_PARTITION_SIZE := 2147483648
-
 # Inherit from the proprietary version
 -include vendor/xiaomi/violet/BoardConfigVendor.mk

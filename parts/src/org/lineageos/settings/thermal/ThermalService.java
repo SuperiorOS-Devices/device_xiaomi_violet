@@ -65,14 +65,28 @@ public class ThermalService extends Service {
     @Override
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Creating service");
+        mThermalUtils = new ThermalUtils(this);
         try {
             ActivityTaskManager.getService().registerTaskStackListener(mTaskListener);
         } catch (RemoteException e) {
             // Do nothing
         }
-        mThermalUtils = new ThermalUtils(this);
         registerReceiver();
         super.onCreate();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (DEBUG) Log.d(TAG, "Destroying service");
+        unregisterReceiver();
+        try {
+            ActivityTaskManager.getService().unregisterTaskStackListener(mTaskListener);
+        } catch (RemoteException e) {
+            // Do nothing
+        }
+        mThermalUtils.setDefaultThermalProfile();
+        mThermalUtils = null;
+        super.onDestroy();
     }
 
     @Override
@@ -90,5 +104,9 @@ public class ThermalService extends Service {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         this.registerReceiver(mIntentReceiver, filter);
+    }
+
+    private void unregisterReceiver() {
+        this.unregisterReceiver(mIntentReceiver);
     }
 }

@@ -609,14 +609,6 @@ vendor/lib64/libhdcpsrm.so|a8be07baf75681a045172d68c5301a3d4ef26efb
 vendor/lib64/libmm-hdcpmgr.so|3b87d3e59dfcbd25da345581013162560fa4a067
 vendor/lib64/liboemcrypto.so|84cf7252ae349548d0e33296aa62e983be3178f0
 
-# ESE-Powermanager - from davinci-user 10 QKQ1.190825.002 V11.0.2.0.QFJCNXM release-keys
-vendor/bin/hw/vendor.qti.esepowermanager@1.0-service|6d76ad36f33e885c14b7176753ee228d405e64d4
-vendor/etc/init/vendor.qti.esepowermanager@1.0-service.rc|58a3866ad5a7613d9392c9adb671eaa7825578a2
-vendor/lib/hw/vendor.qti.esepowermanager@1.0-impl.so|48768b9be453eb86ffbff3a71fe5654841bc048a
-vendor/lib/vendor.qti.esepowermanager@1.0.so|730827ea12433a6de18d32f54041a74531c32c18
-vendor/lib64/hw/vendor.qti.esepowermanager@1.0-impl.so|b9a03bfc607fb74462346eecacf27a7afda8d114
-vendor/lib64/vendor.qti.esepowermanager@1.0.so|0dc949a16129a9d3d06429723641b6fba11ee1d2
-
 # Fingerprint sensor
 -vendor/app/FingerprintExtensionService/FingerprintExtensionService.apk
 vendor/etc/permissions/com.fingerprints.extension.xml
@@ -799,20 +791,6 @@ vendor/lib64/libtinyxml2_1.so|ba981e332895a053a67fc54a8190365a3ad37f2d
 vendor/lib/hw/vulkan.sm6150.so|e7f7076b24cd8ef787f9f68fb13c34292eef3aea
 vendor/lib64/hw/vulkan.sm6150.so|f0a3a51d3eabe03ff5c20e70d4c035d9f1478af5
 
-# IO Prefetcher - from davinci-user 10 QKQ1.190825.002 V11.0.2.0.QFJCNXM release-keys
-vendor/bin/hw/vendor.qti.hardware.iop@2.0-service|98c38e3647a6c286e5bfb8b271827328f6c04148
-vendor/etc/init/vendor.qti.hardware.iop@2.0-service.rc|fd11367b2585702190ef2577ce2ce6fc68f3a2f8
-vendor/lib/hw/vendor.qti.hardware.iop@2.0-impl.so|feaee7a3969d3f711db4fa5f12d1d4cca5fc2072
-vendor/lib/libqti-iopd-client.so|be2e00af81ea63b6f37fb8a884d7af7d1def566b
-vendor/lib/libqti-iopd.so|207e42a1d561098c4eda74e08044d32b3a02362b
-vendor/lib/vendor.qti.hardware.iop@1.0.so|d1cbf74e7236bfe9a977bb7f609bb68fdf4d6750
-vendor/lib/vendor.qti.hardware.iop@2.0.so|f692b707076a933f865e3564e3263c3d7b7ae5a6
-vendor/lib64/hw/vendor.qti.hardware.iop@2.0-impl.so|9c5ff1a7e6bf4b88fac19f27a0cee2baecd18341
-vendor/lib64/libqti-iopd-client.so|7fddeeb59ebe01eb2e87de56fe2c2d0899806bc9
-vendor/lib64/libqti-iopd.so|f795759359dc7db1adc178d6f47d254eab34189f
-vendor/lib64/vendor.qti.hardware.iop@1.0.so|8ccdc1463dcb554297b0c96d768126f0ca42b83a
-vendor/lib64/vendor.qti.hardware.iop@2.0.so|d5bafc1daeb1b417bbad1160f92e330610f09b8a
-
 # IPA
 vendor/firmware/ipa_fws.b00
 vendor/firmware/ipa_fws.b01
@@ -964,39 +942,12 @@ vendor/lib64/libmlipay.so|8510d27c292ca9077704724564b635978c0992b9
 vendor/lib64/vendor.xiaomi.hardware.mlipay@1.0.so|43cae59576c8570a37bbf9d4a059b5e9c207360d
 vendor/lib64/vendor.xiaomi.hardware.mlipay@1.1.so|521357ee808c1a248db9e76269880b1f9d0a0617
 
-# Perf - from davinci-user 10 QKQ1.190825.002 V11.0.2.0.QFJCNXM release-keys
-vendor/bin/hw/vendor.qti.hardware.perf@2.0-service|1bfabae277be75c5caa2946868ca8d88ff05467f
-vendor/bin/msm_irqbalance|e917104fbd26c844d27ffb2b7ec4f665fdfb8b78
-vendor/etc/init/vendor.qti.hardware.perf@2.0-service.rc|0101a3294311c2988060a00f7b25d8abf2f428f9
-vendor/etc/lm/AdaptLaunchFeature.xml|985106d4bb21b1598fc172ad0b7b923c3debc3c3
-vendor/etc/lm/AppClassifierFeature.xml|a16960a639a1d58c2facae6b52f51b94266844a2
-vendor/etc/lm/GameOptimizationFeature.xml|08842448431a30fa6edfcfd41831fd2e0687a699
-vendor/etc/perf/commonresourceconfigs.xml|16bd54df9777ad475ab1b2846f2feae522882e1b
-vendor/etc/perf/perfboostsconfig.xml|e5c27629341bd5cb5a505388278e6c6c0e2524d3
-vendor/etc/perf/perfconfigstore.xml|fe23523d649d4e37db7585d384634953fe4e4b0a
-vendor/etc/perf/targetconfig.xml|4104e3262ecd8756e1046671902062a8362db71a
-vendor/etc/perf/targetresourceconfigs.xml|91e45d558bc23fbc0bd6b3cc95e2793b16c800cf
-vendor/etc/perf/thermalboost.conf|3a70ac91160e48a64578f0b7775798f19040e87d
-vendor/lib/libperfconfig.so|645d5170d7cd9413604ae756cd5ec383ca7e5092
-vendor/lib/libperfgluelayer.so|dfabc7c38f54f0aba2a0ea7fbe6cd5c3822cee2d
-vendor/lib/libqti-perfd-client.so|c94451c1a19d460c6b919cb5ff84c76946a6d399
-vendor/lib/libqti-perfd.so|772c1ba40b382be233b7d756e2de65cf90f4b7df
-vendor/lib/libqti-util.so|2c3fdef8f812e5541634b17255480baa6a1f8650
-vendor/lib/libqti-utils.so|81d3d40097615baad8ff77a6ba3e6ec0706b4d71
-vendor/lib/vendor.qti.hardware.perf@2.0.so|79b74df48e39d46038b5ba13e7a0ae3513364a10
-vendor/lib64/libadaptlaunch.so|3d0d481af1112df5a5cc5eff886fad9d5d334c58
-vendor/lib64/libappclassifier.so|da027fb34f7c6ce67999b64810e231943b052278
-vendor/lib64/libgameoptfeature.so|b82be985421dd21bb25ed217f762e3955db16765
-vendor/lib64/liblearningmodule.so|d7a76fc9e48af3bf30dc928c80f71b7517793024
-vendor/lib64/libmeters-ns.so|73f78b3461a4cbee6419721149dd95fec9029f8b
-vendor/lib64/libmeters.so|5a518301ad77996a47c9c893093f2c2f36085ded
-vendor/lib64/libperfconfig.so|6b7535b00836fe98ff330864740b5bba293c8e87
-vendor/lib64/libperfgluelayer.so|b8d4864e2bc3b903e1a0d9c548686e5fac81fe54
-vendor/lib64/libqti-perfd-client.so|9db27376ef994c4c90eb90dc3c7c4e493c2902e4
-vendor/lib64/libqti-perfd.so|51b81ed5a4f6bdeb299e364e9d4c3dc80bba4d11
-vendor/lib64/libqti-util.so|c78b855b3909b01071ced5fc898add769de4a5b6
-vendor/lib64/libqti-utils.so|3726d65486928bc014e657960dc023d920524922
-vendor/lib64/vendor.qti.hardware.perf@2.0.so|3717b35807fd7b33dced6e311c3b609d57399363
+# Perf
+vendor/bin/msm_irqbalance
+vendor/lib/libqti-perfd-client.so
+vendor/lib/vendor.qti.hardware.perf@2.0.so
+vendor/lib64/libqti-perfd-client.so
+vendor/lib64/vendor.qti.hardware.perf@2.0.so
 
 # Peripheral manager - from davinci-user 10 QKQ1.190825.002 V11.0.2.0.QFJCNXM release-keys
 vendor/bin/pm-proxy|4200aecba89950e684d284b521a0896347b59487

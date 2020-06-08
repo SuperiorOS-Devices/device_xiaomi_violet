@@ -406,6 +406,9 @@ service nqnfcinfo /system/vendor/bin/nqnfcinfo
     user system
     oneshot
 
+on property:hw.fm.init=*
+    write /sys/module/radio_iris_transport/parameters/fmsmd_set ${hw.fm.init}
+
 service iop /system/vendor/bin/iop
     class main
     user root

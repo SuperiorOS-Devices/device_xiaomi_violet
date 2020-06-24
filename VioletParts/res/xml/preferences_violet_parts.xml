@@ -60,6 +60,21 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="speaker"
+        android:title="@string/speaker_category">
+
+        <Preference
+            android:key="clear_speaker_settings" 
+            android:title="@string/clear_speaker_title"
+            android:icon="@drawable/ic_speaker_cleaner_icon" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.xiaomi.parts.speaker.ClearSpeakerActivity"
+                android:targetPackage="com.xiaomi.parts.speaker" />
+        </Preference>
+      </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="audio"
         android:title="@string/audio_title">
 

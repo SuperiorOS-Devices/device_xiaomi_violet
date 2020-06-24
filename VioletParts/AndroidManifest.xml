@@ -73,7 +73,18 @@
                 android:resource="@string/advanced_settings_summary" />
         </activity>
 
-	<service android:name=".StartAction" />
+        <activity
+            android:name=".speaker.ClearSpeakerActivity" 
+            android:exported="false" 
+            android:label="@string/clear_speaker_title">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".StartAction" />
         <service
             android:name=".DiracService"
             android:enabled="true"

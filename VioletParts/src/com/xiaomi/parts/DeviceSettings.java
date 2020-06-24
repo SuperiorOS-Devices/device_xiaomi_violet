@@ -31,6 +31,7 @@ import androidx.preference.SwitchPreference;
 import android.util.Log;
 
 import com.xiaomi.parts.kcal.KCalSettingsActivity;
+import com.xiaomi.parts.speaker.ClearSpeakerActivity;
 import com.xiaomi.parts.preferences.CustomSeekBarPreference;
 import com.xiaomi.parts.preferences.SecureSettingListPreference;
 import com.xiaomi.parts.preferences.SecureSettingSwitchPreference;
@@ -56,10 +57,14 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String PREF_SELINUX_MODE = "selinux_mode";
     private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
 
+    private static final String PREF_CLEAR_SPEAKER = "clear_speaker_settings";
+
     private Preference mKcal;
     private SecureSettingSwitchPreference mFastcharge;
     private SwitchPreference mSelinuxMode;
     private SwitchPreference mSelinuxPersistence;
+    private Preference mClearSpeakerPref;
+    private Preference mAmbientPref;
     private SecureSettingSwitchPreference mEnableDirac;
     private SecureSettingListPreference mHeadsetType;
     private SecureSettingListPreference mPreset;
@@ -73,6 +78,14 @@ public class DeviceSettings extends PreferenceFragment implements
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         String device = FileUtils.getStringProp("ro.build.product", "unknown");
+
+
+        mClearSpeakerPref = (Preference) findPreference(PREF_CLEAR_SPEAKER);
+        mClearSpeakerPref.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), ClearSpeakerActivity.class);
+            startActivity(intent);
+            return true;
+        });
 
         boolean enhancerEnabled;
         try {

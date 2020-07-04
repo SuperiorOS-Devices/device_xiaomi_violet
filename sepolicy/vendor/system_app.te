@@ -1,0 +1,3 @@
+# VioletParts
+allow system_app sysfs_fcharge:file { open read getattr write };
+allow system_app sysfs_fastcharge:file { open read getattr write };

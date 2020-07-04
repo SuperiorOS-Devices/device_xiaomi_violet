@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomOptionsTheme" parent="@android:style/Theme.DeviceDefault.Settings">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="preferenceTheme">@style/PreferenceTheme</item>
+    </style>
+
+    <style name="PreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="preferenceCategoryTitleTextAppearance">@style/TextAppearance.CategoryTitle</item>
+    </style>
+
+    <style name="TextAppearance" parent="android:TextAppearance.DeviceDefault"/>
+
+    <style name="TextAppearance.CategoryTitle"
+           parent="@*android:style/TextAppearance.DeviceDefault.Body2">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">11sp</item>
+        <!-- 0.8 Spacing, 0.8/11 = 0.072727273 -->
+        <item name="android:letterSpacing">0.072727273</item>
+    </style>
+
+    <style name="Theme.Settings" parent="@android:style/Theme.Material.Settings">
+        <item name="android:actionBarStyle">@style/Theme.ActionBar</item>
+        <item name="android:colorAccent">#ff4285f4</item>
+    </style>
+
+    <style name="Theme.ActionBar" parent="@android:style/Widget.DeviceDefault.Light.ActionBar.Solid">
+        <item name="android:titleTextStyle">@style/Theme.Actionbar.Title</item>
+    </style>
+
+    <style name="Theme.Actionbar.Title" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
+        <item name="android:textColor">#ff4285f4</item>
+    </style>
+
+    <style name="DeviceSettings.SwitchBar" parent="@android:style/ThemeOverlay.Material.ActionBar">
+    </style>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2018 The Asus-SDM660 Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="display"
+        android:title="@string/display_title">
+
+        <Preference
+            android:key="device_kcal"
+            android:persistent="false"
+            android:icon="@drawable/ic_kcal"
+            android:title="@string/device_kcal_title"
+            android:summary="@string/kcal_enabled_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.xiaomi.parts.kcal.KCalSettingsActivity"
+                android:targetPackage="com.xiaomi.parts.kcal" />
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+    android:key="selinux"
+    android:title="@string/selinux_category">
+
+    <Preference
+        android:summary="@string/selinux_explanation_summary"
+        android:selectable="false"
+        android:icon="@drawable/ic_warning" />
+
+    <SwitchPreference
+        android:key="selinux_mode"
+        android:title="@string/selinux_mode_title"
+        android:summaryOn="@string/selinux_enforcing_summary"
+        android:summaryOff="@string/selinux_permissive_summary"
+        android:icon="@drawable/ic_linux" />
+
+    <SwitchPreference
+        android:key="selinux_persistence"
+        android:title="@string/selinux_persistence_title"
+        android:summary="@string/selinux_persistence_summary"
+        android:defaultValue="true"
+        android:icon="@drawable/ic_power" />
+
+</PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="usb_fastcharge"
+        android:title="@string/usb_fastcharge_title" >
+    <com.xiaomi.parts.preferences.SecureSettingSwitchPreference
+            android:key="fastcharge"
+            android:defaultValue="true"
+            android:title="@string/fastcharge_title"
+            android:icon="@drawable/ic_usb_fastcharge"
+            android:summary="@string/fastcharge_summary" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

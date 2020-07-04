@@ -8,3 +8,7 @@ type thermal_data_file, file_type, data_file_type;
 type camera_persist_file, file_type, vendor_persist_type;
 
 type audio_socket, file_type;
+
+# VioletParts
+type sysfs_fcharge, sysfs_type, fs_type;
+type sysfs_fastcharge, sysfs_type, fs_type;

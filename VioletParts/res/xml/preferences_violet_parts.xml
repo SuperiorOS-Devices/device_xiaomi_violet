@@ -17,24 +17,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:key="display"
-        android:title="@string/display_title">
-
-        <Preference
-            android:key="device_kcal"
-            android:persistent="false"
-            android:icon="@drawable/ic_kcal"
-            android:title="@string/device_kcal_title"
-            android:summary="@string/kcal_enabled_summary">
-            <intent
-                android:action="android.intent.action.MAIN"
-                android:targetClass="com.xiaomi.parts.kcal.KCalSettingsActivity"
-                android:targetPackage="com.xiaomi.parts.kcal" />
-        </Preference>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
     android:key="selinux"
     android:title="@string/selinux_category">
 

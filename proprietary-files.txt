@@ -430,6 +430,11 @@ vendor/lib/hw/vendor.qti.hardware.capabilityconfigstore@1.0-impl.so|c40a42aefdc8
 # Consumer IR
 vendor/lib64/hw/consumerir.default.so:vendor/lib64/hw/consumerir.sm6150.so
 
+# Dirac - from Xiaomi
+vendor/etc/diracmobile.config|d781cd6798a7481a8f7128d144abfb2b8794212d
+vendor/lib/libDiracAPI_SHARED.so|42b49679d38eca93fead05ea06ddbdc8108fd4b1
+vendor/lib/soundfx/libdirac.so|f63826a905b520fa524e4c1b147be7cf65240953
+
 # DPM - from LA.UM.8.9.r1-07100-SM6xx.0
 framework/tcmclient.jar|6ef9ca98f67c144fc8ae941bb3a47f99cbd93098
 product/bin/dpmd|a70053cbaadbfdce93a85da4a9e55b096a75a83a

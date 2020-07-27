@@ -2,6 +2,7 @@
 af.fast_track_multiplier=1
 audio.deep_buffer.media=true
 audio.offload.min.duration.secs=40
+persist.audio.dirac.speaker=true
 persist.vendor.audio.avs.afe_api_version=2
 persist.vendor.audio.fluence.speaker=true
 persist.vendor.audio.fluence.voicecall=true
@@ -94,6 +95,15 @@ ro.crypto.volume.filenames_mode=aes-256-cts
 
 # Display post-processing
 ro.vendor.display.sensortype=2
+
+# Dirac algo tsx 9/12
+persist.dirac.acs.controller=qem
+persist.dirac.acs.storeSettings=1
+persist.dirac.acs.ignore_error=1
+
+# Dirac headset effect
+ro.audio.soundfx.dirac=true
+persist.audio.dirac.speaker=true
 
 # DRM
 drm.service.enabled=true

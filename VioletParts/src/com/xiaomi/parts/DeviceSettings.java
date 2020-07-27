@@ -47,7 +47,9 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String CATEGORY_FASTCHARGE = "usb_fastcharge";
     public static final String PREF_USB_FASTCHARGE = "fastcharge";
     public static final String USB_FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
-
+    public static final String PREF_ENABLE_DIRAC = "dirac_enabled";
+    public static final String PREF_HEADSET = "dirac_headset_pref";
+    public static final String PREF_PRESET = "dirac_preset_pref";
     private static final String SELINUX_CATEGORY = "selinux";
     private static final String PREF_SELINUX_MODE = "selinux_mode";
     private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
@@ -56,12 +58,39 @@ public class DeviceSettings extends PreferenceFragment implements
     private SecureSettingSwitchPreference mFastcharge;
     private SwitchPreference mSelinuxMode;
     private SwitchPreference mSelinuxPersistence;
+    private SecureSettingSwitchPreference mEnableDirac;
+    private SecureSettingListPreference mHeadsetType;
+    private SecureSettingListPreference mPreset;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences_violet_parts, rootKey);
 
         String device = FileUtils.getStringProp("ro.build.product", "unknown");
+
+        boolean enhancerEnabled;
+        try {
+            enhancerEnabled = DiracService.sDiracUtils.isDiracEnabled();
+        } catch (java.lang.NullPointerException e) {
+            getContext().startService(new Intent(getContext(), DiracService.class));
+            try {
+                enhancerEnabled = DiracService.sDiracUtils.isDiracEnabled();
+            } catch (NullPointerException ne) {
+                // Avoid crash
+                ne.printStackTrace();
+                enhancerEnabled = false;
+            }
+        }
+
+        mEnableDirac = (SecureSettingSwitchPreference) findPreference(PREF_ENABLE_DIRAC);
+        mEnableDirac.setOnPreferenceChangeListener(this);
+        mEnableDirac.setChecked(enhancerEnabled);
+
+        mHeadsetType = (SecureSettingListPreference) findPreference(PREF_HEADSET);
+        mHeadsetType.setOnPreferenceChangeListener(this);
+
+        mPreset = (SecureSettingListPreference) findPreference(PREF_PRESET);
+        mPreset.setOnPreferenceChangeListener(this);
 
         if (FileUtils.fileWritable(USB_FASTCHARGE_PATH)) {
             mFastcharge = (SecureSettingSwitchPreference) findPreference(PREF_USB_FASTCHARGE);
@@ -100,6 +129,33 @@ public class DeviceSettings extends PreferenceFragment implements
                 } else if (preference == mSelinuxPersistence) {
                   setSelinuxEnabled(mSelinuxMode.isChecked(), (Boolean) value);
                   return true;
+                }
+                break;
+
+	    case PREF_ENABLE_DIRAC:
+                try {
+                    DiracService.sDiracUtils.setEnabled((boolean) value);
+                } catch (java.lang.NullPointerException e) {
+                    getContext().startService(new Intent(getContext(), DiracService.class));
+                    DiracService.sDiracUtils.setEnabled((boolean) value);
+                }
+                break;
+
+            case PREF_HEADSET:
+                try {
+                    DiracService.sDiracUtils.setHeadsetType(Integer.parseInt(value.toString()));
+                } catch (java.lang.NullPointerException e) {
+                    getContext().startService(new Intent(getContext(), DiracService.class));
+                    DiracService.sDiracUtils.setHeadsetType(Integer.parseInt(value.toString()));
+                }
+                break;
+
+            case PREF_PRESET:
+                try {
+                    DiracService.sDiracUtils.setLevel(String.valueOf(value));
+                } catch (java.lang.NullPointerException e) {
+                    getContext().startService(new Intent(getContext(), DiracService.class));
+                    DiracService.sDiracUtils.setLevel(String.valueOf(value));
                 }
                 break;
 

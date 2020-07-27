@@ -75,6 +75,11 @@
 
 	<service android:name=".StartAction" />
         <service
+            android:name=".DiracService"
+            android:enabled="true"
+		android:stopWithTask="false" />
+
+	<service
             android:name="com.xiaomi.parts.LogTile"
             android:icon="@drawable/ic_qs_log"
             android:label="@string/quick_settings_log_tile_label"

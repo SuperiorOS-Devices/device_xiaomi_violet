@@ -52,4 +52,35 @@
             android:summary="@string/fastcharge_summary" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="audio"
+        android:title="@string/audio_title">
+
+        <com.xiaomi.parts.preferences.SecureSettingSwitchPreference
+            android:defaultValue="false"
+            android:key="dirac_enabled"
+            android:summary="@string/dirac_summary"
+            android:icon="@drawable/ic_dirac"
+            android:title="@string/dirac_title" />
+
+        <com.xiaomi.parts.preferences.SecureSettingListPreference
+            android:defaultValue="0"
+            android:dependency="dirac_enabled"
+            android:entries="@array/dirac_headset_pref_entries"
+            android:entryValues="@array/dirac_headset_pref_values"
+            android:key="dirac_headset_pref"
+            android:summary="%s"
+            android:icon="@drawable/ic_headphone"
+            android:title="@string/dirac_headset_title" />
+
+        <com.xiaomi.parts.preferences.SecureSettingListPreference
+            android:defaultValue="0,0,0,0,0,0,0"
+            android:dependency="dirac_enabled"
+            android:entries="@array/dirac_preset_pref_entries"
+            android:entryValues="@array/dirac_preset_pref_values"
+            android:key="dirac_preset_pref"
+            android:summary="%s"
+            android:icon="@drawable/ic_preset"
+            android:title="@string/dirac_preset_title" />
+    </PreferenceCategory>
 </PreferenceScreen>

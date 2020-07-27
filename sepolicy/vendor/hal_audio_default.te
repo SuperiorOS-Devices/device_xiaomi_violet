@@ -1,3 +1,7 @@
+# Dirac
+get_prop(hal_audio_default, dirac_prop)
+set_prop(hal_audio_default, dirac_prop)
+
 # For interfacing with PowerHAL
 hal_client_domain(hal_audio_default, hal_power)
 

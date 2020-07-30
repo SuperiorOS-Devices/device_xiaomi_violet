@@ -16,3 +16,8 @@ allow system_app sysfs_tbrightness:file { open getattr write };
 
 get_prop(system_app, vendor_default_prop)
 
+# Battery Health
+allow system_app sysfs_battery_supply:dir { search };
+allow system_app sysfs_battery_supply:file { read };
+allow system_app sysfs_battery_supply:file { open };
+allow system_app sysfs_battery_supply:file { getattr };

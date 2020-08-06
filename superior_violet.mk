@@ -14,6 +14,9 @@ $(call inherit-product, vendor/superior/config/common.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_GAPPS_ARCH := arm64
 
+# SuperiorOS stuff
+export SUPERIOR_OFFICIAL=true
+
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := superior_violet
 PRODUCT_DEVICE := violet
@@ -28,3 +31,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME="violet"
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
+# Maintainer
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.superior.maintainer=Nipin-NA

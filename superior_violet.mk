@@ -14,6 +14,9 @@ $(call inherit-product, vendor/superior/config/common.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_GAPPS_ARCH := arm64
 
+# Launcher
+TARGET_LAUNCHER := lawnchair
+
 # SuperiorOS stuff
 export SUPERIOR_OFFICIAL=true
 

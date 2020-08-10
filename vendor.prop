@@ -1,3 +1,7 @@
+# Audio
+vendor.audio.feature.compr_voip.enable=true
+vendor.voice.path.for.pcm.voip=true
+
 # ACDB
 persist.vendor.audio.calfile0=/vendor/etc/acdbdata/IDP/IDP_Speaker_cal.acdb
 persist.vendor.audio.calfile1=/vendor/etc/acdbdata/IDP/IDP_Headset_cal.acdb

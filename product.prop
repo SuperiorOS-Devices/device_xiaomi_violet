@@ -25,6 +25,7 @@ persist.vendor.dpm.nsrm.bkg.evt=3955
 # Graphics
 persist.demo.hdmirotationlock=false
 persist.hwc.enable_vds=1
+ro.sf.blurs_are_expensive=1
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
 ro.surface_flinger.has_HDR_display=true
 ro.surface_flinger.has_wide_color_display=true

@@ -16,6 +16,10 @@
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:key="doze_animation"
+        android:layout="@layout/doze_animation" />
+
     <PreferenceCategory
         android:key="tilt_sensor"
         android:title="@string/tilt_sensor_title">

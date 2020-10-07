@@ -33,5 +33,10 @@
     <!-- Whether device ignores the RSSNR signal implementation -->
     <bool name="config_ignoreRssnrSignalLevel">true</bool>
 
+    <!-- Whether device has a notch -->
+    <bool name="config_haveNotch">true</bool>
+    <!-- Whether device has a physical display cutout -->
+    <bool name="config_physicalDisplayCutout">true</bool>
+
 </resources>
 

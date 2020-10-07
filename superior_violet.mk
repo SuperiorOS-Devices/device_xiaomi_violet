@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2019-2020 The LineageOS Project
+# Copyright (C) 2018-2020 The SuperiorOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -7,11 +8,11 @@
 # Inherit from violet device
 $(call inherit-product, device/xiaomi/violet/device.mk)
 
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common SuperiorOS stuff.
+$(call inherit-product, vendor/superior/config/common.mk)
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := lineage_violet
+PRODUCT_NAME := superior_violet
 PRODUCT_DEVICE := violet
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi Note 7 Pro

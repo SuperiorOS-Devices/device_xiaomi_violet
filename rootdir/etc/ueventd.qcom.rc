@@ -423,6 +423,8 @@ firmware_directories /vendor/firmware_mnt/image/ /vendor/firmware/
 
 /sys/devices/virtual/hdcp/msm_hdcp  min_level_change 0664    system  graphics
 
+/sys/devices/platform/soc/ae00000.qcom,mdss_mdp power/control 0664 system graphics
+
 # KGSL
 /sys/class/kgsl/kgsl-3d0    perfcounter              0660    root    shell
 

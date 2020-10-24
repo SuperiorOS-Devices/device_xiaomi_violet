@@ -11,6 +11,12 @@ $(call inherit-product, device/xiaomi/violet/device.mk)
 # Inherit some common SuperiorOS stuff.
 $(call inherit-product, vendor/superior/config/common.mk)
 
+# Bootanimation Resolution
+TARGET_BOOT_ANIMATION_RES := 1080
+
+# Gapps
+TARGET_GAPPS_ARCH := arm64
+
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := superior_violet
 PRODUCT_DEVICE := violet

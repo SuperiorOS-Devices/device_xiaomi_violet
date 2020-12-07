@@ -111,7 +111,6 @@ ro.audio.soundfx.dirac=true
 persist.audio.dirac.speaker=true
 
 # DPM
-persist.vendor.dpm.feature=11
 persist.vendor.dpm.loglevel=0
 persist.vendor.dpm.nsrm.bkg.evt=3955
 persist.vendor.dpmhalservice.enable=1

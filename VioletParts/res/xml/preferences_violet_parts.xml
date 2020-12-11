@@ -38,6 +38,13 @@
         android:summary="@string/selinux_persistence_summary"
         android:defaultValue="true"
         android:icon="@drawable/ic_power" />
+        
+    <SwitchPreference
+        android:key="fps_info"
+        android:icon="@drawable/ic_fps_info"
+        android:title="@string/fps_info_title"
+        android:summary="@string/fps_info_summary"
+        android:persistent="true" />
 
 </PreferenceCategory>
 

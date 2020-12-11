@@ -3,3 +3,7 @@ on boot
 # USB Fastcharge
   chown system system /sys/kernel/fast_charge/force_fast_charge
   chmod 0660 /sys/kernel/fast_charge/force_fast_charge
+  
+# FPS Info permissions
+  chown system graphics /sys/class/drm/sde-crtc-0/measured_fps
+  chmod 0666 /sys/class/drm/sde-crtc-0/measured_fps

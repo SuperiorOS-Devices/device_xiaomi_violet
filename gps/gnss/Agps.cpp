@@ -590,7 +590,7 @@ void AgpsManager::requestATL(int connHandle, AGpsExtType agpsType,
     sm->setApnTypeMask(apnTypeMask);
 
     /* Invoke AGPS SM processing */
-    AgpsSubscriber subscriber(connHandle, false, false, apnTypeMask);
+    AgpsSubscriber subscriber(connHandle, true, false, apnTypeMask);
     sm->setCurrentSubscriber(&subscriber);
     /* Send subscriber event */
     sm->processAgpsEvent(AGPS_EVENT_SUBSCRIBE);

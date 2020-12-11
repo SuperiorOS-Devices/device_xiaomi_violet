@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.SELinux;
 import android.os.Handler;
 import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import android.content.Context;
@@ -50,6 +51,7 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String PREF_ENABLE_DIRAC = "dirac_enabled";
     public static final String PREF_HEADSET = "dirac_headset_pref";
     public static final String PREF_PRESET = "dirac_preset_pref";
+    public static final String PREF_KEY_FPS_INFO = "fps_info";
     private static final String SELINUX_CATEGORY = "selinux";
     private static final String PREF_SELINUX_MODE = "selinux_mode";
     private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
@@ -61,10 +63,14 @@ public class DeviceSettings extends PreferenceFragment implements
     private SecureSettingSwitchPreference mEnableDirac;
     private SecureSettingListPreference mHeadsetType;
     private SecureSettingListPreference mPreset;
+    
+    private static Context mContext;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences_violet_parts, rootKey);
+        mContext = this.getContext();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         String device = FileUtils.getStringProp("ro.build.product", "unknown");
 
@@ -100,6 +106,10 @@ public class DeviceSettings extends PreferenceFragment implements
         } else {
             getPreferenceScreen().removePreference(findPreference(CATEGORY_FASTCHARGE));
         }
+
+        SwitchPreference fpsInfo = (SwitchPreference) findPreference(PREF_KEY_FPS_INFO);
+        fpsInfo.setChecked(prefs.getBoolean(PREF_KEY_FPS_INFO, false));
+        fpsInfo.setOnPreferenceChangeListener(this);
 
         // SELinux
         Preference selinuxCategory = findPreference(SELINUX_CATEGORY);
@@ -156,6 +166,16 @@ public class DeviceSettings extends PreferenceFragment implements
                 } catch (java.lang.NullPointerException e) {
                     getContext().startService(new Intent(getContext(), DiracService.class));
                     DiracService.sDiracUtils.setLevel(String.valueOf(value));
+                }
+                break;
+                
+            case PREF_KEY_FPS_INFO:
+                boolean enabled = (Boolean) value;
+                Intent fpsinfo = new Intent(this.getContext(), FPSInfoService.class);
+                if (enabled) {
+                    this.getContext().startService(fpsinfo);
+                } else {
+                    this.getContext().stopService(fpsinfo);
                 }
                 break;
 

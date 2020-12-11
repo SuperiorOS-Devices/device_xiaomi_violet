@@ -30,3 +30,6 @@ genfscon sysfs /class/power_supply/battery/capacity u:object_r:sysfs_battery_sup
 
 # USB force fastcharge
 genfscon sysfs /sys/kernel/fast_charge/force_fast_charge       u:object_r:sysfs_fcharge:s0
+
+# FPS Info
+genfscon sysfs /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps u:object_r:vendor_sysfs_graphics:s0

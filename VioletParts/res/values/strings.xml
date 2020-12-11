@@ -144,5 +144,9 @@
     <string name="dirac_preset_country">Country</string>
     <string name="dirac_preset_dance">Dance</string>
     <string name="dirac_preset_metal">Metal</string>
+    
+    <!-- FPS Info -->
+    <string name="fps_info_title">FPS Info Overlay</string>
+    <string name="fps_info_summary">Show overlay with current frames per second</string>
 
 </resources>

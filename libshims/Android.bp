@@ -1,0 +1,6 @@
+cc_library {
+    name: "libcomparetf2",
+    srcs: ["comparetf2.c"],
+    compile_multilib: "64",
+    vendor: true,
+}

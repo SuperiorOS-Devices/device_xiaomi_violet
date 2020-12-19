@@ -23,3 +23,7 @@ on boot
   chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_hue
   chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_min
   chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_val
+
+# Vibration
+    chown system system /sys/class/leds/vibrator/vtg_level
+    chmod 0660 /sys/class/leds/vibrator/vtg_level

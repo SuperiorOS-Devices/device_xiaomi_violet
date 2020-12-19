@@ -12,3 +12,5 @@ type audio_socket, file_type;
 # VioletParts
 type sysfs_fcharge, sysfs_type, fs_type;
 type sysfs_fastcharge, sysfs_type, fs_type;
+type vibrator_dev, sysfs_type, fs_type;
+

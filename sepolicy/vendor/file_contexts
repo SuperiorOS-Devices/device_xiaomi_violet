@@ -61,3 +61,7 @@
 
 # Force Fast Charge
 /sys/kernel/fast_charge/force_fast_charge       u:object_r:sysfs_fastcharge:s0
+
+# Vibration
+/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-01/c440000.qcom,spmi:qcom,pm6150@1:qcom,vibrator@5300/leds/vibrator/vtg_level u:object_r:vibrator_dev:s0
+

@@ -132,7 +132,7 @@
         android:title="@string/torch_title">
 
         <com.xiaomi.parts.preferences.CustomSeekBarPreference
-            android:defaultValue="100"
+            android:defaultValue="150"
             android:key="torch_brightness"
             android:max="255"
             app:min="1"

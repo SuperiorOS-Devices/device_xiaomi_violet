@@ -70,6 +70,5 @@
 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-01/c440000.qcom,spmi:qcom,pm6150@1:qcom,vibrator@5300/leds/vibrator/vtg_level u:object_r:vibrator_dev:s0
 
 # Torch brightness control
-/sys/devices/soc/soc:qcom,camera-flash/driver/soc:qcom,camera-flash/leds/torch-light0/max_brightness	u:object_r:sysfs_tbrightness:s0
-/sys/devices/soc/soc:qcom,camera-flash/driver/soc:qcom,camera-flash/leds/torch-light1/max_brightness	u:object_r:sysfs_tbrightness:s0
-
+/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:torch_0/max_brightness	u:object_r:sysfs_tbrightness:s0
+/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:torch_1/max_brightness  u:object_r:sysfs_tbrightness:s0

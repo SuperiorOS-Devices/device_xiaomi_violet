@@ -64,11 +64,13 @@ public class DeviceSettings extends PreferenceFragment implements
     // value of vtg_min and vtg_max
     public static final int MIN_VIBRATION = 116;
     public static final int MAX_VIBRATION = 3596;
+
     final static String PREF_TORCH_BRIGHTNESS = "torch_brightness";
-    public static final String TORCH_1_BRIGHTNESS_PATH = "/sys/devices/soc/soc:qcom," +
-            "camera-flash/driver/soc:qcom,camera-flash/leds/torch-light0/max_brightness";
-    public static final String TORCH_2_BRIGHTNESS_PATH = "/sys/devices/soc/soc:qcom," +
-            "camera-flash/driver/soc:qcom,camera-flash/leds/torch-light1/max_brightness";
+    public static final String TORCH_1_BRIGHTNESS_PATH = "/sys/devices/platform/soc/c440000.qcom," +
+      "spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:torch_0/max_brightness";
+
+    public static final String TORCH_2_BRIGHTNESS_PATH = "/sys/devices/platform/soc/c440000.qcom," +
+      "spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:torch_1/max_brightness"; 
 
     private Preference mKcal;
     private SecureSettingSwitchPreference mFastcharge;

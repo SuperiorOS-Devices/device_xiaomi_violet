@@ -1,14 +1,14 @@
 #
 # Copyright (C) 2019 The LineageOS Project
-# Copyright (C) 2020 The SuperiorOS Project
+# Copyright (C) 2020 The RevengeOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/superior_violet.mk
+    $(LOCAL_DIR)/revengeos_violet.mk
 
 COMMON_LUNCH_CHOICES := \
-    superior_violet-userdebug \
-    superior_violet-user \
-    superior_violet-eng
+    revengeos_violet-userdebug \
+    revengeos_violet-user \
+    revengeos_violet-eng

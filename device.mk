@@ -22,7 +22,7 @@ $(call inherit-product-if-exists, vendor/xiaomi/violet/violet-vendor.mk)
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-superior
+    $(LOCAL_PATH)/overlay-revengeos
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
@@ -222,6 +222,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/gps/etc/,$(TARGET_COPY_OUT_VENDOR)/etc)
+
+# Hacc
+     PRODUCT_BOARD_PLATFORM := sm6150
+     PRODUCT_USES_QCOM_HARDWARE := true
+
 
 # Health
 PRODUCT_PACKAGES += \

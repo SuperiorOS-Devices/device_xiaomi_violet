@@ -265,6 +265,22 @@
       "ResetOnInit": true
     },
     {
+      "Name": "UpMigrate",
+      "Path": "/proc/sys/kernel/sched_upmigrate",
+      "Values": [
+        "0x5F",
+        "0x32"
+      ]
+    },
+    {
+      "Name": "DownMigrate",
+      "Path": "/proc/sys/kernel/sched_downmigrate",
+      "Values": [
+        "0x55",
+        "0x28"
+      ]
+    },
+    {
       "Name": "PowerHALMainState",
       "Path": "vendor.powerhal.state",
       "Values": [
@@ -528,9 +544,21 @@
       "Value": "1363200000"
     },
     {
+      "PowerHint": "LAUNCH",
+      "Node": "UpMigrate",
+      "Duration": 5000,
+      "Value": "0x32"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "DownMigrate",
+      "Duration": 5000,
+      "Value": "0x28"
+    },
+    {
       "PowerHint": "AUDIO_LAUNCH",
       "Node": "PMQoSCpuDmaLatency",
-      "Duration": 2000,
+      "Duration": 5000,
       "Value": "67"
     },
     {

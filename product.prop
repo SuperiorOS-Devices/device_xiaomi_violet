@@ -25,6 +25,9 @@ ro.surface_flinger.supports_background_blur=1
 persist.sys.sf.disable_blurs=1
 ro.sf.blurs_are_expensive=1
 
+# GBoard
+ro.com.google.ime.kb_pad_port_b=1
+
 # Graphics
 debug.sf.latch_unsignaled=1
 persist.demo.hdmirotationlock=false

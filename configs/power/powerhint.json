@@ -5,8 +5,7 @@
       "Path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
       "Values": [
         "9999999",
-        "1017600",
-        "576000"
+        "1209600"
       ],
       "DefaultIndex": 0,
       "ResetOnInit": true
@@ -16,7 +15,7 @@
       "Path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
       "Values": [
         "9999999",
-        "1017600",
+        "1209600",
         "576000"
       ],
       "ResetOnInit": true
@@ -26,10 +25,8 @@
       "Path": "/sys/devices/system/cpu/cpu6/cpufreq/scaling_max_freq",
       "Values": [
         "9999999",
-        "2016000",
-        "1516800",
-        "1363200",
-        "652800"
+        "1900800",
+        "1516800"
       ],
       "DefaultIndex": 0,
       "ResetOnInit": true
@@ -39,7 +36,7 @@
       "Path": "/sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq",
       "Values": [
         "9999999",
-        "1363200",
+        "1516800",
         "1209600",
         "652800"
       ],
@@ -378,13 +375,13 @@
       "PowerHint": "SUSTAINED_PERFORMANCE",
       "Node": "CPUBigClusterMaxFreq",
       "Duration": 0,
-      "Value": "1363200"
+      "Value": "1516800"
     },
     {
       "PowerHint": "SUSTAINED_PERFORMANCE",
       "Node": "CPULittleClusterMaxFreq",
       "Duration": 0,
-      "Value": "1017600"
+      "Value": "1209600"
     },
     {
       "PowerHint": "SUSTAINED_PERFORMANCE",
@@ -394,15 +391,9 @@
     },
     {
       "PowerHint": "INTERACTION",
-      "Node": "CPUBigClusterMinFreq",
-      "Duration": 0,
-      "Value": "1209600"
-    },
-    {
-      "PowerHint": "INTERACTION",
       "Node": "CPULittleClusterMinFreq",
       "Duration": 1,
-      "Value": "1017600"
+      "Value": "1209600"
     },
     {
       "PowerHint": "INTERACTION",

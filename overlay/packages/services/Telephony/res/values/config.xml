@@ -40,4 +40,8 @@
     <!-- This device requires that emergency calls are placed over the default data SIM when
          possible because GNSS SUPL can only be received from the network on data subscription. -->
     <bool name="config_gnss_supl_requires_default_data_for_emergency">true</bool>
+
+    <!-- Whether or not to support RCS User Capability Exchange -->
+    <bool name="config_rcs_user_capability_exchange_enabled">false</bool>
+    
 </resources>

@@ -46,8 +46,8 @@ public interface Utils {
     String KCAL_ENABLE = "/sys/devices/platform/kcal_ctrl.0/kcal_enable";
     String KCAL_CONT = "/sys/devices/platform/kcal_ctrl.0/kcal_cont";
     String KCAL_HUE = "/sys/devices/platform/kcal_ctrl.0/kcal_hue";
-    String KCAL_MIN = "/sys/evices/platform/kcal_ctrl.0/kcal_min";
-    String KCAL_RGB = "/sys/devices/platform/kcal_ctrl.0/kcal_red";
+    String KCAL_MIN = "/sys/devices/platform/kcal_ctrl.0/kcal_min";
+    String KCAL_RGB = "/sys/devices/platform/kcal_ctrl.0/kcal";
     String KCAL_SAT = "/sys/devices/platform/kcal_ctrl.0/kcal_sat";
     String KCAL_VAL = "/sys/devices/platform/kcal_ctrl.0/kcal_val";
 }

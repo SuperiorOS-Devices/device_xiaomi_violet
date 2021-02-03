@@ -1,0 +1,3 @@
+# KCAL
+allow system_server kcal_dev:file rw_file_perms;
+allow system_server kcal_dev:dir r_dir_perms;

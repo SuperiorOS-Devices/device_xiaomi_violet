@@ -74,6 +74,16 @@ public class DeviceSettings extends PreferenceFragment implements
 
         String device = FileUtils.getStringProp("ro.build.product", "unknown");
 
+        PreferenceCategory displayCategory = (PreferenceCategory) findPreference(CATEGORY_DISPLAY);
+
+        mKcal = findPreference(PREF_DEVICE_KCAL);
+
+        mKcal.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), KCalSettingsActivity.class);
+            startActivity(intent);
+            return true;
+        });
+
         boolean enhancerEnabled;
         try {
             enhancerEnabled = DiracService.sDiracUtils.isDiracEnabled();

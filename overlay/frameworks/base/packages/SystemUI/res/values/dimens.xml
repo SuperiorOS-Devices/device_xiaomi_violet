@@ -20,15 +20,18 @@
          navigation_extra_key_width -->
     <dimen name="navigation_side_padding">85dp</dimen>
 
-    <dimen name="rounded_corner_content_padding">44px</dimen>
+    <dimen name="rounded_corner_content_padding">36px</dimen>
 
     <!-- the padding on the top of the statusbar (usually 0) -->
     <dimen name="status_bar_padding_top">1dp</dimen>
 
-    <dimen name="system_icons_keyguard_padding_end">8dp</dimen>
-    <dimen name="keyguard_carrier_text_margin">20dp</dimen>
-
     <dimen name="config_rounded_mask_size">136px</dimen>
     <dimen name="config_rounded_mask_size_top">136px</dimen>
     <dimen name="config_rounded_mask_size_bottom">136px</dimen>
+
+    <!-- Margin on the right side of the system icon group on Keyguard. -->
+    <dimen name="system_icons_keyguard_padding_end">6dp</dimen>
+
+    <!-- Margin on the left side of the carrier text on Keyguard -->
+    <dimen name="keyguard_carrier_text_margin">20dp</dimen>
 </resources>

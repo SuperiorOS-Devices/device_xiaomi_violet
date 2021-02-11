@@ -24,6 +24,9 @@ persist.vendor.data.profile_update=true
 # Force triple frame buffers
 ro.surface_flinger.max_frame_buffer_acquired_buffers=3
 
+# FUSE passthrough
+persist.sys.fuse.passthrough.enable=true
+
 # GBoard
 ro.com.google.ime.kb_pad_port_b=1
 

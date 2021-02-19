@@ -25,7 +25,6 @@ ro.surface_flinger.max_frame_buffer_acquired_buffers=3
 ro.com.google.ime.kb_pad_port_b=1
 
 # Graphics
-debug.sf.latch_unsignaled=1
 persist.demo.hdmirotationlock=false
 persist.hwc.enable_vds=1
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true

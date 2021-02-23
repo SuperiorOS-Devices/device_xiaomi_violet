@@ -117,7 +117,7 @@
         android:key="vibration"
         android:title="@string/vibration_title">
 
-        <com.xiaomi.parts.preferences.VibrationSeekBarPreference
+        <com.xiaomi.parts.preferences.VibratorStrengthPreference
             android:defaultValue="80"
             android:key="vibration_strength"
             android:icon="@drawable/ic_vibrate"

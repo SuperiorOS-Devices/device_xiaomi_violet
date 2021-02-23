@@ -31,7 +31,7 @@ import androidx.preference.SwitchPreference;
 import android.util.Log;
 
 import com.xiaomi.parts.kcal.KCalSettingsActivity;
-import com.xiaomi.parts.preferences.VibrationSeekBarPreference;
+import com.xiaomi.parts.preferences.VibratorStrengthPreference;
 import com.xiaomi.parts.preferences.CustomSeekBarPreference;
 import com.xiaomi.parts.preferences.SecureSettingListPreference;
 import com.xiaomi.parts.preferences.SecureSettingSwitchPreference;
@@ -57,13 +57,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String PREF_SELINUX_MODE = "selinux_mode";
     private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
 
-    public static final String CATEGORY_VIBRATOR = "vibration";
-    public static final String PREF_VIBRATION_STRENGTH = "vibration_strength";
-    public static final String VIBRATION_STRENGTH_PATH = "/sys/class/leds/vibrator/vtg_level";
-
-    // value of vtg_min and vtg_max
-    public static final int MIN_VIBRATION = 116;
-    public static final int MAX_VIBRATION = 3596;
+    public static final String KEY_VIBSTRENGTH = "vib_strength";
 
     final static String PREF_TORCH_BRIGHTNESS = "torch_brightness";
     public static final String TORCH_1_BRIGHTNESS_PATH = "/sys/devices/platform/soc/c440000.qcom," +
@@ -80,7 +74,8 @@ public class DeviceSettings extends PreferenceFragment implements
     private SecureSettingSwitchPreference mEnableDirac;
     private SecureSettingListPreference mHeadsetType;
     private SecureSettingListPreference mPreset;
-    
+    private VibratorStrengthPreference mVibratorStrength;
+
     private static Context mContext;
 
     @Override
@@ -156,10 +151,11 @@ public class DeviceSettings extends PreferenceFragment implements
                 FileUtils.fileWritable(TORCH_2_BRIGHTNESS_PATH));
         mTorchBrightness.setOnPreferenceChangeListener(this);
 
-        if (FileUtils.fileWritable(VIBRATION_STRENGTH_PATH)) {
-            VibrationSeekBarPreference vibrationStrength = (VibrationSeekBarPreference) findPreference(PREF_VIBRATION_STRENGTH);
-            vibrationStrength.setOnPreferenceChangeListener(this);
-        } else { getPreferenceScreen().removePreference(findPreference(CATEGORY_VIBRATOR)); }
+        mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
+        if (mVibratorStrength != null) {
+            mVibratorStrength.setEnabled(VibratorStrengthPreference.isSupported());
+        }
+
     }
 
 
@@ -214,11 +210,6 @@ public class DeviceSettings extends PreferenceFragment implements
                 } else {
                     this.getContext().stopService(fpsinfo);
                 }
-                break;
-
-                case PREF_VIBRATION_STRENGTH:
-                double vibrationValue = (int) value / 100.0 * (MAX_VIBRATION - MIN_VIBRATION) + MIN_VIBRATION;
-                FileUtils.setValue(VIBRATION_STRENGTH_PATH, vibrationValue);
                 break;
 
             case PREF_TORCH_BRIGHTNESS:

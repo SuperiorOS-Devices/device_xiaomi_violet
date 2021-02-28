@@ -1116,9 +1116,6 @@ vendor/etc/thermal-engine-studio.conf
 vendor/etc/thermal-engine-tgame.conf
 vendor/lib64/libthermalfeature.so
 
-# Thermal (init script) - from LA.UM.9.1.r1-10200-SMxxx0.0
-vendor/etc/init/init_thermal-engine.rc|a0310f09da9f09c67e110607b73aec9f9f981c4c
-
 # Time - from davinci-user 11 RKQ1.200826.002 21.6.11 release-keys
 -vendor/app/TimeService/TimeService.apk|7d176a69b270006a511a3c30f544db98a0ccaa37
 vendor/bin/time_daemon|0def9165831d91241cd011abafc0a106f69bd06e

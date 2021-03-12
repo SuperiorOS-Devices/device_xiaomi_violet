@@ -3,7 +3,7 @@ cc_library_static {
     name: "liblocbatterylistener",
     vendor: true,
 
-    sanitize: GNSS_SANITIZE,
+
 
     cflags: GNSS_CFLAGS + ["-DBATTERY_LISTENER_ENABLED"],
     local_include_dirs: ["."],

@@ -5,7 +5,7 @@ cc_library_shared {
     name: "libgnss",
     vendor: true,
 
-    sanitize: GNSS_SANITIZE,
+
 
     shared_libs: [
         "libutils",

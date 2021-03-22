@@ -36,6 +36,18 @@
                 android:targetPackage="com.xiaomi.parts.kcal" />
         </Preference>
 
+        <Preference
+            android:key="device_doze"
+            android:persistent="false"
+            android:summary="@string/advanced_doze_summary"
+            android:title="@string/ambient_display_xiaomi"
+            android:icon="@drawable/ic_xiaomidoze">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.doze.DozeSettingsActivity"
+                android:targetPackage="org.lineageos.settings.doze" />
+        </Preference>
+
     </PreferenceCategory>
 
     <PreferenceCategory

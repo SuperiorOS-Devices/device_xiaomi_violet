@@ -163,4 +163,7 @@
     <string name="torch_title">Torch</string>
     <string name="torch_brightness_title">Brightness</string>
 
+    <!-- Ambient Display -->
+    <string name="ambient_display_xiaomi">Xiaomi Doze</string>
+    <string name="advanced_doze_summary">Ambient display</string>
 </resources>

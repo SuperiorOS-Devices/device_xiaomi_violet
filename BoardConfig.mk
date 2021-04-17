@@ -208,7 +208,6 @@ BOARD_SEPOLICY_M4DEFS += \
     debugfs_clk=vendor_debugfs_clk \
     debugfs_ipc=vendor_debugfs_ipc \
     latency_device=vendor_latency_device \
-    nfc_vendor_data_file=vendor_nfc_vendor_data_file \
     persist_audio_file=vendor_persist_audio_file \
     persist_sensors_file=vendor_persist_sensors_file \
     public_vendor_default_prop=vendor_public_vendor_default_prop \

@@ -889,6 +889,8 @@ GnssAdapter::setConfig()
                       ContextBase::mGps_conf.MO_SUPL_PORT,
                       LOC_AGPS_MO_SUPL_SERVER);
 
+    std::string moServerUrl = getMoServerUrl();
+    std::string serverUrl = getServerUrl();
     // inject the configurations into modem
     loc_gps_cfg_s gpsConf = ContextBase::mGps_conf;
     loc_sap_cfg_s_type sapConf = ContextBase::mSap_conf;
@@ -936,8 +938,10 @@ GnssAdapter::setConfig()
     gnssConfigRequested.blacklistedSvIds.assign(mBlacklistedSvIds.begin(),
                                                 mBlacklistedSvIds.end());
     mLocApi->sendMsg(new LocApiMsg(
-            [this, gpsConf, sapConf, oldMoServerUrl, gnssConfigRequested] () mutable {
-        gnssUpdateConfig(oldMoServerUrl, gnssConfigRequested, gnssConfigRequested);
+            [this, gpsConf, sapConf, oldMoServerUrl, moServerUrl,
+            serverUrl, gnssConfigRequested] () mutable {
+        gnssUpdateConfig(oldMoServerUrl, moServerUrl, serverUrl,
+                gnssConfigRequested, gnssConfigRequested);
 
         // set nmea mask type
         uint32_t mask = 0;
@@ -1025,6 +1029,7 @@ GnssAdapter::setConfig()
 }
 
 std::vector<LocationError> GnssAdapter::gnssUpdateConfig(const std::string& oldMoServerUrl,
+        const std::string& moServerUrl, const std::string& serverUrl,
         GnssConfig& gnssConfigRequested, GnssConfig& gnssConfigNeedEngineUpdate, size_t count) {
     loc_gps_cfg_s gpsConf = ContextBase::mGps_conf;
     size_t index = 0;
@@ -1033,9 +1038,6 @@ std::vector<LocationError> GnssAdapter::gnssUpdateConfig(const std::string& oldM
     if (count > 0) {
         errsList.insert(errsList.begin(), count, LOCATION_ERROR_SUCCESS);
     }
-
-    std::string serverUrl = getServerUrl();
-    std::string moServerUrl = getMoServerUrl();
 
     int serverUrlLen = serverUrl.length();
     int moServerUrlLen = moServerUrl.length();
@@ -1424,10 +1426,14 @@ GnssAdapter::gnssUpdateConfigCommand(const GnssConfig& config)
                     adapter.reportResponse(countOfConfigs, errs.data(), ids.data());
             });
 
+            std::string moServerUrl = adapter.getMoServerUrl();
+            std::string serverUrl = adapter.getServerUrl();
             mApi.sendMsg(new LocApiMsg(
                     [&adapter, gnssConfigRequested, gnssConfigNeedEngineUpdate,
-                    countOfConfigs, configCollectiveResponse, errs] () mutable {
+                    moServerUrl, serverUrl, countOfConfigs, configCollectiveResponse,
+                    errs] () mutable {
                 std::vector<LocationError> errsList = adapter.gnssUpdateConfig("",
+                        moServerUrl, serverUrl,
                         gnssConfigRequested, gnssConfigNeedEngineUpdate, countOfConfigs);
 
                 configCollectiveResponse->returnToSender(errsList);

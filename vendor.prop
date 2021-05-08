@@ -148,6 +148,7 @@ vendor.display.disable_decimation=1
 vendor.display.disable_excl_rect=0
 vendor.display.disable_hw_recovery_dump=0
 vendor.display.disable_inline_rotator=1
+vendor.display.disable_rotator_downscale=1
 vendor.display.disable_scaler=0
 vendor.display.disable_ui_3d_tonemap=1
 vendor.display.enable_default_color_mode=1

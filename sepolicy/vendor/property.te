@@ -1,3 +1,6 @@
+# Dirac
+type dirac_prop, property_type;
+
 # Fingerprint
 vendor_public_prop(vendor_fp_prop)
 

@@ -16,6 +16,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+       <Preference
+        android:key="header"
+        android:layout="@layout/header_animation" />
+
     <PreferenceCategory
         android:key="display"
         android:title="@string/display_title">

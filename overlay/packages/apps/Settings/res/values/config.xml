@@ -13,9 +13,6 @@
 -->
 <resources>
 
-    <!-- Device specific doze package -->
-    <string name="config_customDozePackage">org.lineageos.settings/org.lineageos.settings.doze.DozeSettingsActivity</string>
-
     <!-- For Enabling Battery Heath -->
     <bool name="config_supportBatteryHealth">true</bool>
 

@@ -34,4 +34,7 @@
 
     <!-- Margin on the left side of the carrier text on Keyguard -->
     <dimen name="keyguard_carrier_text_margin">20dp</dimen>
+
+    <!-- QS Tiles background size // default is 44.0 | maximum is 47.5 -->
+    <dimen name="qs_tile_background_size">48.0dp</dimen>
 </resources>

@@ -36,6 +36,16 @@
                 android:targetPackage="com.xiaomi.parts.kcal" />
         </Preference>
 
+        <Preference
+            android:icon="@drawable/ic_thermal_settings"
+            android:key="thermal_profiles"
+            android:summary="@string/thermal_summary"
+            android:title="@string/thermal_title">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="org.lineageos.settings"
+                android:targetClass="org.lineageos.settings.thermal.ThermalActivity" />
+        </Preference>
     </PreferenceCategory>
 
     <PreferenceCategory

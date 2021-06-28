@@ -1,14 +1,26 @@
 [
   {
-    "repository": "android_vendor_xiaomi_violet",
+    "repository": "vendor_xiaomi_violet",
     "target_path": "vendor/xiaomi/violet",
     "branch": "eleven",
     "remote": "SuperiorOS-Devices"
   },
   {
-    "repository": "android_kernel_xiaomi_violet",
+    "repository": "kernel_xiaomi_violet",
     "target_path": "kernel/xiaomi/violet",
     "branch": "eleven",
     "remote": "SuperiorOS-Devices"
-  }
+  },
+  {
+    "repository": "Joker-V2/android_vendor_ANXCamera",
+    "target_path": "vendor/ANXCamera",
+    "branch": "eleven",
+    "remote": "gitlab"
+  },
+  {
+    "repository": "kdrag0n/proton-clang",
+    "target_path": "prebuilts/clang/host/linux-x86/clang-proton",
+    "branch": "master",
+    "remote": "github"
+   }
 ]

@@ -1,16 +1,15 @@
 # All unpinned blobs were pulled from VIOLETINGlobal_V12.0.5.0.QFHINXM
 
-# ACDB
-vendor/etc/acdbdata/adsp_avs_config.acdb
-vendor/etc/acdbdata/IDP/IDP_Bluetooth_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_Codec_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_General_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_Global_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_Handset_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_Hdmi_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_Headset_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_Speaker_cal.acdb
-vendor/etc/acdbdata/IDP/IDP_workspaceFile.qwsp
+# Audio ACDB - finetuned by @ujjwalkirorimal
+vendor/etc/acdbdata/adsp_avs_config.acdb|49baf73cb156bc0e3147d9362d7b5bd6bbfc1f3a
+vendor/etc/acdbdata/IDP/IDP_Bluetooth_cal.acdb|2890773b485f4392ce28b4857cc676635b2899ac
+vendor/etc/acdbdata/IDP/IDP_Codec_cal.acdb|51c2d3fac11b73a87c88e064fd573267cce11fb4
+vendor/etc/acdbdata/IDP/IDP_General_cal.acdb|001b023a18b55f78f4b6a7247f9df47f3f2fa8e2
+vendor/etc/acdbdata/IDP/IDP_Global_cal.acdb|448db25528c72b351c94303f2b3f3a2cf869d10b
+vendor/etc/acdbdata/IDP/IDP_Handset_cal.acdb|1ec39f770610c3b61968eeda74e74a9ebb19976a
+vendor/etc/acdbdata/IDP/IDP_Hdmi_cal.acdb|b8f2c007f41e052d190052a3c929184af32e4df7
+vendor/etc/acdbdata/IDP/IDP_Headset_cal.acdb|83ed68e45fa7673496d5738d6d07b49546dde446
+vendor/etc/acdbdata/IDP/IDP_Speaker_cal.acdb|d6e452f7a5ba395db7168196d2e774b4d9ddc32d
 
 # ACDB loader - from davinci-user 11 RKQ1.200826.002 21.6.11 release-keys
 vendor/lib64/libacdb-fts.so|55c5fab311190ef54cb1c53911b929b5bd39ef86

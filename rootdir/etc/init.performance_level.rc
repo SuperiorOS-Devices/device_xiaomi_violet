@@ -1,0 +1,56 @@
+# Copyright (c) 2021 Chaldeaprjkt
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+#
+# Preset for inactive game-mode
+# This only executed one-time right after game is closed
+#
+
+on property:sys.performance.level=-1
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 0
+
+#
+# All presets from powersave to performance Mode
+# Note: Device-specific, you may need to adjust it accordingly
+#
+
+on property:sys.performance.level=0
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 0
+
+on property:sys.performance.level=1
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 14
+
+on property:sys.performance.level=2
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 14
+
+on property:sys.performance.level=3
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 10
+
+on property:sys.performance.level=4
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 10
+
+on property:sys.performance.level=5
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 13
+
+on property:sys.performance.level=6
+    chmod 644 /sys/class/thermal/thermal_message/sconfig
+    write /sys/class/thermal/thermal_message/sconfig 13

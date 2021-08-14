@@ -247,15 +247,6 @@
       "ResetOnInit": true
     },
     {
-      "Name": "EnergyAware",
-      "Path": "/proc/sys/kernel/sched_energy_aware",
-      "Values": [
-        "0",
-        "1"
-      ],
-      "ResetOnInit": true
-    },
-    {
       "Name": "PowerHALMainState",
       "Path": "vendor.powerhal.state",
       "Values": [
@@ -424,12 +415,6 @@
       "Node": "ForegroundCpuset",
       "Duration": 5000,
       "Value": "0-5"
-    },
-    {
-      "PowerHint": "LAUNCH",
-      "Node": "EnergyAware",
-      "Duration": 5000,
-      "Value": "0"
     },
     {
       "PowerHint": "LAUNCH",

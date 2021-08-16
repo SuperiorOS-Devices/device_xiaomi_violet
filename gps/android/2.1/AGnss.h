@@ -67,6 +67,8 @@ struct AGnss : public V2_0::IAGnss {
  private:
     Gnss* mGnss = nullptr;
     sp<V2_0::IAGnssCallback> mAGnssCbIface = nullptr;
+
+    AGpsExtType mType;
 };
 
 }  // namespace implementation

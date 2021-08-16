@@ -448,7 +448,7 @@ void AgpsStateMachine::setAPN(char* apn, unsigned int len){
         mAPN  = NULL;
     }
 
-    if (NULL == apn || len <= 0 || len > MAX_APN_LEN || strlen(apn) != len) {
+    if (NULL == apn || len > MAX_APN_LEN || strlen(apn) != len) {
         LOC_LOGD("Invalid apn len (%d) or null apn", len);
         mAPN = NULL;
         mAPNLen = 0;

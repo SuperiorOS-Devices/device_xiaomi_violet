@@ -8,7 +8,7 @@
   {
     "repository": "kernel_xiaomi_violet",
     "target_path": "kernel/xiaomi/violet",
-    "branch": "LA.UM.9.x",
+    "branch": "LA.UM.9.1.r1-11100-SMxxx0.0",
     "remote": "SuperiorOS-Devices"
   },
   {
@@ -16,11 +16,5 @@
     "target_path": "vendor/ANXCamera",
     "branch": "eleven",
     "remote": "gitlab"
-  },
-  {
-    "repository": "kdrag0n/proton-clang",
-    "target_path": "prebuilts/clang/host/linux-x86/clang-proton",
-    "branch": "master",
-    "remote": "github"
-   }
+  }
 ]

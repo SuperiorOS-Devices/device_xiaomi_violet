@@ -3,10 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/clear_speaker_title">
 
-    <Preference
-        android:key="header"
-        android:layout="@layout/speaker_animation" />
-
     <SwitchPreference
         android:key="clear_speaker_pref"
         android:title="@string/clear_speaker_title"

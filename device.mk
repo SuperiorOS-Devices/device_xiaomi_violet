@@ -452,8 +452,4 @@ PRODUCT_PACKAGES += \
     libnl \
     libqdMetaData \
     libqdMetaData.system \
-    libqdMetaData.vendor \
-    libwfdaac_vendor
-
-PRODUCT_BOOT_JARS += \
-    WfdCommon
+    libqdMetaData.vendor

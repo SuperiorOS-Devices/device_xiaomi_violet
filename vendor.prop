@@ -45,6 +45,7 @@ vendor.audio.feature.external_dsp.enable=false
 vendor.audio.feature.external_speaker_tfa.enable=false
 vendor.audio.feature.external_speaker.enable=false
 vendor.audio.feature.fluence.enable=true
+vendor.audio.feature.fm.enable=true
 vendor.audio.feature.hdmi_edid.enable=true
 vendor.audio.feature.hdmi_passthrough.enable=true
 vendor.audio.feature.hfp.enable=true
@@ -120,6 +121,9 @@ persist.audio.dirac.speaker=true
 persist.vendor.dpm.loglevel=0
 persist.vendor.dpm.nsrm.bkg.evt=3955
 persist.vendor.dpmhalservice.enable=1
+
+# FM
+vendor.hw.fm.init=0
 
 # Factory Reset Protection
 ro.frp.pst=/dev/block/bootdevice/by-name/frp

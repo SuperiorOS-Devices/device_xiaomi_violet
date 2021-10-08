@@ -134,6 +134,7 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio@2.0-impl \
     audio.bluetooth.default \
     libbthost_if \
+    android.hardware.bluetooth@1.0.vendor \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor \
@@ -171,6 +172,7 @@ PRODUCT_PACKAGES += \
 
 # Display/Graphics
 PRODUCT_PACKAGES += \
+    android.frameworks.displayservice@1.0.vendor \
     android.hardware.graphics.composer@2.4-service \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
@@ -194,7 +196,8 @@ PRODUCT_PACKAGES += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.3-service.clearkey
+    android.hardware.drm@1.3-service.clearkey \
+    android.hardware.drm@1.3.vendor
 
 # Fingerprint feature
 PRODUCT_COPY_FILES += \
@@ -217,6 +220,10 @@ PRODUCT_PACKAGES += \
 # Freeform Multiwindow
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml
+
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0.vendor
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -290,6 +297,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/keylayout/sm6150-idp-snd-card_Button_Jack.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/sm6150-idp-snd-card_Button_Jack.kl
 
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@4.0.vendor \
+    android.hardware.keymaster@4.1.vendor
+
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.lights-service.xiaomi_sm6150
@@ -329,6 +341,11 @@ PRODUCT_COPY_FILES += \
 # Net
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
+
+# Neural Networks
+PRODUCT_PACKAGES += \
+    android.hardware.neuralnetworks@1.1.vendor \
+    android.hardware.neuralnetworks@1.0.vendor
 
 # Perf
 PRODUCT_PACKAGES += \
@@ -373,9 +390,16 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    android.hardware.radio.config@1.0.vendor \
     android.hardware.radio.config@1.1 \
+    android.hardware.radio@1.4.vendor \
+    android.hardware.radio@1.5.vendor \
     android.hardware.radio@1.5 \
+    android.hardware.radio.config@1.2.vendor \
+    android.system.net.netd@1.1.vendor \
     android.hardware.secure_element@1.1 \
+    android.hardware.radio.deprecated@1.0 \
+    android.hardware.radio.deprecated@1.0.vendor \
     libjson \
     libprotobuf-cpp-full \
     libprotobuf-cpp-full-vendorcompat \
@@ -387,9 +411,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
+# Secure Element
+PRODUCT_PACKAGES += \
+    android.hardware.secure_element@1.0.vendor \
+    android.hardware.secure_element@1.1.vendor \
+    android.hardware.secure_element@1.2.vendor
+
 # Sensor
 PRODUCT_PACKAGES += \
-    libsensorndkbridge
+    libsensorndkbridge \
+    android.hardware.sensors@2.0.vendor
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \

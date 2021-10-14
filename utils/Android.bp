@@ -4,7 +4,7 @@ cc_library_shared {
     name: "libgps.utils",
     vendor: true,
 
-    sanitize: GNSS_SANITIZE,
+
 
     //# Libs
     shared_libs: [

@@ -1,4 +1,4 @@
-/* Copyright (c) 2017-2020, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017-2021, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -509,9 +509,11 @@ public:
         for (uint8_t i = 0; rtv && i < MAX_NETWORK_HANDLES; ++i) {
             rtv &= (mAllNetworkHandles[i] == peer.mAllNetworkHandles[i]);
         }
-        return peer.mApn.compare(mApn);
+        return rtv & peer.mApn.compare(mApn);
     }
     inline virtual SystemStatusItemBase& collate(SystemStatusItemBase& curInfo) {
+        LOC_LOGv("NetworkInfo: mAllTypes=%" PRIx64 " connected=%u mType=%x mApn=%s",
+                 mAllTypes, mConnected, mType, mApn.c_str());
         uint64_t allTypes = (static_cast<SystemStatusNetworkInfo&>(curInfo)).mAllTypes;
         string& apn = (static_cast<SystemStatusNetworkInfo&>(curInfo)).mApn;
         // Replace current with cached table for now and then update

@@ -210,6 +210,9 @@ telephony.lteOnCdmaDevice=1
 # Skia
 renderthread.skia.reduceopstasksplitting=true
 
+# System
+persist.sys.binary_xml=false
+
 # USB
 vendor.usb.use_ffs_mtp=0
 

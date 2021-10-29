@@ -10,5 +10,10 @@
     "target_path": "kernel/xiaomi/sm6150",
     "branch": "eleven",
     "remote": "SuperiorOS-Devices"
+  },
+    "repository": "device_xiaomi_extras",
+    "target_path": "device/xiaomi/extras",
+    "branch": "twelve",
+    "remote": "SuperiorOS-Devices"
   }
 ]

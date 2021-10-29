@@ -23,14 +23,15 @@
     <dimen name="rounded_corner_content_padding">36px</dimen>
 
     <!-- the padding on the top of the statusbar (usually 0) -->
-    <dimen name="status_bar_padding_top">1dp</dimen>
+    <dimen name="status_bar_padding_top">1.5dp</dimen>
+    <dimen name="status_bar_header_height_keyguard">80.0px</dimen>
 
     <dimen name="config_rounded_mask_size">136px</dimen>
     <dimen name="config_rounded_mask_size_top">136px</dimen>
     <dimen name="config_rounded_mask_size_bottom">136px</dimen>
 
     <!-- Margin on the right side of the system icon group on Keyguard. -->
-    <dimen name="system_icons_keyguard_padding_end">6dp</dimen>
+    <dimen name="system_icons_keyguard_padding_end">7.5dp</dimen>
 
     <!-- Margin on the left side of the carrier text on Keyguard -->
     <dimen name="keyguard_carrier_text_margin">20dp</dimen>

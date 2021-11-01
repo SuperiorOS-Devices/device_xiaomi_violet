@@ -17,9 +17,6 @@ TARGET_BOOT_ANIMATION_RES := 1080
 # Charging Animation
 TARGET_INCLUDE_PIXEL_CHARGER := true
 
-# Gapps
-TARGET_GAPPS_ARCH := arm64
-
 # Face unlock
 TARGET_USES_FACE_UNLOCK := true
 

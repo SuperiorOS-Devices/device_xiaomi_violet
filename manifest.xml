@@ -525,16 +525,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
              <name>ILinkLatency</name>
              <instance>default</instance>
          </interface>
-     </hal>
-    <!-- IR HAL Service -->
-    <hal format="hidl">
-        <name>android.hardware.ir</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IConsumerIr</name>
-            <instance>default</instance>
-        </interface>
     </hal>
     <!-- MwqemAdapter HAL service -->
     <hal format="hidl">

@@ -10,8 +10,5 @@ type power_prop, property_type;
 # Thermal
 type thermal_normal_prop, property_type;
 
-# Touchfeature
-type vendor_touchfeature_prop, property_type;
-
 # Dirac
 type vendor_dirac_prop, property_type;

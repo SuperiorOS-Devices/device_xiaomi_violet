@@ -13,7 +13,7 @@ on post-fs-data
     mkdir /data/vendor/goodix 0770 system system
     chown system system /data/vendor
 
-service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.xiaomi_sm6150
+service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.violet
     # "class hal" causes a race condition on some devices due to files created
     # in /data. As a workaround, postpone startup until later in boot once
     # /data is mounted.

@@ -44,6 +44,22 @@ public final class DiracUtils {
         }
     }
 
+    protected static void refreshPlaybackIfNecessary(){
+        if (mMediaSessionManager == null) {
+            mMediaSessionManager = (MediaSessionManager) mContext.getSystemService(Context.MEDIA_SESSION_SERVICE);
+        }
+        final List<MediaController> sessions
+                = mMediaSessionManager.getActiveSessionsForUser(
+                null, UserHandle.ALL);
+        for (MediaController aController : sessions) {
+            if (PlaybackState.STATE_PLAYING ==
+                    getMediaControllerPlaybackState(aController)) {
+                triggerPlayPause(aController);
+                break;
+            }
+        }
+    }
+
     private static void triggerPlayPause(MediaController controller) {
         long when = SystemClock.uptimeMillis();
         final KeyEvent evDownPause = new KeyEvent(when, when, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PAUSE, 0);
@@ -88,6 +104,9 @@ public final class DiracUtils {
     protected static void setEnabled(boolean enable) {
         mDiracSound.setEnabled(enable);
         mDiracSound.setMusic(enable ? 1 : 0);
+        if (enable){
+            refreshPlaybackIfNecessary();
+        }
     }
 
     protected static boolean isDiracEnabled() {

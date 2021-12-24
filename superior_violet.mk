@@ -34,3 +34,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME="violet"
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
+# SuperiorOS
+SUPERIOR_OFFICIAL := true

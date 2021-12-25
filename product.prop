@@ -31,10 +31,12 @@ persist.sys.fuse.passthrough.enable=true
 ro.com.google.ime.kb_pad_port_b=1
 
 # Graphics
+debug.renderengine.backend=skiaglthreaded
 debug.cpurend.vsync=false
 debug.sf.latch_unsignaled=1
 persist.demo.hdmirotationlock=false
 persist.hwc.enable_vds=1
+renderthread.skia.reduceopstasksplitting=true
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
 ro.surface_flinger.has_HDR_display=true
 ro.surface_flinger.has_wide_color_display=true

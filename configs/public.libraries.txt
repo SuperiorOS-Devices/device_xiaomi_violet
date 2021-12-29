@@ -21,3 +21,5 @@ libalhLDC.so
 libalAILDC.so
 libVDClearShot.so
 libVDSuperPhotoAPI.so
+libc++.so
+libc++_shared.so

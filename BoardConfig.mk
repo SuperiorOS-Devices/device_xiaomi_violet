@@ -33,6 +33,9 @@ TARGET_2ND_CPU_VARIANT := cortex-a55
 # Assert
 TARGET_OTA_ASSERT_DEVICE := violet
 
+# ANT+
+BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sm6150
 TARGET_NO_BOOTLOADER := true

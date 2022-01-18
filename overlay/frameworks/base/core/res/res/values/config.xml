@@ -543,4 +543,8 @@
           manually by the user. Off by default, since the expected haptic feedback may not be
           available on some devices. -->
     <bool name="config_enableHapticTextHandle">true</bool>
+
+    <!-- List of comma separated package names for which we the system will not show crash like
+         tts, etc. dialogs. -->
+    <string translatable="false" name="config_appsNotReportingCrashes">com.google.android.tts</string>
 </resources>

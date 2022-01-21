@@ -436,6 +436,19 @@ vendor/etc/diracmobile.config|d781cd6798a7481a8f7128d144abfb2b8794212d
 vendor/lib/libDiracAPI_SHARED.so|42b49679d38eca93fead05ea06ddbdc8108fd4b1
 vendor/lib/soundfx/libdirac.so|f63826a905b520fa524e4c1b147be7cf65240953
 
+# Display - from LA.UM.9.1.r1-11400.02-SMxxx0.QSSI12.0
+vendor/lib64/libdisp-aba.so|44993853ff9d4340e856e6f53d802f10372442d3
+vendor/lib64/libdisplayqos.so|5548732c916e629f18f45ce257ce843b679a136a
+vendor/lib64/libhdr_tm.so|b4d129efafedbc82e122ef7edff26ca65204b630
+vendor/lib64/libqseed3.so|7f2a659fb9acd84d79c11dbd6901b816d5d1214f
+vendor/lib64/libsdedrm.so|bccd71afeb56529b457699bdd179d571830caa16
+vendor/lib64/libsdm-color.so|d0984c33dcbf84940676917e0c3584b0ccfeaf03
+vendor/lib64/libsdm-colormgr-algo.so|15f696a4575868e528360896f1e0098d531899c0
+vendor/lib64/libsdm-diag.so|341907510d377127adb98d07e7d9f30448d08def
+vendor/lib64/libsdm-disp-vndapis.so|60da199073d2b0881bf075190a644b332503f39c
+vendor/lib64/libsdmextension.so|e10d29f29b7a53b75369e58e8a165b2b86609f26
+vendor/lib64/libtinyxml2_1.so|ff32deb110acb02cb5def5f3404f9064c1276483
+
 # DPM - from LA.UM.9.1.r1-10900-SMxxx0.0
 system_ext/bin/dpmd|3a21c928b0ed088ec1a093e580aaf8748dd41873
 system_ext/etc/dpm/dpm.conf|95e27da8c989e96c6faea6f0697bce11955b62a5
@@ -639,23 +652,6 @@ vendor/lib/libgsl.so|356a12b3938e5ed4c784a95b578c663951ea8ab6
 vendor/lib/libllvm-glnext.so|64f9777f7f36c23767fff28c78439e8edeb9ad9b
 vendor/lib/libllvm-qcom.so|482cc64d11301801299a786d65d2908a61c018ee
 vendor/lib/libpvr.so|82723b3ea51940ae0d07206db949f7c98af7b7da
-
-# Graphics (DRM) - from LA.UM.9.1.r1-10900-SMxxx0.0
-vendor/lib64/libsdedrm.so|c23f2440f01e7abab3b1d119541a6ee2309a32de
-
-# Graphics (HDR) - from LA.UM.9.1.r1-10900-SMxxx0.0
-vendor/lib64/libhdr_tm.so|b4d129efafedbc82e122ef7edff26ca65204b630
-
-# Graphics (SDM) - from LA.UM.9.1.r1-10900-SMxxx0.0
-vendor/lib64/libdisp-aba.so|44993853ff9d4340e856e6f53d802f10372442d3
-vendor/lib64/libdisplayqos.so|5548732c916e629f18f45ce257ce843b679a136a
-vendor/lib64/libqseed3.so|7f2a659fb9acd84d79c11dbd6901b816d5d1214f
-vendor/lib64/libsdm-color.so|4c61d8c1e82b673917356e6c210959c7795e5369
-vendor/lib64/libsdm-colormgr-algo.so|073245d67ec606f7b73c34e2b4956ebcc81b350c
-vendor/lib64/libsdm-diag.so|ace628f2178ab6768f7318f36a9641ecaeb7b841
-vendor/lib64/libsdm-disp-vndapis.so|4fbf76da3a9eb5d227f948521bd4c80842446bb4
-vendor/lib64/libsdmextension.so|76ef1430f700480509b5f991e031447fea9ddb01
-vendor/lib64/libtinyxml2_1.so|ff32deb110acb02cb5def5f3404f9064c1276483
 
 # Graphics (Vulkan) - from LA.UM.9.1.r1-10200-SMxxx0.0
 vendor/lib64/hw/vulkan.adreno.so|9f7f8af8ea2e0df4728c0414f504f6ea61b65614

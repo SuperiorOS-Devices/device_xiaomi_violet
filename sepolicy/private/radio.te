@@ -1,1 +1,2 @@
-allow radio vendor_dpmd_socket:sock_file write; 
+allow radio vendor_dpmd_socket:sock_file write;
+allow radio vendor_dpmd:unix_stream_socket connectto;

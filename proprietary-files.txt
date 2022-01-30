@@ -1,4 +1,4 @@
-# All unpinned blobs were pulled from VIOLETINGlobal_V12.0.5.0.QFHINXM
+# All unpinned blobs were pulled from VIOLETINGlobal_V12.5.1.0.QFHINXM
 
 # Audio ACDB - finetuned by @ujjwalkirorimal
 vendor/etc/acdbdata/adsp_avs_config.acdb|49baf73cb156bc0e3147d9362d7b5bd6bbfc1f3a

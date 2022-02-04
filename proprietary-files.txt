@@ -84,10 +84,6 @@ vendor/lib64/soundfx/libasphere.so|b9296f601776e631be0f347f8f10d26689103d12
 # Audio (speaker amplifier) firmware
 vendor/firmware/tas2563_uCDSP.bin
 
-# Bluetooth Aptx - from sunfish-user 11 RQ1A.201205.008 6943376 release-keys
-system_ext/lib64/libaptXHD_encoder.so|e13fa70c97caaa24d061678bdee608eb8850a69e
-system_ext/lib64/libaptX_encoder.so|df1c89d7af1bb35808d5fe3496b04ba066c10cbc
-
 # Bluetooth - from davinci-user 11 RKQ1.200826.002 21.6.11 release-keys
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti|df208af5347e10667c48a5659e14fb2dbe691711
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc|a979981c55f3dcaf6cf2212e71b901ca4d58b959

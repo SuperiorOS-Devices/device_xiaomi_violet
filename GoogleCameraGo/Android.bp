@@ -1,16 +1,11 @@
 android_app_import {
-    name: "GoogleCameraGo",
-
-    certificate: "platform",
-
-    overrides: [
-        "Snap",
-        "Camera2",
-    ],
-    dex_preopt: {
-        enabled: false,
-    },
-    product_specific: true,
-    apk: "GoogleCameraGo.apk",
-
+	name: "GoogleCameraGo",
+	owner: "google",
+	apk: "GoogleCameraGo.apk",
+	certificate: "platform",
+	dex_preopt: {
+		enabled: false,
+	},
+	privileged: true,
+	overrides: ["SnapdragonCamera", "Snap", "Camera2", "Camera"],
 }

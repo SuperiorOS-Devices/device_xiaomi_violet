@@ -25,14 +25,20 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import org.lineageos.settings.dirac.DiracActivity;
+
 public class TileEntryActivity extends Activity {
     private static final String TAG = "TileEntryActivity";
+    private static final String DIRAC_TILE = "org.lineageos.settings.dirac.DiracTileService";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ComponentName sourceClass = getIntent().getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
         switch (sourceClass.getClassName()) {
+            case DIRAC_TILE:
+                openActivitySafely(new Intent(this, DiracActivity.class));
+                break;
             default:
                 finish();
                 break;

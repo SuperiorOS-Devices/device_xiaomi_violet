@@ -56,6 +56,15 @@
                        android:resource="@string/dirac_summary" />
         </activity>
 
+        <activity
+            android:name=".TileEntryActivity"
+            android:label="@string/deviceparts_label"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".dirac.DiracTileService"
             android:icon="@drawable/ic_headphone"

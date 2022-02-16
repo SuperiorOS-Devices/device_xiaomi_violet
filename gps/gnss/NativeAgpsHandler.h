@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2014, 2017-2020 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,35 +26,39 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef __LOC_CONTEXT__
-#define __LOC_CONTEXT__
+#ifndef NATIVEAGPSHANDLER_H
+#define NATIVEAGPSHANDLER_H
 
-#include <stdbool.h>
-#include <ctype.h>
-#include <dlfcn.h>
-#include <ContextBase.h>
+#include <cinttypes>
+#include <string.h>
+#include <gps_extended_c.h>
+#include <IDataItemObserver.h>
+#include <IDataItemCore.h>
+#include <IOsObserver.h>
 
-namespace loc_core {
+using namespace std;
+using loc_core::IOsObserver;
+using loc_core::IDataItemObserver;
+using loc_core::IDataItemCore;
 
-class LocContext : public ContextBase {
-    static const MsgTask* mMsgTask;
-    static ContextBase* mContext;
-    static const MsgTask* getMsgTask(const char* name);
-    static pthread_mutex_t mGetLocContextMutex;
+class GnssAdapter;
 
-protected:
-    LocContext(const MsgTask* msgTask);
-    inline virtual ~LocContext() {}
-
+class NativeAgpsHandler : public IDataItemObserver {
 public:
-    static const char* mLBSLibName;
-    static const char* mLocationHalName;
-
-    static ContextBase* getLocContext(const char* name);
-
-    static void injectFeatureConfig(ContextBase *context);
+    NativeAgpsHandler(IOsObserver* sysStatObs, GnssAdapter& adapter);
+    ~NativeAgpsHandler();
+    AgpsCbInfo getAgpsCbInfo();
+    // IDataItemObserver overrides
+    virtual void notify(const list<IDataItemCore*>& dlist);
+    inline virtual void getName(string& name);
+private:
+    static NativeAgpsHandler* sLocalHandle;
+    static void agnssStatusIpV4Cb(AGnssExtStatusIpV4 statusInfo);
+    void processATLRequestRelease(AGnssExtStatusIpV4 statusInfo);
+    IOsObserver* mSystemStatusObsrvr;
+    bool mConnected;
+    string mApn;
+    GnssAdapter& mAdapter;
 };
 
-}
-
-#endif //__LOC_CONTEXT__
+#endif // NATIVEAGPSHANDLER_H

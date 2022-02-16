@@ -1287,6 +1287,14 @@ void SystemStatus::destroyInstance()
     mInstance = NULL;
 }
 
+void SystemStatus::resetNetworkInfo() {
+    for (int i=0; i<mCache.mNetworkInfo.size(); ++i) {
+        // Reset all the cached NetworkInfo Items as disconnected
+        eventConnectionStatus(false, mCache.mNetworkInfo[i].mType, mCache.mNetworkInfo[i].mRoaming,
+                mCache.mNetworkInfo[i].mNetworkHandle, mCache.mNetworkInfo[i].mApn);
+    }
+}
+
 IOsObserver* SystemStatus::getOsObserver()
 {
     return &mSysStatusObsvr;
@@ -1724,11 +1732,12 @@ bool SystemStatus::setDefaultGnssEngineStates(void)
 @return     true when successfully done
 ******************************************************************************/
 bool SystemStatus::eventConnectionStatus(bool connected, int8_t type,
-                                         bool roaming, NetworkHandle networkHandle)
+                                         bool roaming, NetworkHandle networkHandle,
+                                         string& apn)
 {
     // send networkinof dataitem to systemstatus observer clients
     SystemStatusNetworkInfo s(type, "", "", connected, roaming,
-                              (uint64_t) networkHandle);
+                              (uint64_t) networkHandle, apn);
     mSysStatusObsvr.notify({&s});
 
     return true;

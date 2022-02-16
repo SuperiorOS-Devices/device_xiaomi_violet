@@ -32,6 +32,7 @@
 #include <string.h>
 #include <inttypes.h>
 #include <dlfcn.h>
+#include <math.h>
 #include <log_util.h>
 #include <loc_misc_utils.h>
 #include <ctype.h>
@@ -231,4 +232,120 @@ uint64_t getBootTimeMilliSec()
     struct timespec curTs;
     clock_gettime(CLOCK_BOOTTIME, &curTs);
     return (uint64_t)GET_MSEC_FROM_TS(curTs);
+}
+
+// Used for convert position/velocity from GSNS antenna based to VRP based
+void Matrix_MxV(float a[3][3],  float b[3], float c[3]) {
+    int i, j;
+
+    for (i=0; i<3; i++) {
+        c[i] = 0.0f;
+        for (j=0; j<3; j++)
+            c[i] += a[i][j] * b[j];
+    }
+}
+
+// Used for convert position/velocity from GNSS antenna based to VRP based
+void Matrix_Skew(float a[3], float c[3][3]) {
+    c[0][0] = 0.0f;
+    c[0][1] = -a[2];
+    c[0][2] = a[1];
+    c[1][0] = a[2];
+    c[1][1] = 0.0f;
+    c[1][2] = -a[0];
+    c[2][0] = -a[1];
+    c[2][1] = a[0];
+    c[2][2] = 0.0f;
+}
+
+// Used for convert position/velocity from GNSS antenna based to VRP based
+void Euler2Dcm(float euler[3], float dcm[3][3]) {
+    float cr = 0.0, sr = 0.0, cp = 0.0, sp = 0.0, ch = 0.0, sh = 0.0;
+
+    cr = cosf(euler[0]);
+    sr = sinf(euler[0]);
+    cp = cosf(euler[1]);
+    sp = sinf(euler[1]);
+    ch = cosf(euler[2]);
+    sh = sinf(euler[2]);
+
+    dcm[0][0] = cp * ch;
+    dcm[0][1] = (sp*sr*ch) - (cr*sh);
+    dcm[0][2] = (cr*sp*ch) + (sh*sr);
+
+    dcm[1][0] = cp * sh;
+    dcm[1][1] = (sr*sp*sh) + (cr*ch);
+    dcm[1][2] = (cr*sp*sh) - (sr*ch);
+
+    dcm[2][0] = -sp;
+    dcm[2][1] = sr * cp;
+    dcm[2][2] = cr * cp;
+}
+
+// Used for convert position from GSNS based to VRP based
+// The converted position will be stored in the llaInfo parameter.
+#define A6DOF_WGS_A (6378137.0f)
+#define A6DOF_WGS_B (6335439.0f)
+#define A6DOF_WGS_E2 (0.00669437999014f)
+void loc_convert_lla_gnss_to_vrp(double lla[3], float rollPitchYaw[3],
+                                 float leverArm[3]) {
+    LOC_LOGv("lla: %f, %f, %f, lever arm: %f %f %f, "
+             "rollpitchyaw: %f %f %f",
+             lla[0], lla[1], lla[2],
+             leverArm[0], leverArm[1], leverArm[2],
+             rollPitchYaw[0], rollPitchYaw[1], rollPitchYaw[2]);
+
+    float cnb[3][3];
+    memset(cnb, 0, sizeof(cnb));
+    Euler2Dcm(rollPitchYaw, cnb);
+
+    float sl = sin(lla[0]);
+    float cl = cos(lla[0]);
+    float sf = 1.0f / (1.0f - A6DOF_WGS_E2 * sl* sl);
+    float sfr = sqrtf(sf);
+
+    float rn = A6DOF_WGS_B * sf * sfr + lla[2];
+    float re = A6DOF_WGS_A * sfr + lla[2];
+
+    float deltaNEU[3];
+
+    // gps_pos_lla = imu_pos_lla + Cbn*la_b .* [1/geo.Rn; 1/(geo.Re*geo.cL); -1];
+    Matrix_MxV(cnb, leverArm, deltaNEU);
+
+    // NED to lla conversion
+    lla[0] = lla[0] + deltaNEU[0] / rn;
+    lla[1] = lla[1] + deltaNEU[1] / (re * cl);
+    lla[2] = lla[2] + deltaNEU[2];
+}
+
+// Used for convert velocity from GSNS based to VRP based
+// The converted velocity will be stored in the enuVelocity parameter.
+void loc_convert_velocity_gnss_to_vrp(float enuVelocity[3], float rollPitchYaw[3],
+                                      float rollPitchYawRate[3], float leverArm[3]) {
+
+    LOC_LOGv("enu velocity: %f, %f, %f, lever arm: %f %f %f, roll pitch yaw: %f %f %f,"
+             "rollpitchyawRate: %f %f %f",
+             enuVelocity[0], enuVelocity[1], enuVelocity[2],
+             leverArm[0], leverArm[1], leverArm[2],
+             rollPitchYaw[0], rollPitchYaw[1], rollPitchYaw[2],
+             rollPitchYawRate[0], rollPitchYawRate[1], rollPitchYawRate[2]);
+
+    float cnb[3][3];
+    memset(cnb, 0, sizeof(cnb));
+    Euler2Dcm(rollPitchYaw, cnb);
+
+    float skewLA[3][3];
+    memset(skewLA, 0, sizeof(skewLA));
+    Matrix_Skew(leverArm, skewLA);
+
+    float tmp[3];
+    float deltaEnuVelocity[3];
+    memset(tmp, 0, sizeof(tmp));
+    memset(deltaEnuVelocity, 0, sizeof(deltaEnuVelocity));
+    Matrix_MxV(skewLA, rollPitchYawRate, tmp);
+    Matrix_MxV(cnb, tmp, deltaEnuVelocity);
+
+    enuVelocity[0] = enuVelocity[0] - deltaEnuVelocity[0];
+    enuVelocity[1] = enuVelocity[1] - deltaEnuVelocity[1];
+    enuVelocity[2] = enuVelocity[2] - deltaEnuVelocity[2];
 }

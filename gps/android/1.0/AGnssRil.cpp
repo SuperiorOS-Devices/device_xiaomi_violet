@@ -54,6 +54,7 @@ Return<bool> AGnssRil::updateNetworkState(bool connected, NetworkType type, bool
     const int NetworkType_BLUETOOTH = 7;
     const int NetworkType_ETHERNET = 9;
     const int NetworkType_PROXY = 16;
+    std::string apn("");
 
     // for XTRA
     if (nullptr != mGnss && ( nullptr != mGnss->getGnssInterface() )) {
@@ -102,7 +103,7 @@ Return<bool> AGnssRil::updateNetworkState(bool connected, NetworkType type, bool
                 }
                 break;
         }
-        mGnss->getGnssInterface()->updateConnectionStatus(connected, false, typeout, 0);
+        mGnss->getGnssInterface()->updateConnectionStatus(connected, typeout, false, 0, apn);
     }
     return true;
 }

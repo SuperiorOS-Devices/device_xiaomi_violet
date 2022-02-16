@@ -1,4 +1,4 @@
-/* Copyright (c) 2015-2017, 2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2015-2017, 2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -284,7 +284,7 @@ class NetworkInfoDataItemBase : public IDataItemCore {
 public:
     NetworkInfoDataItemBase(
     NetworkType initialType, int32_t type, string typeName, string subTypeName,
-    bool available, bool connected, bool roaming, uint64_t networkHandle ):
+    bool available, bool connected, bool roaming, uint64_t networkHandle, string apn):
             mAllTypes(typeToAllTypes(initialType)),
             mType(type),
             mTypeName(typeName),
@@ -293,7 +293,7 @@ public:
             mConnected(connected),
             mRoaming(roaming),
             mNetworkHandle(networkHandle),
-            mId(NETWORKINFO_DATA_ITEM_ID) {
+            mId(NETWORKINFO_DATA_ITEM_ID), mApn(apn) {
                 mAllNetworkHandles[0].networkHandle = networkHandle;
                 mAllNetworkHandles[0].networkType = initialType;
             }
@@ -318,6 +318,7 @@ public:
     bool mRoaming;
     NetworkInfoType mAllNetworkHandles[MAX_NETWORK_HANDLES];
     uint64_t mNetworkHandle;
+    string mApn;
 protected:
     DataItemId mId;
     inline uint64_t typeToAllTypes(NetworkType type) {

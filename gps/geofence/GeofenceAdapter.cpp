@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -37,12 +37,8 @@ using namespace loc_core;
 
 GeofenceAdapter::GeofenceAdapter() :
     LocAdapterBase(0,
-                    LocContext::getLocContext(
-                        NULL,
-                        NULL,
-                        LocContext::mLocationHalName,
-                        false),
-                    true /*isMaster*/)
+                   LocContext::getLocContext(LocContext::mLocationHalName),
+                   true /*isMaster*/)
 {
     LOC_LOGD("%s]: Constructor", __func__);
 }

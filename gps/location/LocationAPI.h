@@ -178,6 +178,20 @@ public:
                 LOCATION_ERROR_INVALID_PARAMETER if any parameters in GnssNiResponse are invalid
                 LOCATION_ERROR_ID_UNKNOWN if id does not match a gnssNiCallback */
     virtual void gnssNiResponse(uint32_t id, GnssNiResponse response) override;
+
+    /* ================================== NETWORK PROVIDER =========================== */
+
+    /* enableNetworkProvider enables Network Provider */
+    virtual void enableNetworkProvider();
+
+    /* disableNetworkProvider disables Network Provider */
+    virtual void disableNetworkProvider();
+
+    /* startNetworkLocation start a single shot network location request */
+    virtual void startNetworkLocation(trackingCallback* callback);
+
+    /* stopNetworkLocation stop any ongoing network location request */
+    virtual void stopNetworkLocation(trackingCallback* callback);
 };
 
 typedef struct {
@@ -235,7 +249,10 @@ public:
         collectiveResponseCallback returns:
                 LOCATION_ERROR_SUCCESS if session was successful
                 LOCATION_ERROR_INVALID_PARAMETER if any other parameters are invalid
-                LOCATION_ERROR_GENERAL_FAILURE if failure for any other reason */
+                LOCATION_ERROR_GENERAL_FAILURE if failure for any other reason
+
+      PLEASE NOTE: It is caller's resposibility to FREE the memory of the return value.
+                   The memory must be freed by delete [].*/
     virtual uint32_t* gnssUpdateConfig(const GnssConfig& config) override;
 
     /* gnssGetConfig fetches the current constellation and SV configuration
@@ -250,7 +267,10 @@ public:
            LOCATION_ERROR_CALLBACK_MISSING If no gnssConfigCallback
                                            was passed in createInstance
            LOCATION_ERROR_NOT_SUPPORTED If read of requested configuration
-                                        is not supported */
+                                        is not supported
+
+      PLEASE NOTE: It is caller's resposibility to FREE the memory of the return value.
+                   The memory must be freed by delete [].*/
     uint32_t* gnssGetConfig(GnssConfigFlagsMask mask);
 
     /* delete specific gnss aiding data for testing, which returns a session id
@@ -436,6 +456,57 @@ public:
     */
     virtual uint32_t configDeadReckoningEngineParams(
             const DeadReckoningEngineConfig& dreConfig) override;
+
+        /** @brief
+        This API is used to instruct the specified engine to be in
+        the pause/resume state. <br/>
+
+        When the engine is placed in paused state, the engine will
+        stop. If there is an on-going session, engine will no longer
+        produce fixes. In the paused state, calling API to delete
+        aiding data from the paused engine may not have effect.
+        Request to delete Aiding data shall be issued after
+        engine resume. <br/>
+
+        Currently, only DRE engine will support pause/resume
+        request. responseCb() will return not supported when request
+        is made to pause/resume none-DRE engine. <br/>
+
+        Request to pause/resume DRE engine can be made with or
+        without an on-going session. With QDR engine, on resume, GNSS
+        position & heading re-acquisition is needed for DR engine to
+        engage. If DR engine is already in the requested state, the
+        request will be no-op.  <br/>
+
+        @param
+        engType: the engine that is instructed to change its run
+        state. <br/>
+
+        engState: the new engine run state that the engine is
+        instructed to be in. <br/>
+
+        @return
+        A session id that will be returned in responseCallback to
+        match command with response. This effect is global for all
+        clients of LocationAPI responseCallback returns:
+                LOCATION_ERROR_SUCCESS if successful
+                LOCATION_ERROR_INVALID_PARAMETER if any parameters are invalid
+    */
+    virtual uint32_t configEngineRunState(PositioningEngineMask engType,
+                                          LocEngineRunState engState) override;
+
+      /** @brief
+        Set the EULA opt-in status from system user. This is used as consent to
+        use network-based positioning.
+
+        @param
+        userConsnt: user agrees to use GTP service or not.
+
+        @return
+        A session id that will be returned in responseCallback to
+        match command with response.
+    */
+    virtual uint32_t setOptInStatus(bool userConsent);
 };
 
 #endif /* LOCATIONAPI_H */

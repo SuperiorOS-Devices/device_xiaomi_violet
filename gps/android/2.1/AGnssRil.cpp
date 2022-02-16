@@ -54,6 +54,7 @@ Return<bool> AGnssRil::updateNetworkState(bool connected, NetworkType type, bool
     const int NetworkType_BLUETOOTH = 7;
     const int NetworkType_ETHERNET = 9;
     const int NetworkType_PROXY = 16;
+    std::string apn("");
 
     // for XTRA
     if (nullptr != mGnss && ( nullptr != mGnss->getGnssInterface() )) {
@@ -102,13 +103,13 @@ Return<bool> AGnssRil::updateNetworkState(bool connected, NetworkType type, bool
                 }
                 break;
         }
-        mGnss->getGnssInterface()->updateConnectionStatus(connected, false, typeout, 0);
+        mGnss->getGnssInterface()->updateConnectionStatus(connected, typeout, false, 0, apn);
     }
     return true;
 }
 Return<bool> AGnssRil::updateNetworkState_2_0(const V2_0::IAGnssRil::NetworkAttributes& attributes) {
     ENTRY_LOG_CALLFLOW();
-
+    std::string apn = attributes.apn;
     if (nullptr != mGnss && (nullptr != mGnss->getGnssInterface())) {
         int8_t typeout = loc_core::TYPE_UNKNOWN;
         bool roaming = false;
@@ -120,8 +121,9 @@ Return<bool> AGnssRil::updateNetworkState_2_0(const V2_0::IAGnssRil::NetworkAttr
         if (attributes.capabilities & IAGnssRil::NetworkCapability::NOT_ROAMING) {
             roaming = false;
         }
+        LOC_LOGd("apn string received is: %s", apn.c_str());
         mGnss->getGnssInterface()->updateConnectionStatus(attributes.isConnected,
-                typeout, roaming, (NetworkHandle) attributes.networkHandle);
+                typeout, roaming, (NetworkHandle) attributes.networkHandle, apn);
     }
     return true;
 }

@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2014 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011-2014, 2020 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -32,7 +32,6 @@
 
 #include <stdbool.h>
 #include <loc_pla.h>
-
 #if defined (USE_ANDROID_LOGGING) || defined (ANDROID)
 // Android and LE targets with logcat support
 #include <utils/Log.h>
@@ -53,7 +52,7 @@
 #endif /* LOG_TAG */
 
 // LE targets with no logcat support
-#ifdef FEATURE_EXTERNAL_AP
+#if defined(FEATURE_EXTERNAL_AP) || defined(USE_SYSLOG_LOGGING)
 #include <syslog.h>
 #define ALOGE(...) syslog(LOG_ERR,     "LOC_LOGE: " __VA_ARGS__);
 #define ALOGW(...) syslog(LOG_WARNING, "LOC_LOGW: " __VA_ARGS__);
@@ -160,10 +159,10 @@ inline void loc_logger_init(unsigned long debug, unsigned long timestamp)
 inline void log_buffer_init(bool enabled) {
     loc_logger.LOG_BUFFER_ENABLE = enabled;
 }
-
+extern void log_tag_level_map_init();
+extern int get_tag_log_level(const char* tag);
 extern char* get_timestamp(char* str, unsigned long buf_size);
 extern void log_buffer_insert(char *str, unsigned long buf_size, int level);
-
 /*=============================================================================
  *
  *                          LOGGING BUFFER MACROS
@@ -196,11 +195,28 @@ extern void log_buffer_insert(char *str, unsigned long buf_size, int level);
   if that value remains unchanged, it means gps.conf did not
   provide a value and we default to the initial value to use
   Android's logging levels*/
-#define IF_LOC_LOGE if((loc_logger.DEBUG_LEVEL >= 1) && (loc_logger.DEBUG_LEVEL <= 5))
-#define IF_LOC_LOGW if((loc_logger.DEBUG_LEVEL >= 2) && (loc_logger.DEBUG_LEVEL <= 5))
-#define IF_LOC_LOGI if((loc_logger.DEBUG_LEVEL >= 3) && (loc_logger.DEBUG_LEVEL <= 5))
-#define IF_LOC_LOGD if((loc_logger.DEBUG_LEVEL >= 4) && (loc_logger.DEBUG_LEVEL <= 5))
-#define IF_LOC_LOGV if((loc_logger.DEBUG_LEVEL >= 5) && (loc_logger.DEBUG_LEVEL <= 5))
+
+
+/* Tag based logging control MACROS */
+/* The logic is like this:
+ * 1, LOCAL_LOG_LEVEL is defined as a static variable in log_util.h,
+ *    then all source files which includes log_util.h will have its own LOCAL_LOG_LEVEL variable;
+ * 2, For each source file,
+ *    2.1, First time when LOC_LOG* is invoked(its LOCAL_LOG_LEVEL == -1),
+ *         Set the tag based log level according to the <tag, level> map;
+ *         If this tag isn't found in map, set local debug level as global loc_logger.DEBUG_LEVEL;
+ *    2.2, If not the first time, use its LOCAL_LOG_LEVEL as the debug level of this tag.
+*/
+static int LOCAL_LOG_LEVEL = -1;
+#define IF_LOC_LOG(x) \
+    if (((LOCAL_LOG_LEVEL == -1 && (LOCAL_LOG_LEVEL = get_tag_log_level(LOG_TAG)) >= x) ||\
+            LOCAL_LOG_LEVEL >= x) && LOCAL_LOG_LEVEL <= 5)
+
+#define IF_LOC_LOGE IF_LOC_LOG(1)
+#define IF_LOC_LOGW IF_LOC_LOG(2)
+#define IF_LOC_LOGI IF_LOC_LOG(3)
+#define IF_LOC_LOGD IF_LOC_LOG(4)
+#define IF_LOC_LOGV IF_LOC_LOG(5)
 
 #define LOC_LOGE(...) IF_LOC_LOGE { ALOGE(__VA_ARGS__); INSERT_BUFFER(LOG_NDEBUG, 0, __VA_ARGS__);}
 #define LOC_LOGW(...) IF_LOC_LOGW { ALOGW(__VA_ARGS__); INSERT_BUFFER(LOG_NDEBUG, 1, __VA_ARGS__);}

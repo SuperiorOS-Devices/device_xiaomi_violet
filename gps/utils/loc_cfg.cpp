@@ -144,7 +144,9 @@ RETURN VALUE
 SIDE EFFECTS
    N/A
 ===========================================================================*/
-int loc_set_config_entry(const loc_param_s_type* config_entry, loc_param_v_type* config_value)
+int loc_set_config_entry(const loc_param_s_type* config_entry,
+                        loc_param_v_type* config_value,
+                        uint16_t string_len = LOC_MAX_PARAM_STRING)
 {
     int ret=-1;
     if(NULL == config_entry || NULL == config_value)
@@ -166,7 +168,7 @@ int loc_set_config_entry(const loc_param_s_type* config_entry, loc_param_v_type*
             else {
                 strlcpy((char*) config_entry->param_ptr,
                         config_value->param_str_value,
-                        LOC_MAX_PARAM_STRING);
+                        string_len);
             }
             /* Log INI values */
             LOC_LOGD("%s: PARAM %s = %s", __FUNCTION__,
@@ -233,7 +235,8 @@ SIDE EFFECTS
    N/A
 ===========================================================================*/
 int loc_fill_conf_item(char* input_buf,
-                       const loc_param_s_type* config_table, uint32_t table_length)
+                       const loc_param_s_type* config_table,
+                       uint32_t table_length, uint16_t string_len = LOC_MAX_PARAM_STRING)
 {
     int ret = 0;
 
@@ -270,7 +273,7 @@ int loc_fill_conf_item(char* input_buf,
 
                 for(uint32_t i = 0; NULL != config_table && i < table_length; i++)
                 {
-                    if(!loc_set_config_entry(&config_table[i], &config_value)) {
+                    if(!loc_set_config_entry(&config_table[i], &config_value, string_len)) {
                         ret += 1;
                     }
                 }
@@ -282,7 +285,7 @@ int loc_fill_conf_item(char* input_buf,
 }
 
 /*===========================================================================
-FUNCTION loc_read_conf_r (repetitive)
+FUNCTION loc_read_conf_r_long (repetitive)
 
 DESCRIPTION
    Reads the specified configuration file and sets defined values based on
@@ -310,11 +313,13 @@ RETURN VALUE
 SIDE EFFECTS
    N/A
 ===========================================================================*/
-int loc_read_conf_r(FILE *conf_fp, const loc_param_s_type* config_table, uint32_t table_length)
+int loc_read_conf_r_long(FILE *conf_fp, const loc_param_s_type* config_table,
+                         uint32_t table_length, uint16_t string_len)
 {
     int ret=0;
-
+    char input_buf[string_len];  /* declare a char array */
     unsigned int num_params=table_length;
+
     if(conf_fp == NULL) {
         LOC_LOGE("%s:%d]: ERROR: File pointer is NULL\n", __func__, __LINE__);
         ret = -1;
@@ -330,17 +335,15 @@ int loc_read_conf_r(FILE *conf_fp, const loc_param_s_type* config_table, uint32_
         }
     }
 
-    char input_buf[LOC_MAX_PARAM_LINE];  /* declare a char array */
-
     LOC_LOGD("%s:%d]: num_params: %d\n", __func__, __LINE__, num_params);
     while(num_params)
     {
-        if(!fgets(input_buf, LOC_MAX_PARAM_LINE, conf_fp)) {
+        if(!fgets(input_buf, string_len, conf_fp)) {
             LOC_LOGD("%s:%d]: fgets returned NULL\n", __func__, __LINE__);
             break;
         }
 
-        num_params -= loc_fill_conf_item(input_buf, config_table, table_length);
+        num_params -= loc_fill_conf_item(input_buf, config_table, table_length, string_len);
     }
 
 err:
@@ -348,7 +351,7 @@ err:
 }
 
 /*===========================================================================
-FUNCTION loc_udpate_conf
+FUNCTION loc_udpate_conf_long
 
 DESCRIPTION
    Parses the passed in buffer for configuration items, and update the table
@@ -373,8 +376,9 @@ RETURN VALUE
 SIDE EFFECTS
    N/A
 ===========================================================================*/
-int loc_update_conf(const char* conf_data, int32_t length,
-                    const loc_param_s_type* config_table, uint32_t table_length)
+int loc_update_conf_long(const char* conf_data, int32_t length,
+                         const loc_param_s_type* config_table,
+                         uint32_t table_length, uint16_t string_len)
 {
     int ret = -1;
 
@@ -397,7 +401,8 @@ int loc_update_conf(const char* conf_data, int32_t length,
             LOC_LOGD("%s:%d]: num_params: %d\n", __func__, __LINE__, num_params);
             while(num_params && input_buf) {
                 ret++;
-                num_params -= loc_fill_conf_item(input_buf, config_table, table_length);
+                num_params -=
+                        loc_fill_conf_item(input_buf, config_table, table_length, string_len);
                 input_buf = strtok_r(NULL, "\n", &saveptr);
             }
             free(conf_copy);
@@ -408,7 +413,7 @@ int loc_update_conf(const char* conf_data, int32_t length,
 }
 
 /*===========================================================================
-FUNCTION loc_read_conf
+FUNCTION loc_read_conf_long
 
 DESCRIPTION
    Reads the specified configuration file and sets defined values based on
@@ -429,8 +434,8 @@ RETURN VALUE
 SIDE EFFECTS
    N/A
 ===========================================================================*/
-void loc_read_conf(const char* conf_file_name, const loc_param_s_type* config_table,
-                   uint32_t table_length)
+void loc_read_conf_long(const char* conf_file_name, const loc_param_s_type* config_table,
+                        uint32_t table_length, uint16_t string_len)
 {
     FILE *conf_fp = NULL;
 
@@ -439,15 +444,16 @@ void loc_read_conf(const char* conf_file_name, const loc_param_s_type* config_ta
     {
         LOC_LOGD("%s: using %s", __FUNCTION__, conf_file_name);
         if(table_length && config_table) {
-            loc_read_conf_r(conf_fp, config_table, table_length);
+            loc_read_conf_r_long(conf_fp, config_table, table_length, string_len);
             rewind(conf_fp);
         }
-        loc_read_conf_r(conf_fp, loc_param_table, loc_param_num);
+        loc_read_conf_r_long(conf_fp, loc_param_table, loc_param_num, string_len);
         fclose(conf_fp);
     }
     /* Initialize logging mechanism with parsed data */
     loc_logger_init(DEBUG_LEVEL, TIMESTAMP);
     log_buffer_init(sLogBufferEnabled);
+    log_tag_level_map_init();
 }
 
 /*=============================================================================

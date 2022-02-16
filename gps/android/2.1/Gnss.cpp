@@ -86,6 +86,7 @@ void Gnss::GnssDeathRecipient::serviceDied(uint64_t cookie, const wp<IBase>& who
     LOC_LOGE("%s] service died. cookie: %llu, who: %p",
             __FUNCTION__, static_cast<unsigned long long>(cookie), &who);
     if (mGnss != nullptr) {
+        mGnss->getGnssInterface()->resetNetworkInfo();
         mGnss->cleanup();
     }
 }

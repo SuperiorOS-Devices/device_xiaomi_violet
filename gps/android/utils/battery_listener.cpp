@@ -45,8 +45,6 @@ using android::hardware::interfacesEqual;
 using android::hardware::Return;
 using android::hardware::Void;
 using android::hardware::health::V1_0::BatteryStatus;
-using android::hardware::health::V1_0::toString;
-using android::hardware::health::V2_0::get_health_service;
 using android::hardware::health::V2_1::HealthInfo;
 using android::hardware::health::V2_1::IHealthInfoCallback;
 using android::hardware::health::V2_1::IHealth;
@@ -98,7 +96,7 @@ status_t BatteryListenerImpl::init()
         return INVALID_OPERATION;
 
     do {
-        mHealth = IHealth::getService("default", true);
+        mHealth = IHealth::getService();
         if (mHealth != NULL)
             break;
         usleep(GET_HEALTH_SVC_WAIT_TIME_MS * 1000);

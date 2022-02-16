@@ -13,7 +13,8 @@ libgnss_la_SOURCES = \
     location_gnss.cpp \
     GnssAdapter.cpp \
     XtraSystemStatusObserver.cpp \
-    Agps.cpp
+    Agps.cpp \
+    NativeAgpsHandler.cpp
 
 if USE_GLIB
 libgnss_la_CFLAGS = -DUSE_GLIB $(AM_CFLAGS) @GLIB_CFLAGS@

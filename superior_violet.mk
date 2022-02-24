@@ -17,9 +17,6 @@ TARGET_BOOT_ANIMATION_RES := 1080
 # Charging Animation
 TARGET_INCLUDE_PIXEL_CHARGER := true
 
-# Face unlock
-TARGET_USES_FACE_UNLOCK := true
-
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := superior_violet
 PRODUCT_DEVICE := violet

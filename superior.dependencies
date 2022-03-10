@@ -11,11 +11,6 @@
     "branch": "twelve",
     "remote": "SuperiorOS-Devices"
   },
-    "repository": "device_xiaomi_extras",
-    "target_path": "device/xiaomi/extras",
-    "branch": "twelve",
-    "remote": "SuperiorOS-Devices"
-  },
   {
     "repository": "kdrag0n/proton-clang",
     "target_path": "prebuilts/clang/host/linux-x86/clang-proton",

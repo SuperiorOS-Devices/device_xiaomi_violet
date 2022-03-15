@@ -139,6 +139,7 @@ ro.vendor.qti.va_aosp.support=1
 
 # Graphics
 persist.sys.sf.color_saturation=1.0
+ro.surface_flinger.protected_contents=true
 ro.hardware.egl=adreno
 ro.hardware.vulkan=adreno
 ro.opengles.version=196610

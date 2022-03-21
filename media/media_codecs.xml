@@ -196,6 +196,7 @@ Only the three quirks included above are recognized at this point:
              <Limit name="frame-rate" range="1-30" />
              <Limit name="concurrent-instances" max="16" />
              <Limit name="performance-point-1280x720" value="30" />
+             <Attribute name="software-codec" />
         </MediaCodec>
     </Encoders>
     <Decoders>

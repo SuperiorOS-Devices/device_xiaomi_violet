@@ -40,6 +40,7 @@ vendor                                                  /vendor                 
 odm                                                     /odm                     ext4    ro,barrier=1,discard                                 wait,avb,logical,first_stage_mount
 /dev/block/bootdevice/by-name/boot                      /boot                    emmc    defaults                                             defaults
 /dev/block/bootdevice/by-name/cache                     /cache                   ext4    nosuid,noatime,nodev,barrier=1                       wait
+/dev/block/bootdevice/by-name/recovery                  /recovery                emmc    defaults                                             defaults
 /dev/block/by-name/metadata                             /metadata                ext4    noatime,nosuid,nodev,discard                         wait,formattable,check,first_stage_mount
 
 # Add fs_mgr flag - sysfs_path=/sys/devices/platform/soc/xxxx.[ufshc|sdhci] to userdata entry, based on UFS|eMMC device.

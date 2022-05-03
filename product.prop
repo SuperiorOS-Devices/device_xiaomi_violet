@@ -32,6 +32,7 @@ ro.com.google.ime.kb_pad_port_b=1
 # Graphics
 debug.renderengine.backend=skiaglthreaded
 debug.cpurend.vsync=false
+debug.hwui.renderer=skiagl
 debug.sf.latch_unsignaled=1
 persist.demo.hdmirotationlock=false
 persist.hwc.enable_vds=1

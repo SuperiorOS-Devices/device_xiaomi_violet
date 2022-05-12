@@ -554,6 +554,12 @@ service vendor.per_proxy /vendor/bin/pm-proxy
     group system
     disabled
 
+service adsprpcd /vendor/bin/adsprpcd
+   class main
+   user media
+   group media
+   disabled
+
 on property:init.svc.vendor.per_mgr=running
     start vendor.per_proxy
 

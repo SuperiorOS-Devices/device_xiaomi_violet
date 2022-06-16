@@ -142,12 +142,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libc++.so
 
-# CNE
-PRODUCT_PACKAGES += \
-    cneapiclient \
-    com.quicinc.cne \
-    services-ext
-
 # Config Store
 PRODUCT_PACKAGES += \
     disable_configstore
@@ -158,7 +152,6 @@ PRODUCT_PACKAGES += \
 
 # Display/Graphics
 PRODUCT_PACKAGES += \
-    android.frameworks.displayservice@1.0.vendor \
     android.hardware.graphics.composer@2.4-service \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
@@ -166,7 +159,6 @@ PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-service \
     gralloc.sm6150 \
     hwcomposer.sm6150 \
-    libdisplayconfig \
     libtinyxml \
     libvulkan \
     memtrack.sm6150 \
@@ -383,19 +375,12 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     CarrierConfigOverlay \
-    android.hardware.radio.config@1.0.vendor \
-    android.hardware.radio.config@1.1 \
-    android.hardware.radio@1.4.vendor \
     android.hardware.radio@1.5.vendor \
-    android.hardware.radio@1.5 \
     android.hardware.radio.config@1.2.vendor \
-    android.hardware.secure_element@1.1 \
-    android.hardware.radio.deprecated@1.0 \
     android.hardware.radio.deprecated@1.0.vendor \
     libjson \
     libprotobuf-cpp-full \
     libprotobuf-cpp-full-vendorcompat \
-    libprotobuf-cpp-lite-vendorcompat \
     librmnetctl \
     libxml2
 
@@ -407,8 +392,6 @@ PRODUCT_COPY_FILES += \
 
 # Secure Element
 PRODUCT_PACKAGES += \
-    android.hardware.secure_element@1.0.vendor \
-    android.hardware.secure_element@1.1.vendor \
     android.hardware.secure_element@1.2.vendor
 
 # Sensor
@@ -475,7 +458,7 @@ PRODUCT_PACKAGES += \
     libavservices_minijail_32 \
     libdisplayconfig.qti \
     vendor.display.config@2.0 \
-    libdisplayconfig.vendor \
+    libdisplayconfig.qti.vendor \
     libnl \
     libqdMetaData \
     libqdMetaData.system \

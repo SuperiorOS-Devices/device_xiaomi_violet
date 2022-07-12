@@ -23,9 +23,6 @@ persist.vendor.cne.feature=1
 persist.data.df.dev_name=rmnet_usb0
 persist.vendor.data.profile_update=true
 
-# Force triple frame buffers
-ro.surface_flinger.max_frame_buffer_acquired_buffers=3
-
 # FUSE passthrough
 persist.sys.fuse.passthrough.enable=true
 

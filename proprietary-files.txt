@@ -64,29 +64,22 @@ vendor/lib64/vendor.qti.hardware.alarm@1.0.so|7c89039a1d670ff6f92ada82bd1ff2c236
 # ANT+ - from LA.UM.9.1.r1-11500.02-SMxxx0.QSSI12.0
 vendor/lib64/hw/com.dsi.ant@1.0-impl.so|0f8f5c3081d0ef745e0896b1fceea15f52fe3b21
 
-# Audio - from from davinci-user 11 RKQ1.200826.002 V12.5.2.0.RFJCNXM release-keys
-vendor/lib/libadiertac.so|4fbcedc4e3258487e49e912838470f39c5e4e25a
-vendor/lib/libaudcal.so|827fbc6fb4cfd96de86c692ebcafe3ed8660249b
-vendor/lib/libaudioparsers.so|b786d5a2a8f94edb11b5334bbe981dbd2633325f
-vendor/lib/libdrc.so|e27974e53efe0456cba96f6910ad977c6351d0b7
-vendor/lib/libhdmipassthru.so|adc8690952cacf8eb2c141a9b977cfd5ba5f19ea
-vendor/lib/libqtigef.so|5274b67a13e3211cc581385189560fd1e2572d44
-vendor/lib/libssrec.so|aa790d85040349bc477ca5056c650ce970409c6e
-vendor/lib/libsurround_3mic_proc.so|1d425b4b0d89f68e0f0112e8f2f73b1cd5b6dea2
-vendor/lib64/libadiertac.so|c4ab6f4c095fd60a2366ecab0368903b58f00a71
-vendor/lib64/libaudcal.so|d6ddbf697904b83235318e8c2566ac34ec67b341
-vendor/lib64/libaudioparsers.so|326954ecd50e2b0a25ff0f076def93271a9bd554
-vendor/lib64/libhdmipassthru.so|fce67bb92598ac16c2122192d534e2d4bc413d2d
-vendor/lib64/libqtigef.so|fdd1580c4dee20cd2863f432903dce5567ff6100
-vendor/lib64/libssrec.so|9ecab6e403a53952fcc144794d9f6c5ac96dc64c
+# Audio - from from SWEETEEAGlobal_V13.0.10.0.SKFEUXM
+vendor/lib/libadiertac.so|cd9427aedb4c1c629e933785c98abfb64bf1b058
+vendor/lib/libaudcal.so|36664545295330b5e5164f93a12480acda3400d8
+vendor/lib/libaudioparsers.so|68826db8a2cdff81d835ec68573e6df75a7b3304
+vendor/lib/libdrc.so|b066f176f119847059c5aa148f73e1b042fbeab3
+vendor/lib/libhdmipassthru.so|e24b2dae7d84520003de0e8d61af42c37c064292
+vendor/lib/libqtigef.so|ef2f0eefe3b8b5e4d4bc559656de8c58cc461c01
+vendor/lib/libssrec.so|61dbcf950d0c48dfe520b506a5e6597ab7111a33
+vendor/lib/libsurround_3mic_proc.so|e8e086123e0c1dc17f008f97edb3611cd4c702e1
 
 # Audio FX modules (system) - from LA.QSSI.12.0.r1-07000-qssi.0
 system_ext/etc/permissions/audiosphere.xml|015ad7be4921039238bfa3d34d052d752453e49c
 system_ext/framework/audiosphere.jar|fc609d51ef6e7026db415e4abde59b40e515a4fe
 
-# Audio FX modules (vendor) - from davinci-user 11 RKQ1.200826.002 V12.5.2.0.RFJCNXM release-keys
-vendor/lib/soundfx/libasphere.so|44cd20e13920888b29d3b2e4bb0b2559a746bf8f
-vendor/lib64/soundfx/libasphere.so|7d01becf38d808b232aef88025e4dd69839b788f
+# Audio FX modules (vendor) - from SWEETEEAGlobal_V13.0.10.0.SKFEUXM
+vendor/lib/soundfx/libasphere.so|b2daeb875914a33575c7d7a67429f25d09d35489
 
 # Audio (speaker amplifier) firmware
 vendor/firmware/tas2563_uCDSP.bin

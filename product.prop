@@ -73,6 +73,9 @@ arm64.memtag.process.system_server=off
 # Time
 persist.vendor.delta_time.enable=true
 
+# Tethering
+sys.fflag.override.settings_tether_all_in_one=true
+
 # Wireless display
 persist.debug.wfd.enable=1
 persist.sys.wfd.virtual=0

@@ -155,7 +155,7 @@ volatile int32_t LocApiBase::mMsgTaskRefCount = 0;
 LocApiBase::LocApiBase(LOC_API_ADAPTER_EVENT_MASK_T excludedMask,
                        ContextBase* context) :
     mContext(context),
-    mMask(0), mExcludedMask(excludedMask)
+    mMask(0), mExcludedMask(excludedMask), mEngineLockState(ENGINE_LOCK_STATE_ENABLED)
 {
     memset(mLocAdapters, 0, sizeof(mLocAdapters));
 
@@ -613,6 +613,12 @@ void LocApiBase::reportLatencyInfo(GnssLatencyInfo& gnssLatencyInfo)
 {
     // loop through adapters, and deliver to the first handling adapter.
     TO_ALL_LOCADAPTERS(mLocAdapters[i]->reportLatencyInfoEvent(gnssLatencyInfo));
+}
+
+void LocApiBase::reportEngineLockStatus(EngineLockState engineLockState)
+{
+    // loop through adapters, and deliver to the All handling adapter.
+    TO_ALL_LOCADAPTERS(mLocAdapters[i]->handleEngineLockStatusEvent(engineLockState));
 }
 
 enum loc_api_adapter_err LocApiBase::

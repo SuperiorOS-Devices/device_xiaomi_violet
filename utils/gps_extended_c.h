@@ -2422,6 +2422,13 @@ typedef uint64_t NetworkHandle;
 #define NETWORK_HANDLE_UNKNOWN  ~0
 #define MAX_NETWORK_HANDLES 10
 
+typedef enum {
+  ENGINE_LOCK_STATE_INVALID = 0,
+  ENGINE_LOCK_STATE_ENABLED = 1,  /**<  Location engine is enabled.  */
+  ENGINE_LOCK_STATE_DISABLED = 2, /**<  location engine is disabled. */
+  ENGINE_LOCK_STATE_MAX,
+}EngineLockState;
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

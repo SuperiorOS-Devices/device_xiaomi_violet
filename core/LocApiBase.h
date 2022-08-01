@@ -137,6 +137,7 @@ protected:
     bool isInSession();
     const LOC_API_ADAPTER_EVENT_MASK_T mExcludedMask;
     bool isMaster();
+    EngineLockState mEngineLockState;
 
 public:
     inline void sendMsg(const LocMsg* msg) const {
@@ -203,6 +204,7 @@ public:
     void sendNfwNotification(GnssNfwNotification& notification);
     void reportGnssConfig(uint32_t sessionId, const GnssConfig& gnssConfig);
     void reportLatencyInfo(GnssLatencyInfo& gnssLatencyInfo);
+    void reportEngineLockStatus(EngineLockState engineLockState);
     void reportQwesCapabilities
     (
         const std::unordered_map<LocationQwesFeatureType, bool> &featureMap
@@ -345,6 +347,14 @@ public:
                                               LocApiResponse* adapterResponse=nullptr);
     virtual void getConstellationMultiBandConfig(uint32_t sessionId,
                                         LocApiResponse* adapterResponse=nullptr);
+
+    inline EngineLockState getEngineLockState() {
+        return mEngineLockState;
+    }
+
+    inline void setEngineLockState(EngineLockState engineLockState) {
+        mEngineLockState = engineLockState;
+    }
 };
 
 class ElapsedRealtimeEstimator {

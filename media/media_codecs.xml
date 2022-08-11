@@ -129,7 +129,7 @@ Only the three quirks included above are recognized at this point:
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Limit name="size" min="96x96" max="3840x2160" />
+            <Limit name="size" min="96x96" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
             <Limit name="blocks-per-second" min="24" max="972000" />
@@ -152,13 +152,13 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-40000000" />
             <Limit name="frame-rate" range="1-120" />
             <Limit name="concurrent-instances" max="16" />
-            <Limit name="performance-point-3840x2160" value="30" />
+            <Limit name="performance-point-1920x1088" value="60" />
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.hevc" type="video/hevc" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Limit name="size" min="96x96" max="3840x2160" />
+            <Limit name="size" min="96x96" max="4096x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
             <Limit name="blocks-per-second" min="24" max="972000" />
@@ -170,15 +170,27 @@ Only the three quirks included above are recognized at this point:
             <Limit name="performance-point-1920x1080" value="120" />
             <Limit name="performance-point-1280x720" value="240" />
         </MediaCodec>
+        <MediaCodec name="OMX.qcom.video.encoder.hevc.cq" type="video/hevc" >
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-input-ports" />
+            <Quirk name="requires-allocate-on-output-ports" />
+            <Quirk name="requires-loaded-to-idle-after-allocation" />
+            <Limit name="size" min="512x512" max="512x512" />
+            <Limit name="frame-rate" range="1-20" />
+            <Limit name="concurrent-instances" max="16" />
+            <Limit name="quality" range="0-100" default="80" />
+            <Limit name="performance-point-512x512" value="480" />
+            <Feature name="bitrate-modes" value="CQ" />
+        </MediaCodec>
         <!-- Video Software -->
         <MediaCodec name="OMX.qcom.video.encoder.h263sw" type="video/3gpp" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-allocate-on-output-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Limit name="size" min="96x96" max="864x480" />
+            <Limit name="size" min="32x32" max="864x480" />
             <Limit name="alignment" value="4x4" />
             <Limit name="block-size" value="16x16" />
-            <Limit name="blocks-per-second" min="36" max="48600" />
+            <Limit name="blocks-per-second" min="1" max="48600" />
             <Limit name="bitrate" range="1-2000000" />
             <Limit name="frame-rate" range="1-30" />
             <Limit name="concurrent-instances" max="16" />
@@ -188,15 +200,15 @@ Only the three quirks included above are recognized at this point:
              <Quirk name="requires-allocate-on-input-ports" />
              <Quirk name="requires-allocate-on-output-ports" />
              <Quirk name="requires-loaded-to-idle-after-allocation" />
-             <Limit name="size" min="96x96" max="1280x720" />
+             <Limit name="size" min="32x32" max="1280x720" />
              <Limit name="alignment" value="2x2" />
              <Limit name="block-size" value="16x16" />
-             <Limit name="blocks-per-second" min="36" max="108000" />
+             <Limit name="blocks-per-second" min="1" max="108000" />
              <Limit name="bitrate" range="1-4000000" />
              <Limit name="frame-rate" range="1-30" />
+             <Attribute name="software-codec" />
              <Limit name="concurrent-instances" max="16" />
              <Limit name="performance-point-1280x720" value="30" />
-             <Attribute name="software-codec" />
         </MediaCodec>
     </Encoders>
     <Decoders>
@@ -269,7 +281,6 @@ Only the three quirks included above are recognized at this point:
             <Limit name="frame-rate" range="1-120" />
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
-            <Limit name="performance-point-3840x2160" value="30" />
             <Limit name="performance-point-1920x1080" value="60" />
             <Limit name="performance-point-1280x720" value="120" />
         </MediaCodec>
@@ -337,10 +348,10 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.qti.video.decoder.h263sw" type="video/3gpp" >
              <Quirk name="requires-allocate-on-input-ports" />
              <Quirk name="requires-allocate-on-output-ports" />
-             <Limit name="size" min="96x96" max="864x480" />
+             <Limit name="size" min="16x16" max="864x480" />
              <Limit name="alignment" value="4x4" />
              <Limit name="block-size" value="16x16" />
-             <Limit name="blocks-per-second" min="36" max="48600" />
+             <Limit name="blocks-per-second" min="1" max="48600" />
              <Limit name="bitrate" range="1-16000000" />
              <Limit name="frame-rate" range="1-30" />
              <Feature name="adaptive-playback" />
@@ -351,20 +362,20 @@ Only the three quirks included above are recognized at this point:
              <Quirk name="requires-allocate-on-input-ports" />
              <Quirk name="requires-allocate-on-output-ports" />
              <Type name="video/mp4v-es">
-                <Limit name="size" min="96x96" max="1920x1088" />
+                <Limit name="size" min="16x16" max="1920x1088" />
                 <Limit name="alignment" value="2x2" />
                 <Limit name="block-size" value="16x16" />
-                <Limit name="blocks-per-second" min="36" max="244800" />
+                <Limit name="blocks-per-second" min="1" max="244800" />
                 <Limit name="bitrate" range="1-40000000" />
                 <Limit name="frame-rate" range="1-30" />
                 <Limit name="concurrent-instances" max="16" />
                 <Limit name="performance-point-1920x1080" value="30" />
              </Type>
              <Type name="video/mp4v-esdp">
-                <Limit name="size" min="96x96" max="1920x1088" />
+                <Limit name="size" min="16x16" max="1920x1088" />
                 <Limit name="alignment" value="2x2" />
                 <Limit name="block-size" value="16x16" />
-                <Limit name="blocks-per-second" min="36" max="244800" />
+                <Limit name="blocks-per-second" min="1" max="244800" />
                 <Limit name="bitrate" range="1-40000000" />
                 <Limit name="frame-rate" range="1-30" />
                 <Limit name="concurrent-instances" max="16" />

@@ -63,6 +63,11 @@ function blob_fixup() {
     system_ext/lib64/libwfdnative.so | system_ext/lib/libwfdnative.so | vendor/lib64/libgoodixhwfingerprint.so )
         "${PATCHELF}" --remove-needed "android.hidl.base@1.0.so" "${2}"
     ;;
+    # Use VNDK 32 libhidlbase
+    vendor/lib64/libvendor.goodix.hardware.interfaces.biometrics.fingerprint@2.1.so)
+        "${PATCHELF_0_8}" --remove-needed "libhidlbase.so" "${2}"
+        sed -i "s/libhidltransport.so/libhidlbase-v32.so\x00/" "${2}"
+    ;;
     esac
 }
 

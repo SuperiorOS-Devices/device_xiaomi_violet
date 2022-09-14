@@ -490,6 +490,13 @@ on property:persist.vendor.ssr.enable_ramdumps=1 && property:ro.boot.mode!=charg
 on property:sys.boot_completed=1
     setprop vendor.setup.power 1
 
+    # Setup runtime blkio
+    # value for group_idle is us
+    write /dev/blkio/blkio.weight 1000
+    write /dev/blkio/background/blkio.weight 200
+    write /dev/blkio/blkio.group_idle 2000
+    write /dev/blkio/background/blkio.group_idle 0
+
     # FPS Info permissions
     chown system graphics /sys/class/drm/sde-crtc-0/measured_fps
     chmod 0666 /sys/class/drm/sde-crtc-0/measured_fps

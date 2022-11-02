@@ -35,9 +35,6 @@ bluetooth.profile.pan.panu.enabled?=true
 bluetooth.profile.pbap.server.enabled?=true
 bluetooth.profile.sap.server.enabled?=true
 
-# Camera
-vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.android.camera2,org.lineageos.snap
-
 # Charger
 ro.charger.enable_suspend=true
 

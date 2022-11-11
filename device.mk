@@ -115,7 +115,8 @@ PRODUCT_PACKAGES += \
     libsndmonitor \
     libspkrprot \
     libtinycompress \
-    libvolumelistener
+    libvolumelistener \
+    sound_trigger.primary.sm6150
 
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/,$(TARGET_COPY_OUT_VENDOR)/etc)

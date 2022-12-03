@@ -13,3 +13,7 @@ allow hal_audio_default audio_socket:sock_file rw_file_perms;
 # Dirac
 get_prop(hal_audio_default, dirac_prop)
 set_prop(hal_audio_default, dirac_prop)
+
+# Dolby
+allow hal_audio_default hal_dms_hwservice:hwservice_manager find;
+binder_call(hal_audio_default, hal_dms_default)

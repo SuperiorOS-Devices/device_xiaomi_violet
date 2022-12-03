@@ -23,8 +23,6 @@ vendor.audio_hal.period_multiplier=2
 vendor.audio_hal.period_size=192
 vendor.audio.adm.buffering.ms=2
 vendor.audio.capture.enforce_legacy_copp_sr=true
-vendor.audio.dolby.ds2.enabled=false
-vendor.audio.dolby.ds2.hardbypass=false
 vendor.audio.feature.a2dp_offload.enable=true
 vendor.audio.feature.afe_proxy.enable=true
 vendor.audio.feature.anc_headset.enable=true
@@ -118,6 +116,13 @@ persist.audio.dirac.speaker=true
 
 # Display post-processing
 ro.vendor.display.sensortype=2
+
+# Dolby
+persist.vendor.audio_fx.current=dolby
+vendor.audio.dolby.ds2.enabled=true
+vendor.audio.dolby.ds2.hardbypass=true
+ro.vendor.audio.dolby.dax.support=true
+ro.vendor.dolby.dax.version=DAX3_3.6.0.12_r1
 
 # DPM
 persist.vendor.dpm.loglevel=0

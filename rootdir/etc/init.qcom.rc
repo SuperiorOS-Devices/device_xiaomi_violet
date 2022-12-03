@@ -446,6 +446,10 @@ on post-fs-data
     # Create dir for TUI
     mkdir /data/vendor/tui 0700 system system
 
+    # Dolby
+    mkdir /data/vendor/dolby 0770 media media
+    mkdir /data/vendor/multimedia 0775 system system
+
 on charger
     start vendor.power_off_alarm
     setprop sys.usb.controller a600000.dwc3

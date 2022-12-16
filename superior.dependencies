@@ -3,18 +3,18 @@
     "repository" : "vendor_xiaomi_violet",
     "target_path": "vendor/xiaomi/violet",
     "branch": "thirteen",
-    "remote": "pixel-devices-blobs"
+    "remote": "SuperiorOS-Devices"
   },
   {
     "repository": "kernel_xiaomi_violet",
     "target_path": "kernel/xiaomi/violet",
     "branch":"thirteen",
-    "remote":"pixel-devices"
+    "remote":"SuperiorOS-Devices"
   },
   {
-    "repository": "vendor_xiaomi-firmware",
-    "target_path": "vendor/xiaomi-firmware",
+    "repository": "vendor_xiaomi-firmware_violet",
+    "target_path": "vendor/xiaomi-firmware/violet",
     "branch":"thirteen",
-    "remote":"pixel-devices-blobs"
+    "remote":"superior-gitlab"
   }
 ]

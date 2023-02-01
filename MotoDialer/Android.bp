@@ -1,0 +1,11 @@
+android_app_import {
+	name: "MotoDialer",
+	owner: "moto",
+	apk: "MotoDialer.apk",
+	certificate: "platform",
+	dex_preopt: {
+		enabled: false,
+	},
+	privileged: true,
+	overrides: ["Dialer", "GoogleDialer"],
+}

@@ -12,9 +12,9 @@
     "remote":"SuperiorOS-Devices"
   },
   {
-    "repository": "vendor_xiaomi-firmware_violet",
+    "repository": "Joker-V2/vendor_xiaomi-firmware_violet",
     "target_path": "vendor/xiaomi-firmware/violet",
     "branch":"thirteen",
-    "remote":"superior-gitlab"
+    "remote":"gitlab"
   }
 ]

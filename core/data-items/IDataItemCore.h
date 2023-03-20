@@ -1,4 +1,4 @@
-/* Copyright (c) 2015, 2017 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2015, 2017, 2020 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -49,7 +49,7 @@ public:
      * @details Gets Data item id.
      * @return Data item id.
      */
-    virtual DataItemId getId () = 0;
+    inline DataItemId getId() { return mId; }
 
     /**
      * @brief Stringify.
@@ -68,13 +68,15 @@ public:
      *
      * @return Zero for success or non zero for failure.
      */
-    virtual int32_t copy (IDataItemCore * src, bool *dataItemCopied = nullptr) = 0;
+    virtual int32_t copyFrom(IDataItemCore * src) = 0;
 
     /**
      * @brief Destructor.
      * @details Destructor.
      */
     virtual ~IDataItemCore () {}
+protected:
+    DataItemId mId = INVALID_DATA_ITEM_ID;
 };
 
 } // namespace loc_core

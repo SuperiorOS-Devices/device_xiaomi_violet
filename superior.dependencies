@@ -6,15 +6,21 @@
     "remote": "SuperiorOS-Devices"
   },
   {
-    "repository": "kernel_xiaomi_violet",
+    "repository": "Joker-V2/kernel_xiaomi_violet",
     "target_path": "kernel/xiaomi/violet",
     "branch":"thirteen",
-    "remote":"SuperiorOS-Devices"
+    "remote":"github"
   },
   {
     "repository": "Joker-V2/vendor_xiaomi-firmware_violet",
     "target_path": "vendor/xiaomi-firmware/violet",
     "branch":"thirteen",
+    "remote":"gitlab"
+  },
+  {
+    "repository": "Joker-V2/prebuilts_clang_host_linux-x86_clang-r487747",
+    "target_path": "prebuilts/clang/host/linux-x86/clang-r487747",
+    "branch":"master",
     "remote":"gitlab"
   }
 ]

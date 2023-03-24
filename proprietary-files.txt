@@ -93,7 +93,6 @@ vendor/lib64/libbt-hidlclient.so|ff301380cf3c0ff68d2b7fcda3ba428ebf0a859e
 vendor/lib64/libbtnv.so|0c74a43550b939b9496b03b3285fa950cf560c48
 
 # Bluetooth (A2DP) - from SWEETEEAGlobal_V13.0.10.0.SKFEUXM
-vendor/lib/hw/audio.bluetooth_qti.default.so|4e0a255af5692e6c627cb4fdd80844869c0a9cd1
 vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so|cc076ce39bdb7361de30904802124808b79c5d14
 vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.1-impl.so|9f2f7bb47fac7b3b2a89d443ed73f3d378dd88d5
 vendor/lib/btaudio_offload_if.so|a29488cfbf08a02b0d8d493a4fbe01ce2e5da3bc

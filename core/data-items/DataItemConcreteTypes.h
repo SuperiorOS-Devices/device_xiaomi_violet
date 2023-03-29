@@ -27,6 +27,12 @@
  *
  */
 
+/*
+Changes from Qualcomm Innovation Center are provided under the following license:
+Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear
+*/
+
 #ifndef DATAITEM_CONCRETETYPES_H
 #define DATAITEM_CONCRETETYPES_H
 
@@ -142,13 +148,46 @@ public:
 
 class ENHDataItem: public IDataItemCore {
 public:
-    ENHDataItem(bool enabled = false) :
-        mEnabled(enabled) {mId = ENH_DATA_ITEM_ID;}
+    enum Fields { FIELD_CONSENT, FIELD_REGION, FIELD_MAX };
+    enum Actions { NO_OP, SET, CLEAR };
+    ENHDataItem(bool enabled = false, Fields updateBit = FIELD_MAX) :
+            mEnhFields(0), mFieldUpdate(updateBit) {
+        mId = ENH_DATA_ITEM_ID;
+        setAction(enabled ? SET : CLEAR);
+    }
     virtual ~ENHDataItem() {}
     virtual void stringify(string& /*valueStr*/) override;
     virtual int32_t copyFrom(IDataItemCore* /*src*/) override;
-// Data members
-    bool mEnabled;
+    inline bool isEnabled() const {
+        uint8_t combinedBits = (1 << FIELD_MAX) - 1;
+        return (combinedBits == (mEnhFields & combinedBits));
+    }
+    void setAction(Actions action = NO_OP) {
+        mAction = action;
+        if (NO_OP != mAction) {
+            updateFields();
+        }
+    }
+    void updateFields() {
+        if (FIELD_MAX > mFieldUpdate) {
+            switch (mAction) {
+                case SET:
+                    mEnhFields |= (1 << mFieldUpdate);
+                    break;
+                case CLEAR:
+                    mEnhFields &= ~(1 << mFieldUpdate);
+                    break;
+                case NO_OP:
+                default:
+                    break;
+            }
+        }
+    }
+    // Data members
+    uint32_t mEnhFields;
+private:
+    Actions mAction;
+    Fields mFieldUpdate;
 };
 
 class GPSStateDataItem: public IDataItemCore {

@@ -29,7 +29,7 @@
 #include <string>
 #include "Gnss.h"
 #include "AGnssRil.h"
-#include <DataItemConcreteTypesBase.h>
+#include <DataItemConcreteTypes.h>
 
 typedef void* (getLocationInterface)();
 
@@ -58,29 +58,29 @@ Return<bool> AGnssRil::updateNetworkState(bool connected, NetworkType type, bool
 
     // for XTRA
     if (nullptr != mGnss && ( nullptr != mGnss->getGnssInterface() )) {
-        int8_t typeout = loc_core::NetworkInfoDataItemBase::TYPE_UNKNOWN;
+        int8_t typeout = loc_core::TYPE_UNKNOWN;
         switch(type)
         {
             case IAGnssRil::NetworkType::MOBILE:
-                typeout = loc_core::NetworkInfoDataItemBase::TYPE_MOBILE;
+                typeout = loc_core::TYPE_MOBILE;
                 break;
             case IAGnssRil::NetworkType::WIFI:
-                typeout = loc_core::NetworkInfoDataItemBase::TYPE_WIFI;
+                typeout = loc_core::TYPE_WIFI;
                 break;
             case IAGnssRil::NetworkType::MMS:
-                typeout = loc_core::NetworkInfoDataItemBase::TYPE_MMS;
+                typeout = loc_core::TYPE_MMS;
                 break;
             case IAGnssRil::NetworkType::SUPL:
-                typeout = loc_core::NetworkInfoDataItemBase::TYPE_SUPL;
+                typeout = loc_core::TYPE_SUPL;
                 break;
             case IAGnssRil::NetworkType::DUN:
-                typeout = loc_core::NetworkInfoDataItemBase::TYPE_DUN;
+                typeout = loc_core::TYPE_DUN;
                 break;
             case IAGnssRil::NetworkType::HIPRI:
-                typeout = loc_core::NetworkInfoDataItemBase::TYPE_HIPRI;
+                typeout = loc_core::TYPE_HIPRI;
                 break;
             case IAGnssRil::NetworkType::WIMAX:
-                typeout = loc_core::NetworkInfoDataItemBase::TYPE_WIMAX;
+                typeout = loc_core::TYPE_WIMAX;
                 break;
             default:
                 {
@@ -89,16 +89,16 @@ Return<bool> AGnssRil::updateNetworkState(bool connected, NetworkType type, bool
                     switch(networkType)
                     {
                         case NetworkType_BLUETOOTH:
-                            typeout = loc_core::NetworkInfoDataItemBase::TYPE_BLUETOOTH;
+                            typeout = loc_core::TYPE_BLUETOOTH;
                             break;
                         case NetworkType_ETHERNET:
-                            typeout = loc_core::NetworkInfoDataItemBase::TYPE_ETHERNET;
+                            typeout = loc_core::TYPE_ETHERNET;
                             break;
                         case NetworkType_PROXY:
-                            typeout = loc_core::NetworkInfoDataItemBase::TYPE_PROXY;
+                            typeout = loc_core::TYPE_PROXY;
                             break;
                         default:
-                            typeout = loc_core::NetworkInfoDataItemBase::TYPE_UNKNOWN;
+                            typeout = loc_core::TYPE_UNKNOWN;
                     }
                 }
                 break;

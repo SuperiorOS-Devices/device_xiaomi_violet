@@ -32,7 +32,7 @@
 #include <SystemStatus.h>
 #include <DataItemId.h>
 #include <DataItemsFactoryProxy.h>
-#include <DataItemConcreteTypesBase.h>
+#include <DataItemConcreteTypes.h>
 #include <loc_log.h>
 #include <NativeAgpsHandler.h>
 #include <GnssAdapter.h>
@@ -48,8 +48,8 @@ void NativeAgpsHandler::notify(const list<IDataItemCore*>& dlist) {
     for (auto each : dlist) {
         switch (each->getId()) {
             case NETWORKINFO_DATA_ITEM_ID: {
-                    NetworkInfoDataItemBase* networkInfo =
-                        static_cast<NetworkInfoDataItemBase*>(each);
+                    NetworkInfoDataItem* networkInfo =
+                        static_cast<NetworkInfoDataItem*>(each);
                     uint64_t mobileBit = (uint64_t )1 << loc_core::TYPE_MOBILE;
                     uint64_t allTypes = networkInfo->mAllTypes;
                     mConnected = ((networkInfo->mAllTypes & mobileBit) == mobileBit);

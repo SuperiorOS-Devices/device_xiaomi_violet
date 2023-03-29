@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2017, 2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -35,18 +35,9 @@
 
 namespace loc_core
 {
-
-#define DATA_ITEMS_LIB_NAME "libdataitems.so"
-#define DATA_ITEMS_GET_CONCRETE_DI "getConcreteDataItem"
-
-typedef IDataItemCore * (get_concrete_data_item_fn)(DataItemId);
-
 class DataItemsFactoryProxy {
 public:
-    static IDataItemCore* createNewDataItem(DataItemId id);
-    static void closeDataItemLibraryHandle();
-    static void *dataItemLibHandle;
-    static get_concrete_data_item_fn *getConcreteDIFunc;
+    static IDataItemCore* createNewDataItem(IDataItemCore* di);
 };
 
 } // namespace loc_core

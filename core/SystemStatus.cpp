@@ -40,7 +40,7 @@
 #include <DataItemsFactoryProxy.h>
 #include <SystemStatus.h>
 #include <SystemStatusOsObserver.h>
-#include <DataItemConcreteTypesBase.h>
+#include <DataItemConcreteTypes.h>
 
 namespace loc_core
 {
@@ -748,18 +748,17 @@ SystemStatusTimeAndClock::SystemStatusTimeAndClock(const SystemStatusPQWM1& nmea
 {
 }
 
-bool SystemStatusTimeAndClock::equals(const SystemStatusTimeAndClock& peer)
-{
-    if ((mGpsWeek != peer.mGpsWeek) ||
-        (mGpsTowMs != peer.mGpsTowMs) ||
-        (mTimeValid != peer.mTimeValid) ||
-        (mTimeSource != peer.mTimeSource) ||
-        (mTimeUnc != peer.mTimeUnc) ||
-        (mClockFreqBias != peer.mClockFreqBias) ||
-        (mClockFreqBiasUnc != peer.mClockFreqBiasUnc) ||
-        (mLeapSeconds != peer.mLeapSeconds) ||
-        (mLeapSecUnc != peer.mLeapSecUnc) ||
-        (mTimeUncNs != peer.mTimeUncNs)) {
+bool SystemStatusTimeAndClock::equals(const SystemStatusItemBase& peer) {
+    if ((mGpsWeek != ((const SystemStatusTimeAndClock&)peer).mGpsWeek) ||
+        (mGpsTowMs != ((const SystemStatusTimeAndClock&)peer).mGpsTowMs) ||
+        (mTimeValid != ((const SystemStatusTimeAndClock&)peer).mTimeValid) ||
+        (mTimeSource != ((const SystemStatusTimeAndClock&)peer).mTimeSource) ||
+        (mTimeUnc != ((const SystemStatusTimeAndClock&)peer).mTimeUnc) ||
+        (mClockFreqBias != ((const SystemStatusTimeAndClock&)peer).mClockFreqBias) ||
+        (mClockFreqBiasUnc != ((const SystemStatusTimeAndClock&)peer).mClockFreqBiasUnc) ||
+        (mLeapSeconds != ((const SystemStatusTimeAndClock&)peer).mLeapSeconds) ||
+        (mLeapSecUnc != ((const SystemStatusTimeAndClock&)peer).mLeapSecUnc) ||
+        (mTimeUncNs != ((const SystemStatusTimeAndClock&)peer).mTimeUncNs)) {
         return false;
     }
     return true;
@@ -790,9 +789,8 @@ SystemStatusXoState::SystemStatusXoState(const SystemStatusPQWM1& nmea) :
 {
 }
 
-bool SystemStatusXoState::equals(const SystemStatusXoState& peer)
-{
-    if (mXoState != peer.mXoState) {
+bool SystemStatusXoState::equals(const SystemStatusItemBase& peer) {
+    if (mXoState != ((const SystemStatusXoState&)peer).mXoState) {
         return false;
     }
     return true;
@@ -832,27 +830,26 @@ SystemStatusRfAndParams::SystemStatusRfAndParams(const SystemStatusPQWM1& nmea) 
 {
 }
 
-bool SystemStatusRfAndParams::equals(const SystemStatusRfAndParams& peer)
-{
-    if ((mPgaGain != peer.mPgaGain) ||
-        (mGpsBpAmpI != peer.mGpsBpAmpI) ||
-        (mGpsBpAmpQ != peer.mGpsBpAmpQ) ||
-        (mAdcI != peer.mAdcI) ||
-        (mAdcQ != peer.mAdcQ) ||
-        (mJammerGps != peer.mJammerGps) ||
-        (mJammerGlo != peer.mJammerGlo) ||
-        (mJammerBds != peer.mJammerBds) ||
-        (mJammerGal != peer.mJammerGal) ||
-        (mAgcGps != peer.mAgcGps) ||
-        (mAgcGlo != peer.mAgcGlo) ||
-        (mAgcBds != peer.mAgcBds) ||
-        (mAgcGal != peer.mAgcGal) ||
-        (mGloBpAmpI != peer.mGloBpAmpI) ||
-        (mGloBpAmpQ != peer.mGloBpAmpQ) ||
-        (mBdsBpAmpI != peer.mBdsBpAmpI) ||
-        (mBdsBpAmpQ != peer.mBdsBpAmpQ) ||
-        (mGalBpAmpI != peer.mGalBpAmpI) ||
-        (mGalBpAmpQ != peer.mGalBpAmpQ)) {
+bool SystemStatusRfAndParams::equals(const SystemStatusItemBase& peer) {
+    if ((mPgaGain != ((const SystemStatusRfAndParams&)peer).mPgaGain) ||
+        (mGpsBpAmpI != ((const SystemStatusRfAndParams&)peer).mGpsBpAmpI) ||
+        (mGpsBpAmpQ != ((const SystemStatusRfAndParams&)peer).mGpsBpAmpQ) ||
+        (mAdcI != ((const SystemStatusRfAndParams&)peer).mAdcI) ||
+        (mAdcQ != ((const SystemStatusRfAndParams&)peer).mAdcQ) ||
+        (mJammerGps != ((const SystemStatusRfAndParams&)peer).mJammerGps) ||
+        (mJammerGlo != ((const SystemStatusRfAndParams&)peer).mJammerGlo) ||
+        (mJammerBds != ((const SystemStatusRfAndParams&)peer).mJammerBds) ||
+        (mJammerGal != ((const SystemStatusRfAndParams&)peer).mJammerGal) ||
+        (mAgcGps != ((const SystemStatusRfAndParams&)peer).mAgcGps) ||
+        (mAgcGlo != ((const SystemStatusRfAndParams&)peer).mAgcGlo) ||
+        (mAgcBds != ((const SystemStatusRfAndParams&)peer).mAgcBds) ||
+        (mAgcGal != ((const SystemStatusRfAndParams&)peer).mAgcGal) ||
+        (mGloBpAmpI != ((const SystemStatusRfAndParams&)peer).mGloBpAmpI) ||
+        (mGloBpAmpQ != ((const SystemStatusRfAndParams&)peer).mGloBpAmpQ) ||
+        (mBdsBpAmpI != ((const SystemStatusRfAndParams&)peer).mBdsBpAmpI) ||
+        (mBdsBpAmpQ != ((const SystemStatusRfAndParams&)peer).mBdsBpAmpQ) ||
+        (mGalBpAmpI != ((const SystemStatusRfAndParams&)peer).mGalBpAmpI) ||
+        (mGalBpAmpQ != ((const SystemStatusRfAndParams&)peer).mGalBpAmpQ)) {
         return false;
     }
     return true;
@@ -888,9 +885,8 @@ SystemStatusErrRecovery::SystemStatusErrRecovery(const SystemStatusPQWM1& nmea) 
 {
 }
 
-bool SystemStatusErrRecovery::equals(const SystemStatusErrRecovery& peer)
-{
-    if (mRecErrorRecovery != peer.mRecErrorRecovery) {
+bool SystemStatusErrRecovery::equals(const SystemStatusItemBase& peer) {
+    if (mRecErrorRecovery != ((const SystemStatusErrRecovery&)peer).mRecErrorRecovery) {
         return false;
     }
     return true;
@@ -918,15 +914,14 @@ SystemStatusInjectedPosition::SystemStatusInjectedPosition(const SystemStatusPQW
 {
 }
 
-bool SystemStatusInjectedPosition::equals(const SystemStatusInjectedPosition& peer)
-{
-    if ((mEpiValidity != peer.mEpiValidity) ||
-        (mEpiLat != peer.mEpiLat) ||
-        (mEpiLon != peer.mEpiLon) ||
-        (mEpiAlt != peer.mEpiAlt) ||
-        (mEpiHepe != peer.mEpiHepe) ||
-        (mEpiAltUnc != peer.mEpiAltUnc) ||
-        (mEpiSrc != peer.mEpiSrc)) {
+bool SystemStatusInjectedPosition::equals(const SystemStatusItemBase& peer) {
+    if ((mEpiValidity != ((const SystemStatusInjectedPosition&)peer).mEpiValidity) ||
+        (mEpiLat != ((const SystemStatusInjectedPosition&)peer).mEpiLat) ||
+        (mEpiLon != ((const SystemStatusInjectedPosition&)peer).mEpiLon) ||
+        (mEpiAlt != ((const SystemStatusInjectedPosition&)peer).mEpiAlt) ||
+        (mEpiHepe != ((const SystemStatusInjectedPosition&)peer).mEpiHepe) ||
+        (mEpiAltUnc != ((const SystemStatusInjectedPosition&)peer).mEpiAltUnc) ||
+        (mEpiSrc != ((const SystemStatusInjectedPosition&)peer).mEpiSrc)) {
         return false;
     }
     return true;
@@ -959,13 +954,12 @@ SystemStatusBestPosition::SystemStatusBestPosition(const SystemStatusPQWP2& nmea
 {
 }
 
-bool SystemStatusBestPosition::equals(const SystemStatusBestPosition& peer)
-{
-    if ((mBestLat != peer.mBestLat) ||
-        (mBestLon != peer.mBestLon) ||
-        (mBestAlt != peer.mBestAlt) ||
-        (mBestHepe != peer.mBestHepe) ||
-        (mBestAltUnc != peer.mBestAltUnc)) {
+bool SystemStatusBestPosition::equals(const SystemStatusItemBase& peer) {
+    if ((mBestLat != ((const SystemStatusBestPosition&)peer).mBestLat) ||
+        (mBestLon != ((const SystemStatusBestPosition&)peer).mBestLon) ||
+        (mBestAlt != ((const SystemStatusBestPosition&)peer).mBestAlt) ||
+        (mBestHepe != ((const SystemStatusBestPosition&)peer).mBestHepe) ||
+        (mBestAltUnc != ((const SystemStatusBestPosition&)peer).mBestAltUnc)) {
         return false;
     }
     return true;
@@ -1003,21 +997,20 @@ SystemStatusXtra::SystemStatusXtra(const SystemStatusPQWP3& nmea) :
 {
 }
 
-bool SystemStatusXtra::equals(const SystemStatusXtra& peer)
-{
-    if ((mXtraValidMask != peer.mXtraValidMask) ||
-        (mGpsXtraAge != peer.mGpsXtraAge) ||
-        (mGloXtraAge != peer.mGloXtraAge) ||
-        (mBdsXtraAge != peer.mBdsXtraAge) ||
-        (mGalXtraAge != peer.mGalXtraAge) ||
-        (mQzssXtraAge != peer.mQzssXtraAge) ||
-        (mNavicXtraAge != peer.mNavicXtraAge) ||
-        (mGpsXtraValid != peer.mGpsXtraValid) ||
-        (mGloXtraValid != peer.mGloXtraValid) ||
-        (mBdsXtraValid != peer.mBdsXtraValid) ||
-        (mGalXtraValid != peer.mGalXtraValid) ||
-        (mQzssXtraValid != peer.mQzssXtraValid) ||
-        (mNavicXtraValid != peer.mNavicXtraValid)) {
+bool SystemStatusXtra::equals(const SystemStatusItemBase& peer) {
+    if ((mXtraValidMask != ((const SystemStatusXtra&)peer).mXtraValidMask) ||
+        (mGpsXtraAge != ((const SystemStatusXtra&)peer).mGpsXtraAge) ||
+        (mGloXtraAge != ((const SystemStatusXtra&)peer).mGloXtraAge) ||
+        (mBdsXtraAge != ((const SystemStatusXtra&)peer).mBdsXtraAge) ||
+        (mGalXtraAge != ((const SystemStatusXtra&)peer).mGalXtraAge) ||
+        (mQzssXtraAge != ((const SystemStatusXtra&)peer).mQzssXtraAge) ||
+        (mNavicXtraAge != ((const SystemStatusXtra&)peer).mNavicXtraAge) ||
+        (mGpsXtraValid != ((const SystemStatusXtra&)peer).mGpsXtraValid) ||
+        (mGloXtraValid != ((const SystemStatusXtra&)peer).mGloXtraValid) ||
+        (mBdsXtraValid != ((const SystemStatusXtra&)peer).mBdsXtraValid) ||
+        (mGalXtraValid != ((const SystemStatusXtra&)peer).mGalXtraValid) ||
+        (mQzssXtraValid != ((const SystemStatusXtra&)peer).mQzssXtraValid) ||
+        (mNavicXtraValid != ((const SystemStatusXtra&)peer).mNavicXtraValid)) {
         return false;
     }
     return true;
@@ -1053,13 +1046,12 @@ SystemStatusEphemeris::SystemStatusEphemeris(const SystemStatusPQWP4& nmea) :
 {
 }
 
-bool SystemStatusEphemeris::equals(const SystemStatusEphemeris& peer)
-{
-    if ((mGpsEpheValid != peer.mGpsEpheValid) ||
-        (mGloEpheValid != peer.mGloEpheValid) ||
-        (mBdsEpheValid != peer.mBdsEpheValid) ||
-        (mGalEpheValid != peer.mGalEpheValid) ||
-        (mQzssEpheValid != peer.mQzssEpheValid)) {
+bool SystemStatusEphemeris::equals(const SystemStatusItemBase& peer) {
+    if ((mGpsEpheValid != ((const SystemStatusEphemeris&)peer).mGpsEpheValid) ||
+        (mGloEpheValid != ((const SystemStatusEphemeris&)peer).mGloEpheValid) ||
+        (mBdsEpheValid != ((const SystemStatusEphemeris&)peer).mBdsEpheValid) ||
+        (mGalEpheValid != ((const SystemStatusEphemeris&)peer).mGalEpheValid) ||
+        (mQzssEpheValid != ((const SystemStatusEphemeris&)peer).mQzssEpheValid)) {
         return false;
     }
     return true;
@@ -1102,23 +1094,22 @@ SystemStatusSvHealth::SystemStatusSvHealth(const SystemStatusPQWP5& nmea) :
 {
 }
 
-bool SystemStatusSvHealth::equals(const SystemStatusSvHealth& peer)
-{
-    if ((mGpsUnknownMask != peer.mGpsUnknownMask) ||
-        (mGloUnknownMask != peer.mGloUnknownMask) ||
-        (mBdsUnknownMask != peer.mBdsUnknownMask) ||
-        (mGalUnknownMask != peer.mGalUnknownMask) ||
-        (mQzssUnknownMask != peer.mQzssUnknownMask) ||
-        (mGpsGoodMask != peer.mGpsGoodMask) ||
-        (mGloGoodMask != peer.mGloGoodMask) ||
-        (mBdsGoodMask != peer.mBdsGoodMask) ||
-        (mGalGoodMask != peer.mGalGoodMask) ||
-        (mQzssGoodMask != peer.mQzssGoodMask) ||
-        (mGpsBadMask != peer.mGpsBadMask) ||
-        (mGloBadMask != peer.mGloBadMask) ||
-        (mBdsBadMask != peer.mBdsBadMask) ||
-        (mGalBadMask != peer.mGalBadMask) ||
-        (mQzssBadMask != peer.mQzssBadMask)) {
+bool SystemStatusSvHealth::equals(const SystemStatusItemBase& peer) {
+    if ((mGpsUnknownMask != ((const SystemStatusSvHealth&)peer).mGpsUnknownMask) ||
+        (mGloUnknownMask != ((const SystemStatusSvHealth&)peer).mGloUnknownMask) ||
+        (mBdsUnknownMask != ((const SystemStatusSvHealth&)peer).mBdsUnknownMask) ||
+        (mGalUnknownMask != ((const SystemStatusSvHealth&)peer).mGalUnknownMask) ||
+        (mQzssUnknownMask != ((const SystemStatusSvHealth&)peer).mQzssUnknownMask) ||
+        (mGpsGoodMask != ((const SystemStatusSvHealth&)peer).mGpsGoodMask) ||
+        (mGloGoodMask != ((const SystemStatusSvHealth&)peer).mGloGoodMask) ||
+        (mBdsGoodMask != ((const SystemStatusSvHealth&)peer).mBdsGoodMask) ||
+        (mGalGoodMask != ((const SystemStatusSvHealth&)peer).mGalGoodMask) ||
+        (mQzssGoodMask != ((const SystemStatusSvHealth&)peer).mQzssGoodMask) ||
+        (mGpsBadMask != ((const SystemStatusSvHealth&)peer).mGpsBadMask) ||
+        (mGloBadMask != ((const SystemStatusSvHealth&)peer).mGloBadMask) ||
+        (mBdsBadMask != ((const SystemStatusSvHealth&)peer).mBdsBadMask) ||
+        (mGalBadMask != ((const SystemStatusSvHealth&)peer).mGalBadMask) ||
+        (mQzssBadMask != ((const SystemStatusSvHealth&)peer).mQzssBadMask)) {
         return false;
     }
     return true;
@@ -1157,9 +1148,8 @@ SystemStatusPdr::SystemStatusPdr(const SystemStatusPQWP6& nmea) :
 {
 }
 
-bool SystemStatusPdr::equals(const SystemStatusPdr& peer)
-{
-    if (mFixInfoMask != peer.mFixInfoMask) {
+bool SystemStatusPdr::equals(const SystemStatusItemBase& peer) {
+    if (mFixInfoMask != ((const SystemStatusPdr&)peer).mFixInfoMask) {
         return false;
     }
     return true;
@@ -1183,12 +1173,11 @@ SystemStatusNavData::SystemStatusNavData(const SystemStatusPQWP7& nmea)
     }
 }
 
-bool SystemStatusNavData::equals(const SystemStatusNavData& peer)
-{
+bool SystemStatusNavData::equals(const SystemStatusItemBase& peer) {
     for (uint32_t i=0; i<SV_ALL_NUM; i++) {
-        if ((mNav[i].mType != peer.mNav[i].mType) ||
-            (mNav[i].mSource != peer.mNav[i].mSource) ||
-            (mNav[i].mAgeSec != peer.mNav[i].mAgeSec)) {
+        if ((mNav[i].mType != ((const SystemStatusNavData&)peer).mNav[i].mType) ||
+            (mNav[i].mSource != ((const SystemStatusNavData&)peer).mNav[i].mSource) ||
+            (mNav[i].mAgeSec != ((const SystemStatusNavData&)peer).mNav[i].mAgeSec)) {
             return false;
         }
     }
@@ -1215,10 +1204,9 @@ SystemStatusPositionFailure::SystemStatusPositionFailure(const SystemStatusPQWS1
 {
 }
 
-bool SystemStatusPositionFailure::equals(const SystemStatusPositionFailure& peer)
-{
-    if ((mFixInfoMask != peer.mFixInfoMask) ||
-        (mHepeLimit != peer.mHepeLimit)) {
+bool SystemStatusPositionFailure::equals(const SystemStatusItemBase& peer) {
+    if ((mFixInfoMask != ((const SystemStatusPositionFailure&)peer).mFixInfoMask) ||
+        (mHepeLimit != ((const SystemStatusPositionFailure&)peer).mHepeLimit)) {
         return false;
     }
     return true;
@@ -1236,11 +1224,13 @@ void SystemStatusPositionFailure::dump()
 /******************************************************************************
  SystemStatusLocation
 ******************************************************************************/
-bool SystemStatusLocation::equals(const SystemStatusLocation& peer)
-{
-    if ((mLocation.gpsLocation.latitude != peer.mLocation.gpsLocation.latitude) ||
-        (mLocation.gpsLocation.longitude != peer.mLocation.gpsLocation.longitude) ||
-        (mLocation.gpsLocation.altitude != peer.mLocation.gpsLocation.altitude)) {
+bool SystemStatusLocation::equals(const SystemStatusItemBase& peer) {
+    if ((mLocation.gpsLocation.latitude !=
+                ((const SystemStatusLocation&)peer).mLocation.gpsLocation.latitude) ||
+        (mLocation.gpsLocation.longitude !=
+                ((const SystemStatusLocation&)peer).mLocation.gpsLocation.longitude) ||
+        (mLocation.gpsLocation.altitude !=
+                ((const SystemStatusLocation&)peer).mLocation.gpsLocation.altitude)) {
         return false;
     }
     return true;
@@ -1290,8 +1280,10 @@ void SystemStatus::destroyInstance()
 void SystemStatus::resetNetworkInfo() {
     for (int i=0; i<mCache.mNetworkInfo.size(); ++i) {
         // Reset all the cached NetworkInfo Items as disconnected
-        eventConnectionStatus(false, mCache.mNetworkInfo[i].mType, mCache.mNetworkInfo[i].mRoaming,
-                mCache.mNetworkInfo[i].mNetworkHandle, mCache.mNetworkInfo[i].mApn);
+        eventConnectionStatus(false, mCache.mNetworkInfo[i].mDataItem.mType,
+                mCache.mNetworkInfo[i].mDataItem.mRoaming,
+                mCache.mNetworkInfo[i].mDataItem.mNetworkHandle,
+                mCache.mNetworkInfo[i].mDataItem.mApn);
     }
 }
 
@@ -1496,91 +1488,99 @@ bool SystemStatus::eventDataItemNotify(IDataItemCore* dataitem)
     {
         case AIRPLANEMODE_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mAirplaneMode,
-                    SystemStatusAirplaneMode(*(static_cast<AirplaneModeDataItemBase*>(dataitem))));
+                    SystemStatusAirplaneMode(*(static_cast<AirplaneModeDataItem*>(dataitem))));
             break;
         case ENH_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mENH,
-                    SystemStatusENH(*(static_cast<ENHDataItemBase*>(dataitem))));
+                    SystemStatusENH(*(static_cast<ENHDataItem*>(dataitem))));
             break;
         case GPSSTATE_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mGPSState,
-                    SystemStatusGpsState(*(static_cast<GPSStateDataItemBase*>(dataitem))));
+                    SystemStatusGpsState(*(static_cast<GPSStateDataItem*>(dataitem))));
             break;
         case NLPSTATUS_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mNLPStatus,
-                    SystemStatusNLPStatus(*(static_cast<NLPStatusDataItemBase*>(dataitem))));
+                    SystemStatusNLPStatus(*(static_cast<NLPStatusDataItem*>(dataitem))));
             break;
         case WIFIHARDWARESTATE_DATA_ITEM_ID:
-            ret = setIteminReport(mCache.mWifiHardwareState,
-                    SystemStatusWifiHardwareState(*(static_cast<WifiHardwareStateDataItemBase*>(dataitem))));
+            ret = setIteminReport(mCache.mWifiHardwareState, SystemStatusWifiHardwareState(
+                        *(static_cast<WifiHardwareStateDataItem*>(dataitem))));
             break;
         case NETWORKINFO_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mNetworkInfo,
-                    SystemStatusNetworkInfo(*(static_cast<NetworkInfoDataItemBase*>(dataitem))));
+                    SystemStatusNetworkInfo(*(static_cast<NetworkInfoDataItem*>(dataitem))));
+            // Update latest mAllTypes/mAllNetworkHandles of original obj to notify clients
+            if (ret) {
+                (static_cast<NetworkInfoDataItem*>(dataitem))->mAllTypes =
+                        mCache.mNetworkInfo.back().mDataItem.mAllTypes;
+                memcpy((static_cast<NetworkInfoDataItem*>(dataitem))->mAllNetworkHandles,
+                        mCache.mNetworkInfo.back().mDataItem.mAllNetworkHandles, sizeof((
+                        static_cast<NetworkInfoDataItem*>(dataitem))->mAllNetworkHandles));
+            }
             break;
         case RILSERVICEINFO_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mRilServiceInfo,
-                    SystemStatusServiceInfo(*(static_cast<RilServiceInfoDataItemBase*>(dataitem))));
+                    SystemStatusServiceInfo(*(static_cast<RilServiceInfoDataItem*>(dataitem))));
             break;
         case RILCELLINFO_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mRilCellInfo,
-                    SystemStatusRilCellInfo(*(static_cast<RilCellInfoDataItemBase*>(dataitem))));
+                    SystemStatusRilCellInfo(*(static_cast<RilCellInfoDataItem*>(dataitem))));
             break;
         case SERVICESTATUS_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mServiceStatus,
-                    SystemStatusServiceStatus(*(static_cast<ServiceStatusDataItemBase*>(dataitem))));
+                    SystemStatusServiceStatus(*(static_cast<ServiceStatusDataItem*>(dataitem))));
             break;
         case MODEL_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mModel,
-                    SystemStatusModel(*(static_cast<ModelDataItemBase*>(dataitem))));
+                    SystemStatusModel(*(static_cast<ModelDataItem*>(dataitem))));
             break;
         case MANUFACTURER_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mManufacturer,
-                    SystemStatusManufacturer(*(static_cast<ManufacturerDataItemBase*>(dataitem))));
+                    SystemStatusManufacturer(*(static_cast<ManufacturerDataItem*>(dataitem))));
             break;
         case ASSISTED_GPS_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mAssistedGps,
-                    SystemStatusAssistedGps(*(static_cast<AssistedGpsDataItemBase*>(dataitem))));
+                    SystemStatusAssistedGps(*(static_cast<AssistedGpsDataItem*>(dataitem))));
             break;
         case SCREEN_STATE_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mScreenState,
-                    SystemStatusScreenState(*(static_cast<ScreenStateDataItemBase*>(dataitem))));
+                    SystemStatusScreenState(*(static_cast<ScreenStateDataItem*>(dataitem))));
             break;
         case POWER_CONNECTED_STATE_DATA_ITEM_ID:
-            ret = setIteminReport(mCache.mPowerConnectState,
-                    SystemStatusPowerConnectState(*(static_cast<PowerConnectStateDataItemBase*>(dataitem))));
+            ret = setIteminReport(mCache.mPowerConnectState, SystemStatusPowerConnectState(
+                        *(static_cast<PowerConnectStateDataItem*>(dataitem))));
             break;
         case TIMEZONE_CHANGE_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mTimeZoneChange,
-                    SystemStatusTimeZoneChange(*(static_cast<TimeZoneChangeDataItemBase*>(dataitem))));
+                    SystemStatusTimeZoneChange(*(static_cast<TimeZoneChangeDataItem*>(dataitem))));
             break;
         case TIME_CHANGE_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mTimeChange,
-                    SystemStatusTimeChange(*(static_cast<TimeChangeDataItemBase*>(dataitem))));
+                    SystemStatusTimeChange(*(static_cast<TimeChangeDataItem*>(dataitem))));
             break;
         case WIFI_SUPPLICANT_STATUS_DATA_ITEM_ID:
-            ret = setIteminReport(mCache.mWifiSupplicantStatus,
-                    SystemStatusWifiSupplicantStatus(*(static_cast<WifiSupplicantStatusDataItemBase*>(dataitem))));
+            ret = setIteminReport(mCache.mWifiSupplicantStatus, SystemStatusWifiSupplicantStatus(
+                        *(static_cast<WifiSupplicantStatusDataItem*>(dataitem))));
             break;
         case SHUTDOWN_STATE_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mShutdownState,
-                    SystemStatusShutdownState(*(static_cast<ShutdownStateDataItemBase*>(dataitem))));
+                    SystemStatusShutdownState(*(static_cast<ShutdownStateDataItem*>(dataitem))));
             break;
         case TAC_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mTac,
-                    SystemStatusTac(*(static_cast<TacDataItemBase*>(dataitem))));
+                    SystemStatusTac(*(static_cast<TacDataItem*>(dataitem))));
             break;
         case MCCMNC_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mMccMnc,
-                    SystemStatusMccMnc(*(static_cast<MccmncDataItemBase*>(dataitem))));
+                    SystemStatusMccMnc(*(static_cast<MccmncDataItem*>(dataitem))));
             break;
         case BTLE_SCAN_DATA_ITEM_ID:
-            ret = setIteminReport(mCache.mBtDeviceScanDetail,
-                    SystemStatusBtDeviceScanDetail(*(static_cast<BtDeviceScanDetailsDataItemBase*>(dataitem))));
+            ret = setIteminReport(mCache.mBtDeviceScanDetail, SystemStatusBtDeviceScanDetail(
+                        *(static_cast<BtDeviceScanDetailsDataItem*>(dataitem))));
             break;
         case BT_SCAN_DATA_ITEM_ID:
-            ret = setIteminReport(mCache.mBtLeDeviceScanDetail,
-                    SystemStatusBtleDeviceScanDetail(*(static_cast<BtLeDeviceScanDetailsDataItemBase*>(dataitem))));
+            ret = setIteminReport(mCache.mBtLeDeviceScanDetail, SystemStatusBtleDeviceScanDetail(
+                        *(static_cast<BtLeDeviceScanDetailsDataItem*>(dataitem))));
             break;
         default:
             break;
@@ -1739,7 +1739,7 @@ bool SystemStatus::eventConnectionStatus(bool connected, int8_t type,
     // send networkinof dataitem to systemstatus observer clients
     SystemStatusNetworkInfo s(type, "", "", connected, roaming,
                               (uint64_t) networkHandle, apn);
-    mSysStatusObsvr.notify({&s});
+    mSysStatusObsvr.notify({&s.mDataItem});
 
     return true;
 }
@@ -1754,7 +1754,7 @@ bool SystemStatus::eventConnectionStatus(bool connected, int8_t type,
 bool SystemStatus::updatePowerConnectState(bool charging)
 {
     SystemStatusPowerConnectState s(charging);
-    mSysStatusObsvr.notify({&s});
+    mSysStatusObsvr.notify({&s.mDataItem});
     return true;
 }
 } // namespace loc_core

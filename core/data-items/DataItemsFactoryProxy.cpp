@@ -32,50 +32,95 @@
 #include <DataItemId.h>
 #include <IDataItemCore.h>
 #include <DataItemsFactoryProxy.h>
+#include <DataItemConcreteTypes.h>
 #include <loc_pla.h>
 #include <log_util.h>
 #include "loc_misc_utils.h"
 
 namespace loc_core
 {
-void* DataItemsFactoryProxy::dataItemLibHandle = NULL;
-get_concrete_data_item_fn* DataItemsFactoryProxy::getConcreteDIFunc = NULL;
 
-IDataItemCore* DataItemsFactoryProxy::createNewDataItem(DataItemId id)
-{
+IDataItemCore* DataItemsFactoryProxy::createNewDataItem(IDataItemCore* dataItem) {
     IDataItemCore *mydi = nullptr;
 
-    if (NULL != getConcreteDIFunc) {
-        mydi = (*getConcreteDIFunc)(id);
-    }
-    else {
-        getConcreteDIFunc = (get_concrete_data_item_fn * )
-                dlGetSymFromLib(dataItemLibHandle, DATA_ITEMS_LIB_NAME, DATA_ITEMS_GET_CONCRETE_DI);
-
-        if (NULL != getConcreteDIFunc) {
-            LOC_LOGd("Loaded function %s : %p", DATA_ITEMS_GET_CONCRETE_DI, getConcreteDIFunc);
-            mydi = (*getConcreteDIFunc)(id);
-        }
-        else {
-            // dlysm failed.
-            const char * err = dlerror();
-            if (NULL == err)
-            {
-                err = "Unknown";
-            }
-            LOC_LOGe("failed to find symbol %s; error=%s", DATA_ITEMS_GET_CONCRETE_DI, err);
-        }
-    }
+    switch (dataItem->getId()) {
+    case AIRPLANEMODE_DATA_ITEM_ID:
+        mydi = new AirplaneModeDataItem(*((AirplaneModeDataItem*)dataItem));
+        break;
+    case ENH_DATA_ITEM_ID:
+        mydi = new ENHDataItem(*((ENHDataItem*)dataItem));
+        break;
+    case GPSSTATE_DATA_ITEM_ID:
+        mydi = new GPSStateDataItem(*((GPSStateDataItem*)dataItem));
+        break;
+    case NLPSTATUS_DATA_ITEM_ID:
+        mydi = new NLPStatusDataItem(*((NLPStatusDataItem*)dataItem));
+        break;
+    case WIFIHARDWARESTATE_DATA_ITEM_ID:
+        mydi = new WifiHardwareStateDataItem(*((WifiHardwareStateDataItem*)dataItem));
+        break;
+    case NETWORKINFO_DATA_ITEM_ID:
+        mydi = new NetworkInfoDataItem(*((NetworkInfoDataItem*)dataItem));
+        break;
+    case SERVICESTATUS_DATA_ITEM_ID:
+       mydi = new ServiceStatusDataItem(*((ServiceStatusDataItem*)dataItem));
+        break;
+    case RILCELLINFO_DATA_ITEM_ID:
+        mydi = new RilCellInfoDataItem(*((RilCellInfoDataItem*)dataItem));
+        break;
+    case RILSERVICEINFO_DATA_ITEM_ID:
+        mydi = new RilServiceInfoDataItem(*((RilServiceInfoDataItem*)dataItem));
+        break;
+    case MODEL_DATA_ITEM_ID:
+        mydi = new ModelDataItem(*((ModelDataItem*)dataItem));
+        break;
+    case MANUFACTURER_DATA_ITEM_ID:
+        mydi = new ManufacturerDataItem(*((ManufacturerDataItem*)dataItem));
+        break;
+    case ASSISTED_GPS_DATA_ITEM_ID:
+        mydi = new AssistedGpsDataItem(*((AssistedGpsDataItem*)dataItem));
+        break;
+    case SCREEN_STATE_DATA_ITEM_ID:
+        mydi = new ScreenStateDataItem(*((ScreenStateDataItem*)dataItem));
+        break;
+    case POWER_CONNECTED_STATE_DATA_ITEM_ID:
+        mydi = new PowerConnectStateDataItem(*((PowerConnectStateDataItem*)dataItem));
+        break;
+    case TIMEZONE_CHANGE_DATA_ITEM_ID:
+        mydi = new TimeZoneChangeDataItem(*((TimeZoneChangeDataItem*)dataItem));
+        break;
+    case TIME_CHANGE_DATA_ITEM_ID:
+        mydi = new TimeChangeDataItem(*((TimeChangeDataItem*)dataItem));
+        break;
+    case WIFI_SUPPLICANT_STATUS_DATA_ITEM_ID:
+        mydi = new WifiSupplicantStatusDataItem(*((WifiSupplicantStatusDataItem*)dataItem));
+        break;
+    case SHUTDOWN_STATE_DATA_ITEM_ID:
+        mydi = new ShutdownStateDataItem(*((ShutdownStateDataItem*)dataItem));
+        break;
+    case TAC_DATA_ITEM_ID:
+        mydi = new TacDataItem(*((TacDataItem*)dataItem));
+        break;
+    case MCCMNC_DATA_ITEM_ID:
+        mydi = new MccmncDataItem(*((MccmncDataItem*)dataItem));
+        break;
+    case BTLE_SCAN_DATA_ITEM_ID:
+        mydi = new BtLeDeviceScanDetailsDataItem(*((BtLeDeviceScanDetailsDataItem*)dataItem));
+        break;
+    case BT_SCAN_DATA_ITEM_ID:
+        mydi = new BtDeviceScanDetailsDataItem(*((BtDeviceScanDetailsDataItem*)dataItem));
+        break;
+    case BATTERY_LEVEL_DATA_ITEM_ID:
+        mydi = new BatteryLevelDataItem(*((BatteryLevelDataItem*)dataItem));
+        break;
+    case INVALID_DATA_ITEM_ID:
+    case MAX_DATA_ITEM_ID:
+    default:
+        break;
+    };
     return mydi;
 }
 
-void DataItemsFactoryProxy::closeDataItemLibraryHandle()
-{
-    if (NULL != dataItemLibHandle) {
-        dlclose(dataItemLibHandle);
-        dataItemLibHandle = NULL;
-    }
-}
 
 } // namespace loc_core
 

@@ -29,7 +29,7 @@
 #include <string>
 #include "Gnss.h"
 #include "AGnssRil.h"
-#include <DataItemConcreteTypesBase.h>
+#include <DataItemConcreteTypes.h>
 
 typedef void* (getLocationInterface)();
 

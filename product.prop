@@ -86,6 +86,7 @@ ro.netflix.bsp_rev=Q6150-17263-1
 # Radio
 DEVICE_PROVISIONED=1
 persist.sys.fflag.override.settings_network_and_internet_v2=true
+persist.sys.radio.force_lte_ca=true
 persist.vendor.ims.disableADBLogs=1
 persist.vendor.ims.disableIMSLogs=1
 persist.vendor.radio.enable_temp_dds=true

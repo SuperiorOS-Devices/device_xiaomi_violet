@@ -479,9 +479,11 @@ public:
         bool rtv = (mDataItem.mAllTypes == peerDI.mAllTypes) &&
                 (mDataItem.mConnected == peerDI.mConnected);
         for (uint8_t i = 0; rtv && i < MAX_NETWORK_HANDLES; ++i) {
-            rtv &= (mDataItem.mAllNetworkHandles[i] == peerDI.mAllNetworkHandles[i]);
+            rtv = (mDataItem.mAllNetworkHandles[i] == peerDI.mAllNetworkHandles[i]) && rtv;
         }
-        return rtv & peerDI.mApn.compare(mDataItem.mApn);
+        rtv = rtv && !peerDI.mApn.compare(mDataItem.mApn);
+        LOC_LOGv("NetworkInfoDataItem quals: %d", rtv);
+        return rtv;
     }
     inline virtual SystemStatusItemBase& collate(SystemStatusItemBase& curInfo) {
         LOC_LOGv("NetworkInfo: mAllTypes=%" PRIx64 " connected=%u mType=%x mApn=%s",

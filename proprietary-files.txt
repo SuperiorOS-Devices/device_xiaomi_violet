@@ -687,6 +687,7 @@ vendor/lib64/libqcbor.so|7da5294a577f5a71ede5b3804a026bf69bd025ee
 vendor/lib64/libqtikeymaster4.so|897a4e7cf3a25e7d5b5946404fc5a6e7fd51cce0
 
 # Listen - from LA.UM.9.1.r1-12900-SMxxx0.0
+vendor/lib/hw/sound_trigger.primary.sm6150.so|8409338433e25198c0434047b0781d2eac9be094
 vendor/lib/libadpcmdec.so|297d8fecff85b6dc67ff19e788bcf3f1286014a0
 vendor/lib/libgcs-calwrapper.so|83bbe657fcd045729c3b684cbd159cece9e8f138
 vendor/lib/libgcs-ipc.so|153240efc14608433ed7195b07e082edfd90dd6b

@@ -150,18 +150,21 @@ void ENHDataItem::stringify(string& valueStr) {
         valueStr.clear ();
         valueStr = ENH_FIELD_ENABLED;
         if (!d->isEnabled()) {
+            Fields field = FIELD_MAX;
             switch (mFieldUpdate) {
                 case FIELD_CONSENT:
                     valueStr += "_FIELD_CONSENT";
+                    field = FIELD_CONSENT;
                     break;
                 case FIELD_REGION:
                     valueStr += "_FIELD_REGION";
+                    field = FIELD_REGION;
                     break;
                 default:
                     break;
             }
             valueStr += ": ";
-            valueStr += (SET == d->mAction) ? "true" : "false";
+            valueStr += (((1 << field) & d->mEnhFields) != 0) ? "true" : "false";
         } else {
             valueStr += ": ";
             valueStr += "true";

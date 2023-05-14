@@ -533,4 +533,7 @@
     <string-array name="config_deviceKeyHandlerClasses" translatable="false">
         <item>me.superioros.keyhandler.KeyHandler</item>
     </string-array>
+
+    <!-- Pocket Lock -->
+    <bool name="config_pocketModeSupported">true</bool>
 </resources>

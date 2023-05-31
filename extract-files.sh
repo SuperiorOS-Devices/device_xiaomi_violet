@@ -57,6 +57,9 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+    vendor/lib64/hw/camera.qcom.so)
+            sed -i "s|libc++.so|libc29.so|g" "${2}"
+            ;;
     vendor/bin/mlipayd@1.1 | vendor/lib64/libmlipay.so | vendor/lib64/libmlipay@1.1.so )
         "${PATCHELF}" --remove-needed vendor.xiaomi.hardware.mtdservice@1.0.so "${2}"
     ;;

@@ -75,7 +75,6 @@ extern "C" {
 
 #ifndef FEATURE_EXTERNAL_AP
 #include <cutils/properties.h>
-#include <cutils/threads.h>
 #include <cutils/sched_policy.h>
 #else
 #define set_sched_policy(a, b)

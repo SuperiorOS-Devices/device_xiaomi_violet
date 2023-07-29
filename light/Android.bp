@@ -24,7 +24,7 @@ cc_binary {
         "liblog",
         "libhardware",
         "libbinder_ndk",
-        "android.hardware.light-V1-ndk",
+        "android.hardware.light-V2-ndk",
     ],
     srcs: [
         "aidl/Lights.cpp",

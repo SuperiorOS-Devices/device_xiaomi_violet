@@ -32,7 +32,6 @@
 
 #include <mutex>
 #include <android/hardware/gnss/2.1/IGnssMeasurement.h>
-//#include <android/hardware/gnss/1.1/IGnssMeasurementCallback.h>
 #include <android/hardware/gnss/2.1/IGnssMeasurementCallback.h>
 #include <LocationAPIClientBase.h>
 #include <hidl/Status.h>
@@ -54,20 +53,16 @@ public:
     MeasurementAPIClient& operator=(const MeasurementAPIClient&) = delete;
 
     // for GpsMeasurementInterface
-    Return<V1_0::IGnssMeasurement::GnssMeasurementStatus> measurementSetCallback(
-            const sp<V1_0::IGnssMeasurementCallback>& callback);
-    Return<V1_0::IGnssMeasurement::GnssMeasurementStatus> measurementSetCallback_1_1(
-            const sp<V1_1::IGnssMeasurementCallback>& callback,
-            GnssPowerMode powerMode = GNSS_POWER_MODE_INVALID,
-            uint32_t timeBetweenMeasurement = GPS_DEFAULT_FIX_INTERVAL_MS);
-    Return<V1_0::IGnssMeasurement::GnssMeasurementStatus> measurementSetCallback_2_0(
-            const sp<V2_0::IGnssMeasurementCallback>& callback,
-            GnssPowerMode powerMode = GNSS_POWER_MODE_INVALID,
-            uint32_t timeBetweenMeasurement = GPS_DEFAULT_FIX_INTERVAL_MS);
-    Return<V1_0::IGnssMeasurement::GnssMeasurementStatus> measurementSetCallback_2_1(
-            const sp<V2_1::IGnssMeasurementCallback>& callback,
-            GnssPowerMode powerMode = GNSS_POWER_MODE_INVALID,
-            uint32_t timeBetweenMeasurement = GPS_DEFAULT_FIX_INTERVAL_MS);
+    template <typename T>
+    Return<IGnssMeasurement::GnssMeasurementStatus> measurementSetCallback(
+            const sp<T>& callback, GnssPowerMode powerMode = GNSS_POWER_MODE_INVALID) {
+        mMutex.lock();
+        setCallbackLocked(callback);
+        mMutex.unlock();
+
+        return startTracking(powerMode);
+    }
+
     void measurementClose();
     Return<IGnssMeasurement::GnssMeasurementStatus> startTracking(
             GnssPowerMode powerMode = GNSS_POWER_MODE_INVALID,
@@ -77,6 +72,18 @@ public:
     void onGnssMeasurementsCb(GnssMeasurementsNotification gnssMeasurementsNotification) final;
 
 private:
+    inline void setCallbackLocked(const sp<V1_0::IGnssMeasurementCallback>& callback) {
+        mGnssMeasurementCbIface = callback;
+    }
+    inline void setCallbackLocked(const sp<V1_1::IGnssMeasurementCallback>& callback) {
+        mGnssMeasurementCbIface_1_1 = callback;
+    }
+    inline void setCallbackLocked(const sp<V2_0::IGnssMeasurementCallback>& callback) {
+        mGnssMeasurementCbIface_2_0 = callback;
+    }
+    inline void setCallbackLocked(const sp<V2_1::IGnssMeasurementCallback>& callback) {
+        mGnssMeasurementCbIface_2_1 = callback;
+    }
     virtual ~MeasurementAPIClient();
 
     std::mutex mMutex;

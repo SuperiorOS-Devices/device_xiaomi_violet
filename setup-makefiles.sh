@@ -27,6 +27,17 @@ if [ ! -f "${HELPER}" ]; then
 fi
 source "${HELPER}"
 
+function vendor_imports() {
+    cat <<EOF >>"$1"
+		"hardware/qcom-caf/sm8150",
+		"hardware/qcom-caf/wlan",
+		"vendor/qcom/opensource/commonsys/display",
+    		"vendor/qcom/opensource/commonsys-intf/display",
+		"vendor/qcom/opensource/dataservices",
+		"vendor/qcom/opensource/display",
+EOF
+}
+
 # Initialize the helper
 setup_vendor "$DEVICE" "$VENDOR" "$ANDROID_ROOT"
 

@@ -1575,6 +1575,11 @@ bool SystemStatus::eventDataItemNotify(IDataItemCore* dataitem)
             ret = setIteminReport(mCache.mManufacturer,
                     SystemStatusManufacturer(*(static_cast<ManufacturerDataItem*>(dataitem))));
             break;
+        case IN_EMERGENCY_CALL_DATA_ITEM_ID:
+            ret = setIteminReport(mCache.mInEmergencyCall,
+                    SystemStatusInEmergencyCall(
+                        *(static_cast<InEmergencyCallDataItem*>(dataitem))));
+            break;
         case ASSISTED_GPS_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mAssistedGps,
                     SystemStatusAssistedGps(*(static_cast<AssistedGpsDataItem*>(dataitem))));
@@ -1618,6 +1623,11 @@ bool SystemStatus::eventDataItemNotify(IDataItemCore* dataitem)
         case BT_SCAN_DATA_ITEM_ID:
             ret = setIteminReport(mCache.mBtLeDeviceScanDetail, SystemStatusBtleDeviceScanDetail(
                         *(static_cast<BtLeDeviceScanDetailsDataItem*>(dataitem))));
+            break;
+        case LOC_FEATURE_STATUS_DATA_ITEM_ID:
+            ret = setIteminReport(mCache.mLocFeatureStatus,
+                    SystemStatusLocFeatureStatus(
+                        *(static_cast<LocFeatureStatusDataItem*>(dataitem))));
             break;
         default:
             break;
@@ -1819,6 +1829,33 @@ bool SystemStatus::eventOptInStatus(bool userConsent)
 bool SystemStatus::eventRegionStatus(bool region)
 {
     SystemStatusENH s(region, ENHDataItem::FIELD_REGION);
+    mSysStatusObsvr.notify({&s.mDataItem});
+    return true;
+}
+
+/******************************************************************************
+@brief      API to update Location feature QWES status
+
+@param[In]  Location feature QWES status
+
+@return     true when successfully done
+******************************************************************************/
+bool SystemStatus::eventLocFeatureStatus(std::unordered_set<int> fids) {
+    SystemStatusLocFeatureStatus  s(fids);
+    mSysStatusObsvr.notify({&s.mDataItem});
+    return true;
+}
+
+/******************************************************************************
+@brief      API to notify emergency call
+
+@param[In]  is emergency call
+
+@return     true when successfully done
+******************************************************************************/
+bool SystemStatus::eventInEmergencyCall(bool isEmergency)
+{
+    SystemStatusInEmergencyCall s(isEmergency);
     mSysStatusObsvr.notify({&s.mDataItem});
     return true;
 }

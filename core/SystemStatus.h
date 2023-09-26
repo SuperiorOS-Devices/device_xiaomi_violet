@@ -824,6 +824,38 @@ public:
     }
 };
 
+class SystemStatusLocFeatureStatus : public SystemStatusItemBase {
+public:
+    LocFeatureStatusDataItem mDataItem;
+    inline SystemStatusLocFeatureStatus(std::unordered_set<int> fids) : mDataItem(fids) {}
+    inline SystemStatusLocFeatureStatus(const LocFeatureStatusDataItem& itemBase):
+            mDataItem(itemBase) {}
+    inline bool equals(const SystemStatusItemBase& peer) override {
+        return mDataItem.mFids ==
+            ((const SystemStatusLocFeatureStatus&)peer).mDataItem.mFids;
+    }
+    inline void dump(void) override {
+        string str;
+        mDataItem.stringify(str);
+        LOC_LOGd("Location feature qwes status: %s", str.c_str());
+    }
+};
+
+class SystemStatusInEmergencyCall : public SystemStatusItemBase {
+public:
+    InEmergencyCallDataItem mDataItem;
+    inline SystemStatusInEmergencyCall(bool value = false): mDataItem(value) {}
+    inline SystemStatusInEmergencyCall(const InEmergencyCallDataItem& itemBase):
+            mDataItem(itemBase) {}
+    inline bool equals(const SystemStatusItemBase& peer) override {
+        return mDataItem.mIsEmergency ==
+                    ((const SystemStatusInEmergencyCall&)peer).mDataItem.mIsEmergency;
+    }
+    inline void dump(void) override {
+        LOC_LOGd("In Emergency Call: %d", mDataItem.mIsEmergency);
+    }
+};
+
 /******************************************************************************
  SystemStatusReports
 ******************************************************************************/
@@ -863,6 +895,7 @@ public:
     std::vector<SystemStatusServiceStatus>    mServiceStatus;
     std::vector<SystemStatusModel>            mModel;
     std::vector<SystemStatusManufacturer>     mManufacturer;
+    std::vector<SystemStatusInEmergencyCall>  mInEmergencyCall;
     std::vector<SystemStatusAssistedGps>      mAssistedGps;
     std::vector<SystemStatusScreenState>      mScreenState;
     std::vector<SystemStatusPowerConnectState> mPowerConnectState;
@@ -874,6 +907,7 @@ public:
     std::vector<SystemStatusMccMnc>           mMccMnc;
     std::vector<SystemStatusBtDeviceScanDetail> mBtDeviceScanDetail;
     std::vector<SystemStatusBtleDeviceScanDetail> mBtLeDeviceScanDetail;
+    std::vector<SystemStatusLocFeatureStatus>  mLocFeatureStatus;
 };
 
 /******************************************************************************
@@ -921,6 +955,8 @@ public:
     void resetNetworkInfo();
     bool eventOptInStatus(bool userConsent);
     bool eventRegionStatus(bool region);
+    bool eventLocFeatureStatus(std::unordered_set<int> fids);
+    bool eventInEmergencyCall(bool isEmergency);
 };
 
 } // namespace loc_core

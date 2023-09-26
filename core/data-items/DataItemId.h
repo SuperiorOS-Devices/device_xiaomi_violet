@@ -72,6 +72,8 @@ typedef enum e_DataItemId {
 
     // 26 -
     BATTERY_LEVEL_DATA_ITEM_ID,
+    IN_EMERGENCY_CALL_DATA_ITEM_ID,
+    LOC_FEATURE_STATUS_DATA_ITEM_ID,
 
     MAX_DATA_ITEM_ID_1_1,
 } DataItemId;

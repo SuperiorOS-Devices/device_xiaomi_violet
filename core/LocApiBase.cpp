@@ -489,6 +489,8 @@ void LocApiBase::reportQwesCapabilities
     const std::unordered_map<LocationQwesFeatureType, bool> &featureMap
 )
 {
+    //Set Qwes feature status map in ContextBase
+    ContextBase::setQwesFeatureStatus(featureMap);
     // loop through adapters, and deliver to all adapters.
     TO_ALL_LOCADAPTERS(mLocAdapters[i]->reportQwesCapabilities(featureMap));
 }

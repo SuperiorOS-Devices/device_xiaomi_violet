@@ -24,6 +24,12 @@
     "remote":"gitlab"
   },
   {
+    "repository": "android_packages_resources_devicesettings",
+    "target_path": "packages/resources/devicesettings",
+    "remote":"lineage",
+    "branch": "lineage-20.0"
+  },
+  {
     "repository": "Joker-V2/prebuilts_clang_host_linux-x86_clang-r498229",
     "target_path": "prebuilts/clang/host/linux-x86/clang-r498229",
     "branch":"master",

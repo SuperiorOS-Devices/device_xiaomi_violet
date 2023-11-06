@@ -88,7 +88,7 @@ persist.vendor.radio.enable_temp_dds=true
 ril.subscription.types=RUIM
 
 # System Server
-arm64.memtag.process.system_server=off
+persist.arm64.memtag.system_server=off
 
 # Time
 persist.vendor.delta_time.enable=true

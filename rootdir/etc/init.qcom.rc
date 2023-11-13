@@ -446,7 +446,7 @@ on post-fs-data
     # Create dir for TUI
     mkdir /data/vendor/tui 0700 system system
 
-on charger
+on property:init.svc.vendor.charger=running
     start vendor.power_off_alarm
     setprop sys.usb.controller a600000.dwc3
     setprop vendor.usb.controller a600000.dwc3
@@ -612,12 +612,6 @@ on property:sys.boot_completed=1
 
 on property:ro.vendor.ril.mbn_copy_completed=1
     write /data/vendor/radio/copy_complete 1
-
-service charger /system/bin/charger
-    class charger
-    group system graphics
-    capabilities SYS_BOOT
-    seclabel u:r:charger:s0
 
 service insmod_sh /vendor/bin/init.insmod.sh /vendor/etc/init.insmod.cfg
     class main

@@ -27,5 +27,5 @@
 #
 #
 
-on charger
+on property:init.svc.vendor.charger=running
     start thermal-engine

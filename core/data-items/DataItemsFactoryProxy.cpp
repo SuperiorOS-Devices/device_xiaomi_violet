@@ -77,6 +77,9 @@ IDataItemCore* DataItemsFactoryProxy::createNewDataItem(IDataItemCore* dataItem)
     case MANUFACTURER_DATA_ITEM_ID:
         mydi = new ManufacturerDataItem(*((ManufacturerDataItem*)dataItem));
         break;
+    case IN_EMERGENCY_CALL_DATA_ITEM_ID:
+        mydi = new InEmergencyCallDataItem(*((InEmergencyCallDataItem*)dataItem));
+        break;
     case ASSISTED_GPS_DATA_ITEM_ID:
         mydi = new AssistedGpsDataItem(*((AssistedGpsDataItem*)dataItem));
         break;
@@ -112,6 +115,9 @@ IDataItemCore* DataItemsFactoryProxy::createNewDataItem(IDataItemCore* dataItem)
         break;
     case BATTERY_LEVEL_DATA_ITEM_ID:
         mydi = new BatteryLevelDataItem(*((BatteryLevelDataItem*)dataItem));
+        break;
+    case LOC_FEATURE_STATUS_DATA_ITEM_ID:
+        mydi = new LocFeatureStatusDataItem(*((LocFeatureStatusDataItem*)dataItem));
         break;
     case INVALID_DATA_ITEM_ID:
     case MAX_DATA_ITEM_ID:

@@ -33,6 +33,7 @@
 #else
     #include <unordered_map>
 #endif
+#include <ContextBase.h>
 
 namespace loc_core {
 
@@ -148,6 +149,7 @@ typedef std::function<void(const std::unordered_map<LocationQwesFeatureType, boo
 // callback function to report back dr and ppe position and sv report
 typedef EngineHubProxyBase* (getEngHubProxyFn)(
         const MsgTask * msgTask,
+        const ContextBase * context,
         IOsObserver* osObserver,
         GnssAdapterReportEnginePositionsEventCb positionEventCb,
         GnssAdapterReportSvEventCb svEventCb,

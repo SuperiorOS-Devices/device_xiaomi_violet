@@ -2341,9 +2341,16 @@ typedef std::function<void(const OdcpiRequestInfo& request)> OdcpiRequestCallbac
 
 /* ODCPI callback priorities*/
 enum OdcpiPrioritytype {
+    //ODCPI callback registered by AFW via IGNSS AIDL has LOW priority
     ODCPI_HANDLER_PRIORITY_LOW,
+    ODCPI_HANDLER_PRIORITY_DEFAULT = ODCPI_HANDLER_PRIORITY_LOW,
+    //ODCPI callback registered by IzatProvider on LE/KaiOS has medium priority
+    ODCPI_HANDLER_PRIORITY_MEDIUM,
+    //Non emergency ODCPI callback registered by IzatManager for RTT position injection
+    //has high priority
     ODCPI_HANDLER_PRIORITY_HIGH
 };
+
 
 /*
  * Callback with AGNSS(IpV4) status information.
@@ -2421,6 +2428,13 @@ enum PowerStateType {
 typedef uint64_t NetworkHandle;
 #define NETWORK_HANDLE_UNKNOWN  ~0
 #define MAX_NETWORK_HANDLES 10
+
+typedef enum {
+    LOC_FEATURE_STATUS_UNKNOWN = 0,
+    LOC_FEATURE_STATUS_NONE = 1,
+    LOC_FEATURE_STATUS_OK = 2,
+    LOC_FEATURE_STATUS_EXPIRED = 3
+} LocFeatureStatus;
 
 #ifdef __cplusplus
 }

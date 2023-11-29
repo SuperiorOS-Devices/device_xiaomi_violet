@@ -42,6 +42,7 @@
 #include <loc_misc_utils.h>
 #include <queue>
 #include <NativeAgpsHandler.h>
+#include <unordered_map>
 
 #define MAX_URL_LEN 256
 #define NMEA_SENTENCE_MAX_LENGTH 200
@@ -258,10 +259,17 @@ class GnssAdapter : public LocAdapterBase {
     OdcpiRequestCallback mOdcpiRequestCb;
     bool mOdcpiRequestActive;
     OdcpiPrioritytype mCallbackPriority;
+	typedef uint8_t OdcpiStateMask;
+	OdcpiStateMask mOdcpiStateMask;
+	typedef enum {
+        ODCPI_REQ_ACTIVE = (1<<0),
+        CIVIC_ADDRESS_REQ_ACTIVE = (1<<1)
+    } OdcpiStateBits;
     OdcpiTimer mOdcpiTimer;
     OdcpiRequestInfo mOdcpiRequest;
+    std::unordered_map<OdcpiPrioritytype, OdcpiRequestCallback> mNonEsOdcpiReqCbMap;
     void odcpiTimerExpire();
-
+	std::function<void(const Location&)> mAddressRequestCb;
     /* ==== DELETEAIDINGDATA =============================================================== */
     int64_t mLastDeleteAidingDataTime;
 
@@ -300,8 +308,20 @@ class GnssAdapter : public LocAdapterBase {
                                  int totalSvCntInThisConstellation);
 
     /* ======== UTILITIES ================================================================== */
-    inline void initOdcpi(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority);
+    inline void initOdcpi(const OdcpiRequestCallback& callback,
+                          OdcpiPrioritytype priority,
+                          OdcpiCallbackTypeMask typeMask);
+    inline void deRegisterOdcpi(OdcpiPrioritytype priority, OdcpiCallbackTypeMask typeMask) {
+        if (typeMask & NON_EMERGENCY_ODCPI) {
+            mNonEsOdcpiReqCbMap.erase(priority);
+        }
+    }
     inline void injectOdcpi(const Location& location);
+    void fireOdcpiRequest(const OdcpiRequestInfo& request);
+    //inline void setAddressRequestCb(const std::function<void(const Location&)>& addressRequestCb)
+    //{ mAddressRequestCb = addressRequestCb;}
+    //inline void injectLocationAndAddr(const Location& location, const GnssCivicAddress& addr)
+    //{ mLocApi->injectPositionAndCivicAddress(location, addr);}
     static bool isFlpClient(LocationCallbacks& locationCallbacks);
 
     /*==== DGnss Ntrip Source ==========================================================*/
@@ -468,8 +488,12 @@ public:
                                          LocEngineRunState engState);
 
     /* ========= ODCPI ===================================================================== */
+	
     /* ======== COMMANDS ====(Called from Client Thread)==================================== */
-    void initOdcpiCommand(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority);
+    void initOdcpiCommand(const OdcpiRequestCallback& callback,
+                          OdcpiPrioritytype priority,
+                          OdcpiCallbackTypeMask typeMask);
+    void deRegisterOdcpiCommand(OdcpiPrioritytype priority, OdcpiCallbackTypeMask typeMask);
     void injectOdcpiCommand(const Location& location);
     /* ======== RESPONSES ================================================================== */
     void reportResponse(LocationError err, uint32_t sessionId);
@@ -628,7 +652,6 @@ public:
     void setSuplHostServer(const char* server, int port, LocServerType type);
     void notifyClientOfCachedLocationSystemInfo(LocationAPI* client,
                                                 const LocationCallbacks& callbacks);
-    LocationCapabilitiesMask getCapabilities();
     void updateSystemPowerStateCommand(PowerStateType systemPowerState);
 
     /*==== DGnss Usable Report Flag ====================================================*/

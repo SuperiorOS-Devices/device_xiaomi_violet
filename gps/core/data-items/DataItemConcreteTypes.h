@@ -310,7 +310,7 @@ public:
             bool available = false,
             bool connected = false,
             bool roaming = false,
-            uint64_t networkHandle = NETWORK_HANDLE_UNKNOWN, string apn = ""):
+            uint64_t networkHandle = NETWORK_HANDLE_UNKNOWN, string apn __unused = ""):
         NetworkInfoDataItem(getNormalizedType(type), type, typeName, subTypeName, available,
         connected, roaming, networkHandle, "") {}
     NetworkInfoDataItem(NetworkType initialType, int32_t type, string typeName,

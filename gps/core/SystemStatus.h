@@ -125,7 +125,7 @@ public:
     }
     virtual void dump(void) {};
     inline virtual bool ignore() { return false; };
-    virtual bool equals(const SystemStatusItemBase& peer) { return false; }
+    virtual bool equals(const SystemStatusItemBase& peer __unused) { return false; }
 };
 
 class SystemStatusLocation : public SystemStatusItemBase

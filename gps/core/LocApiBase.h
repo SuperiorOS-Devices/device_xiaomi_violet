@@ -140,8 +140,8 @@ public:
     inline virtual double getGloRfLoss(uint32_t left __unused,
             uint32_t center __unused, uint32_t right __unused, uint8_t gloFrequency __unused) { return 0.0; }
     inline virtual float getGeoidalSeparation(double latitude __unused, double longitude __unused) { return 0.0; }
-    inline virtual bool checkFeatureStatus(int* fids, LocFeatureStatus* status,
-            uint32_t idCount, bool directQwesCall = false) {return false;}
+    inline virtual bool checkFeatureStatus(int* fids __unused, LocFeatureStatus* status __unused,
+            uint32_t idCount __unused, bool directQwesCall __unused = false ) {return false;}
 };
 
 class LocApiBase {

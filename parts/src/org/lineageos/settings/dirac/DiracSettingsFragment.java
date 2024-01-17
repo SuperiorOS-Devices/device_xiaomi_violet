@@ -23,12 +23,12 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
-import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragmentCompat;
 import com.android.settingslib.widget.MainSwitchPreference;
 import org.lineageos.settings.R;
 
-public class DiracSettingsFragment
-        extends PreferenceFragment implements OnPreferenceChangeListener, OnCheckedChangeListener {
+public class DiracSettingsFragment extends PreferenceFragmentCompat
+        implements OnPreferenceChangeListener, OnCheckedChangeListener {
     private static final String PREF_HEADSET = "dirac_headset_pref";
     private static final String PREF_PRESET = "dirac_preset_pref";
     private static final String PREF_ENABLE = "dirac_enable";
@@ -42,7 +42,7 @@ public class DiracSettingsFragment
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.dirac_settings);
+        setPreferencesFromResource(R.xml.dirac_settings, rootKey);
 
         DiracUtils.initialize(getActivity());
         boolean enhancerEnabled = DiracUtils.isDiracEnabled();

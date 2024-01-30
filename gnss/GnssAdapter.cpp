@@ -5862,26 +5862,27 @@ GnssAdapter::nfwControlCommand(bool enable) {
             mApi(api),
             mEnable(enable) {}
         inline virtual void proc() const {
-            GnssConfigGpsLock gpsLock;
 
-            gpsLock = ContextBase::mGps_conf.GPS_LOCK;
-            if (mEnable) {
-                gpsLock &= ~GNSS_CONFIG_GPS_LOCK_NI;
+            if (mAdapter.mSupportNfwControl) {
+                GnssConfigGpsLock gpsLock;
+
+                gpsLock = ContextBase::mGps_conf.GPS_LOCK;
+                if (mEnable) {
+                    gpsLock &= ~GNSS_CONFIG_GPS_LOCK_NI;
+                } else {
+                    gpsLock |= GNSS_CONFIG_GPS_LOCK_NI;
+                }
+                ContextBase::mGps_conf.GPS_LOCK = gpsLock;
+                mApi.sendMsg(new LocApiMsg([&mApi = mApi, gpsLock]() {
+                            mApi.setGpsLockSync((GnssConfigGpsLock)gpsLock);
+                }));
             } else {
-                gpsLock |= GNSS_CONFIG_GPS_LOCK_NI;
+                LOC_LOGw("NFW control is not supported, do not use this for NFW");
             }
-            ContextBase::mGps_conf.GPS_LOCK = gpsLock;
-            mApi.sendMsg(new LocApiMsg([&mApi = mApi, gpsLock]() {
-                mApi.setGpsLockSync((GnssConfigGpsLock)gpsLock);
-            }));
         }
     };
 
-    if (mSupportNfwControl) {
-        sendMsg(new MsgControlNfwLocationAccess(*this, *mLocApi, enable));
-    } else {
-        LOC_LOGw("NFW control is not supported, do not use this for NFW");
-    }
+    sendMsg(new MsgControlNfwLocationAccess(*this, *mLocApi, enable));
 }
 
 // Set tunc constrained mode, use 0 session id to indicate

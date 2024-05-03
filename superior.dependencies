@@ -24,6 +24,12 @@
     "branch": "lineage-20.0"
   },
   {
+    "repository": "Joker-V2/android_vendor_MiuiCamera",
+    "target_path": "vendor/MiuiCamera",
+    "branch":"thirteen",
+    "remote":"gitlab"
+  },
+  {
     "repository": "Joker-V2/prebuilts_clang_host_linux-x86_clang-r498229",
     "target_path": "prebuilts/clang/host/linux-x86/clang-r498229",
     "branch":"master",

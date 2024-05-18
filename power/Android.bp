@@ -1,0 +1,11 @@
+cc_library_static {
+    name: "libperfmgr-ext-xiaomi",
+    vendor: true,
+    srcs: [
+        "power-mode.cpp",
+    ],
+    shared_libs: [
+        "android.hardware.power-V4-ndk",
+        "libbase",
+    ],
+}

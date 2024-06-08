@@ -2,9 +2,6 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := android.hardware.gnss@2.1-impl-qti
-LOCAL_SANITIZE += $(GNSS_SANITIZE)
-# activate the following line for debug purposes only, comment out for production
-#LOCAL_SANITIZE_DIAG += $(GNSS_SANITIZE_DIAG)
 LOCAL_VENDOR_MODULE := true
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := \
@@ -44,6 +41,7 @@ LOCAL_HEADER_LIBRARIES := \
     liblocbatterylistener_headers
 
 LOCAL_SHARED_LIBRARIES := \
+    libbinder_ndk \
     liblog \
     libhidlbase \
     libcutils \
@@ -58,6 +56,7 @@ LOCAL_SHARED_LIBRARIES := \
     android.hardware.health@1.0 \
     android.hardware.health@2.0 \
     android.hardware.health@2.1 \
+    android.hardware.health-V1-ndk \
     android.hardware.power@1.2 \
     libbase
 
@@ -74,9 +73,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := android.hardware.gnss@2.1-service-qti
-LOCAL_SANITIZE += $(GNSS_SANITIZE)
-# activate the following line for debug purposes only, comment out for production
-#LOCAL_SANITIZE_DIAG += $(GNSS_SANITIZE_DIAG)
+
 LOCAL_VINTF_FRAGMENTS := android.hardware.gnss@2.1-service-qti.xml
 LOCAL_VENDOR_MODULE := true
 LOCAL_MODULE_RELATIVE_PATH := hw

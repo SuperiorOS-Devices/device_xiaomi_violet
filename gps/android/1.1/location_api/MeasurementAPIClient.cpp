@@ -66,34 +66,6 @@ MeasurementAPIClient::~MeasurementAPIClient()
     LOC_LOGD("%s]: ()", __FUNCTION__);
 }
 
-// for GpsInterface
-Return<IGnssMeasurement::GnssMeasurementStatus>
-MeasurementAPIClient::measurementSetCallback(const sp<V1_0::IGnssMeasurementCallback>& callback)
-{
-    LOC_LOGD("%s]: (%p)", __FUNCTION__, &callback);
-
-    mMutex.lock();
-    mGnssMeasurementCbIface = callback;
-    mMutex.unlock();
-
-    return startTracking();
-}
-
-Return<IGnssMeasurement::GnssMeasurementStatus>
-MeasurementAPIClient::measurementSetCallback_1_1(
-        const sp<IGnssMeasurementCallback>& callback,
-        GnssPowerMode powerMode, uint32_t timeBetweenMeasurement)
-{
-    LOC_LOGD("%s]: (%p) (powermode: %d) (tbm: %d)",
-            __FUNCTION__, &callback, (int)powerMode, timeBetweenMeasurement);
-
-    mMutex.lock();
-    mGnssMeasurementCbIface_1_1 = callback;
-    mMutex.unlock();
-
-    return startTracking(powerMode, timeBetweenMeasurement);
-}
-
 Return<IGnssMeasurement::GnssMeasurementStatus>
 MeasurementAPIClient::startTracking(
         GnssPowerMode powerMode, uint32_t timeBetweenMeasurement)
@@ -102,16 +74,6 @@ MeasurementAPIClient::startTracking(
     memset(&locationCallbacks, 0, sizeof(LocationCallbacks));
     locationCallbacks.size = sizeof(LocationCallbacks);
 
-    locationCallbacks.trackingCb = nullptr;
-    locationCallbacks.batchingCb = nullptr;
-    locationCallbacks.geofenceBreachCb = nullptr;
-    locationCallbacks.geofenceStatusCb = nullptr;
-    locationCallbacks.gnssLocationInfoCb = nullptr;
-    locationCallbacks.gnssNiCb = nullptr;
-    locationCallbacks.gnssSvCb = nullptr;
-    locationCallbacks.gnssNmeaCb = nullptr;
-
-    locationCallbacks.gnssMeasurementsCb = nullptr;
     if (mGnssMeasurementCbIface_1_1 != nullptr || mGnssMeasurementCbIface != nullptr) {
         locationCallbacks.gnssMeasurementsCb =
             [this](GnssMeasurementsNotification gnssMeasurementsNotification) {
@@ -132,7 +94,7 @@ MeasurementAPIClient::startTracking(
     }
 
     mTracking = true;
-    LOC_LOGD("%s]: start tracking session", __FUNCTION__);
+    LOC_LOGd("(powermode: %d) (tbm %d)", (int)powerMode, timeBetweenMeasurement);
     locAPIStartTracking(options);
     return IGnssMeasurement::GnssMeasurementStatus::SUCCESS;
 }

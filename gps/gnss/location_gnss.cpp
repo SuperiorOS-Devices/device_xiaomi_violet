@@ -27,6 +27,42 @@
  *
  */
 
+/*
+Changes from Qualcomm Innovation Center are provided under the following license:
+
+Copyright (c) 2022, 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted (subject to the limitations in the
+disclaimer below) provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+
+    * Neither the name of Qualcomm Innovation Center, Inc. nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE
+GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #include "GnssAdapter.h"
 #include "location_interface.h"
 
@@ -66,14 +102,16 @@ static void agpsDataConnOpen(AGpsExtType agpsType, const char* apnName, int apnL
 static void agpsDataConnClosed(AGpsExtType agpsType);
 static void agpsDataConnFailed(AGpsExtType agpsType);
 static void getDebugReport(GnssDebugReport& report);
-static void updateConnectionStatus(bool connected, int8_t type, bool roaming = false,
-                                   NetworkHandle networkHandle = NETWORK_HANDLE_UNKNOWN);
+static void updateConnectionStatus(bool connected, int8_t type, bool roaming,
+                                   NetworkHandle networkHandle, string& apn);
 static void getGnssEnergyConsumed(GnssEnergyConsumedCallback energyConsumedCb);
 static void enableNfwLocationAccess(bool enable);
 static void nfwInit(const NfwCbInfo& cbInfo);
 static void getPowerStateChanges(std::function<void(bool)> powerStateCb);
 
-static void odcpiInit(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority);
+static void odcpiInit(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority,
+        OdcpiCallbackTypeMask typeMask);
+static void deRegisterOdcpi(OdcpiPrioritytype priority, OdcpiCallbackTypeMask typeMask);
 static void odcpiInject(const Location& location);
 
 static void blockCPI(double latitude, double longitude, float accuracy,
@@ -92,6 +130,7 @@ static uint32_t configMinGpsWeek(uint16_t minGpsWeek);
 static uint32_t configDeadReckoningEngineParams(const DeadReckoningEngineConfig& dreConfig);
 static uint32_t gnssUpdateSecondaryBandConfig(const GnssSvTypeConfig& secondaryBandConfig);
 static uint32_t gnssGetSecondaryBandConfig();
+static void resetNetworkInfo();
 
 static void updateNTRIPGGAConsent(bool consentAccepted);
 static void enablePPENtripStream(const GnssNtripConnectionParams& params, bool enableRTKEngine);
@@ -102,6 +141,7 @@ static bool measCorrSetCorrections(const GnssMeasurementCorrections gnssMeasCorr
 static void measCorrClose();
 static uint32_t antennaInfoInit(const antennaInfoCb antennaInfoCallback);
 static void antennaInfoClose();
+static uint32_t configEngineRunState(PositioningEngineMask engType, LocEngineRunState engState);
 
 static const GnssInterface gGnssInterface = {
     sizeof(GnssInterface),
@@ -133,6 +173,7 @@ static const GnssInterface gGnssInterface = {
     getDebugReport,
     updateConnectionStatus,
     odcpiInit,
+    deRegisterOdcpi,
     odcpiInject,
     blockCPI,
     getGnssEnergyConsumed,
@@ -159,6 +200,8 @@ static const GnssInterface gGnssInterface = {
     disablePPENtripStream,
     gnssUpdateSecondaryBandConfig,
     gnssGetSecondaryBandConfig,
+    resetNetworkInfo,
+    configEngineRunState
 };
 
 #ifndef DEBUG_X86
@@ -367,17 +410,25 @@ static void getDebugReport(GnssDebugReport& report) {
 }
 
 static void updateConnectionStatus(bool connected, int8_t type,
-                                   bool roaming, NetworkHandle networkHandle) {
+                                   bool roaming, NetworkHandle networkHandle,
+                                   string& apn) {
     if (NULL != gGnssAdapter) {
         gGnssAdapter->getSystemStatus()->eventConnectionStatus(
-                connected, type, roaming, networkHandle);
+                connected, type, roaming, networkHandle, apn);
     }
 }
 
-static void odcpiInit(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority)
+static void odcpiInit(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority,
+        OdcpiCallbackTypeMask typeMask)
 {
     if (NULL != gGnssAdapter) {
-        gGnssAdapter->initOdcpiCommand(callback, priority);
+        gGnssAdapter->initOdcpiCommand(callback, priority, typeMask);
+    }
+}
+
+static void deRegisterOdcpi(OdcpiPrioritytype priority, OdcpiCallbackTypeMask typeMask) {
+    if (NULL != gGnssAdapter) {
+        gGnssAdapter->deRegisterOdcpiCommand(priority, typeMask);
     }
 }
 
@@ -431,6 +482,12 @@ static void injectLocationExt(const GnssLocationInfoNotification &locationInfo)
 static void updateBatteryStatus(bool charging) {
     if (NULL != gGnssAdapter) {
         gGnssAdapter->getSystemStatus()->updatePowerConnectState(charging);
+    }
+}
+
+static void resetNetworkInfo() {
+    if (NULL != gGnssAdapter) {
+        gGnssAdapter->getSystemStatus()->resetNetworkInfo();
     }
 }
 
@@ -508,7 +565,7 @@ static uint32_t antennaInfoInit(const antennaInfoCb antennaInfoCallback) {
 static void antennaInfoClose() {
     if (NULL != gGnssAdapter) {
         return gGnssAdapter->antennaInfoCloseCommand();
-	}
+    }
 }
 
 static uint32_t configRobustLocation(bool enable, bool enableForE911){
@@ -570,5 +627,13 @@ static void disablePPENtripStream(){
     if (NULL != gGnssAdapter) {
         // Call will be enabled once GnssAdapter impl. is ready.
         gGnssAdapter->disablePPENtripStreamCommand();
+    }
+}
+
+static uint32_t configEngineRunState(PositioningEngineMask engType, LocEngineRunState engState) {
+    if (NULL != gGnssAdapter) {
+        return gGnssAdapter->configEngineRunStateCommand(engType, engState);
+    } else {
+        return 0;
     }
 }

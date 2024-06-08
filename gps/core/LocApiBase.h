@@ -26,6 +26,44 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
+ /*
+ Changes from Qualcomm Innovation Center are provided under the following license:
+
+ Copyright (c) 2022, 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted (subject to the limitations in the
+ disclaimer below) provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above
+ copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided
+ with the distribution.
+
+ * Neither the name of Qualcomm Innovation Center, Inc. nor the names of its
+ contributors may be used to endorse or promote products derived
+ from this software without specific prior written permission.
+
+ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE
+ GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+ HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+ IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
 #ifndef LOC_API_BASE_H
 #define LOC_API_BASE_H
 
@@ -36,6 +74,15 @@
 #include <MsgTask.h>
 #include <LocSharedLock.h>
 #include <log_util.h>
+#ifdef NO_UNORDERED_SET_OR_MAP
+    #include <map>
+#else
+    #include <unordered_map>
+#endif
+#include <inttypes.h>
+#include <functional>
+
+using namespace loc_util;
 
 namespace loc_core {
 
@@ -90,8 +137,11 @@ public:
     inline LocApiProxyBase() {}
     inline virtual ~LocApiProxyBase() {}
     inline virtual void* getSibling2() { return NULL; }
-    inline virtual double getGloRfLoss(uint32_t left,
-            uint32_t center, uint32_t right, uint8_t gloFrequency) { return 0.0; }
+    inline virtual double getGloRfLoss(uint32_t left __unused,
+            uint32_t center __unused, uint32_t right __unused, uint8_t gloFrequency __unused) { return 0.0; }
+    inline virtual float getGeoidalSeparation(double latitude __unused, double longitude __unused) { return 0.0; }
+    inline virtual bool checkFeatureStatus(int* fids, LocFeatureStatus* status,
+            uint32_t idCount, bool directQwesCall = false) {return false;}
 };
 
 class LocApiBase {
@@ -120,19 +170,22 @@ protected:
     inline virtual ~LocApiBase() {
         android_atomic_dec(&mMsgTaskRefCount);
         if (nullptr != mMsgTask && 0 == mMsgTaskRefCount) {
-            mMsgTask->destroy();
+            delete mMsgTask;
             mMsgTask = nullptr;
         }
     }
     bool isInSession();
     const LOC_API_ADAPTER_EVENT_MASK_T mExcludedMask;
-    bool isMaster();
 
 public:
+    bool isMaster();
     inline void sendMsg(const LocMsg* msg) const {
         if (nullptr != mMsgTask) {
             mMsgTask->sendMsg(msg);
         }
+    }
+    inline MsgTask* getMsgTask() const {
+        return mMsgTask;
     }
     inline void destroy() {
         close();
@@ -192,6 +245,11 @@ public:
     void reportGnssAdditionalSystemInfo(GnssAdditionalSystemInfo& additionalSystemInfo);
     void sendNfwNotification(GnssNfwNotification& notification);
     void reportGnssConfig(uint32_t sessionId, const GnssConfig& gnssConfig);
+    void reportLatencyInfo(GnssLatencyInfo& gnssLatencyInfo);
+    void reportQwesCapabilities
+    (
+        const std::unordered_map<LocationQwesFeatureType, bool> &featureMap
+    );
 
     void geofenceBreach(size_t count, uint32_t* hwIds, Location& location,
             GeofenceBreachType breachType, uint64_t timestamp);
@@ -216,7 +274,6 @@ public:
             bool onDemandCpi=false);
     virtual void injectPosition(const Location& location, bool onDemandCpi);
     virtual void setTime(LocGpsUtcTime time, int64_t timeReference, int uncertainty);
-    virtual enum loc_api_adapter_err setXtraData(char* data, int length);
     virtual void atlOpenStatus(int handle, int is_succ, char* apn, uint32_t apnLen,
             AGpsBearerType bear, LocAGpsType agpsType, LocApnTypeMask mask);
     virtual void atlCloseStatus(int handle, int is_succ);
@@ -244,13 +301,11 @@ public:
     virtual GnssConfigLppeControlPlaneMask convertLppeCp(const uint32_t lppeControlPlaneMask);
     virtual GnssConfigLppeUserPlaneMask convertLppeUp(const uint32_t lppeUserPlaneMask);
     virtual LocationError setEmergencyExtensionWindowSync(const uint32_t emergencyExtensionSeconds);
-    virtual LocationError setMeasurementCorrections(
-            const GnssMeasurementCorrections gnssMeasurementCorrections);
+    virtual void setMeasurementCorrections(
+            const GnssMeasurementCorrections& gnssMeasurementCorrections);
 
     virtual void getWwanZppFix();
     virtual void getBestAvailableZppFix();
-    virtual void installAGpsCert(const LocDerEncodedCertificate* pData, size_t length,
-            uint32_t slotBitMask);
     virtual LocationError setGpsLockSync(GnssConfigGpsLock lock);
     virtual void requestForAidingData(GnssAidingDataSvMask svDataMask);
     virtual LocationError setXtraVersionCheckSync(uint32_t check);
@@ -270,7 +325,7 @@ public:
                                         LocApiResponse* adapterResponse=nullptr);
     virtual void setPositionAssistedClockEstimatorMode(bool enabled,
                                                        LocApiResponse* adapterResponse=nullptr);
-    virtual LocationError getGnssEnergyConsumed();
+    virtual void getGnssEnergyConsumed();
 
     virtual void addGeofence(uint32_t clientId, const GeofenceOption& options,
             const GeofenceInfo& info, LocApiResponseData<LocApiGeofenceData>* adapterResponseData);
@@ -333,6 +388,27 @@ public:
                                               LocApiResponse* adapterResponse=nullptr);
     virtual void getConstellationMultiBandConfig(uint32_t sessionId,
                                         LocApiResponse* adapterResponse=nullptr);
+};
+
+class ElapsedRealtimeEstimator {
+private:
+    int64_t mCurrentClockDiff;
+    int64_t mPrevUtcTimeNanos;
+    int64_t mPrevBootTimeNanos;
+    int64_t mFixTimeStablizationThreshold;
+    int64_t mInitialTravelTime;
+    int64_t mPrevDataTimeNanos;
+public:
+
+    ElapsedRealtimeEstimator(int64_t travelTimeNanosEstimate):
+            mInitialTravelTime(travelTimeNanosEstimate) {reset();}
+    int64_t getElapsedRealtimeEstimateNanos(int64_t curDataTimeNanos,
+            bool isCurDataTimeTrustable, int64_t tbf);
+    inline int64_t getElapsedRealtimeUncNanos() { return 5000000;}
+    void reset();
+
+    static int64_t getElapsedRealtimeQtimer(int64_t qtimerTicksAtOrigin);
+    static bool getCurrentTime(struct timespec& currentTime, int64_t& sinceBootTimeNanos);
 };
 
 typedef LocApiBase* (getLocApi_t)(LOC_API_ADAPTER_EVENT_MASK_T exMask,

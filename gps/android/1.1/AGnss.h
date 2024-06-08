@@ -21,6 +21,7 @@
 #ifndef ANDROID_HARDWARE_GNSS_V1_1_AGNSS_H
 #define ANDROID_HARDWARE_GNSS_V1_1_AGNSS_H
 
+#include <mutex>
 #include <android/hardware/gnss/1.0/IAGnss.h>
 #include <hidl/Status.h>
 #include <gps_extended_c.h>
@@ -67,6 +68,7 @@ struct AGnss : public IAGnss {
 
  private:
     Gnss* mGnss = nullptr;
+    std::mutex mMutex;
     sp<IAGnssCallback> mAGnssCbIface = nullptr;
 };
 

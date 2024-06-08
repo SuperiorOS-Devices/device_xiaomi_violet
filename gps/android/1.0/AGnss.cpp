@@ -83,8 +83,11 @@ void AGnss::statusIpV4Cb(AGnssExtStatusIpV4 status) {
     }
     st.ipV4Addr = status.ipV4Addr;
 
-    if (mAGnssCbIface != nullptr) {
-        auto r = mAGnssCbIface->agnssStatusIpV4Cb(st);
+    mMutex.lock();
+    auto aGnssCbIface = mAGnssCbIface;
+    mMutex.unlock();
+    if (aGnssCbIface != nullptr) {
+        auto r = aGnssCbIface->agnssStatusIpV4Cb(st);
         if (!r.isOk()) {
             LOC_LOGw("Error invoking AGNSS status cb %s", r.description().c_str());
         }
@@ -101,7 +104,9 @@ Return<void> AGnss::setCallback(const sp<IAGnssCallback>& callback) {
     }
 
     // Save the interface
+    mMutex.lock();
     mAGnssCbIface = callback;
+    mMutex.unlock();
 
     AgpsCbInfo cbInfo = {};
     cbInfo.statusV4Cb = (void*)agnssStatusIpV4Cb;

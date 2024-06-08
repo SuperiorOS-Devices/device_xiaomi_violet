@@ -26,6 +26,40 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*
+Changes from Qualcomm Innovation Center are provided under the following license:
+Copyright (c) 2022, 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted (subject to the limitations in the
+disclaimer below) provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+
+    * Neither the name of Qualcomm Innovation Center, Inc. nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE
+GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 #ifndef LOCATIONDATATYPES_H
 #define LOCATIONDATATYPES_H
 
@@ -61,7 +95,8 @@ typedef enum {
     LOCATION_ERROR_ID_UNKNOWN,
     LOCATION_ERROR_ALREADY_STARTED,
     LOCATION_ERROR_GEOFENCES_AT_MAX,
-    LOCATION_ERROR_NOT_SUPPORTED
+    LOCATION_ERROR_NOT_SUPPORTED,
+    LOCATION_ERROR_TIMEOUT,
 } LocationError;
 
 // Flags to indicate which values are valid in a Location
@@ -91,7 +126,10 @@ typedef enum {
     LOCATION_TECHNOLOGY_INJECTED_COARSE_POSITION_BIT = (1<<5), // using CPI
     LOCATION_TECHNOLOGY_AFLT_BIT                     = (1<<6), // AFLT
     LOCATION_TECHNOLOGY_HYBRID_BIT                   = (1<<7), // HYBRID
-    LOCATION_TECHNOLOGY_PPE_BIT                      = (1<<8)  // PPE
+    LOCATION_TECHNOLOGY_PPE_BIT                      = (1<<8), // PPE
+    LOCATION_TECHNOLOGY_VEH_BIT                      = (1<<9), // using vehicular data
+    LOCATION_TECHNOLOGY_VIS_BIT                      = (1<<10), // using visual data
+    LOCATION_TECHNOLOGY_DGNSS_BIT                    = (1<<11),  // DGNSS
 } LocationTechnologyBits;
 
 typedef uint32_t LocationSpoofMask;
@@ -206,7 +244,9 @@ typedef enum {
     GNSS_LOCATION_INFO_CONFORMITY_INDEX_BIT             = (1<<28), // conformity index
     GNSS_LOCATION_INFO_LLA_VRP_BASED_BIT                = (1<<29), // VRP-based lat/long/alt
     GNSS_LOCATION_INFO_ENU_VELOCITY_VRP_BASED_BIT       = (1<<30), // VRP-based east/north/up vel
-    GNSS_LOCATION_INFO_DR_SOLUTION_STATUS_MASK_BIT      = (1ULL<<31), // DR solution status
+    GNSS_LOCATION_INFO_DR_SOLUTION_STATUS_MASK_BIT      = (1ULL<<31), // Valid DR solution status
+    GNSS_LOCATION_INFO_ALTITUDE_ASSUMED_BIT             = (1ULL<<32), // Valid altitude assumed
+    GNSS_LOCATION_INFO_SESSION_STATUS_BIT               = (1ULL<<33), // session status
 } GnssLocationInfoFlagBits;
 
 typedef enum {
@@ -230,41 +270,153 @@ typedef enum {
     GEOFENCE_STATUS_AVAILABILE_YES,
 } GeofenceStatusAvailable;
 
-typedef uint32_t LocationCapabilitiesMask;
+// Set of masks for Modem and QWES capabilities.
+typedef uint64_t LocationCapabilitiesMask;
+// supports startTracking API with minInterval param
+#define   LOCATION_CAPABILITIES_TIME_BASED_TRACKING_BIT           (1<<0)
+// supports startBatching API with minInterval param
+#define   LOCATION_CAPABILITIES_TIME_BASED_BATCHING_BIT           (1<<1)
+// supports startTracking API with minDistance param
+#define  LOCATION_CAPABILITIES_DISTANCE_BASED_TRACKING_BIT       (1<<2)
+// supports startBatching API with minDistance param
+#define   LOCATION_CAPABILITIES_DISTANCE_BASED_BATCHING_BIT       (1<<3)
+// supports addGeofences API
+#define   LOCATION_CAPABILITIES_GEOFENCE_BIT                      (1<<4)
+// supports GnssMeasurementsCallback
+#define   LOCATION_CAPABILITIES_GNSS_MEASUREMENTS_BIT             (1<<5)
+// supports startTracking/startBatching API with LocationOptions.mode of MSB (Ms Based)
+#define   LOCATION_CAPABILITIES_GNSS_MSB_BIT                      (1<<6)
+// supports startTracking/startBatching API with LocationOptions.mode of MSA (MS Assisted)
+#define   LOCATION_CAPABILITIES_GNSS_MSA_BIT                      (1<<7)
+// supports debug nmea sentences in the debugNmeaCallback
+#define   LOCATION_CAPABILITIES_DEBUG_NMEA_BIT                    (1<<8)
+// support outdoor trip batching
+#define   LOCATION_CAPABILITIES_OUTDOOR_TRIP_BATCHING_BIT         (1<<9)
+// support constellation enablement
+#define   LOCATION_CAPABILITIES_CONSTELLATION_ENABLEMENT_BIT      (1<<10)
+// support agpm
+#define   LOCATION_CAPABILITIES_AGPM_BIT                          (1<<11)
+// support location privacy
+#define   LOCATION_CAPABILITIES_PRIVACY_BIT                       (1<<12)
+// support measurement corrections
+#define   LOCATION_CAPABILITIES_MEASUREMENTS_CORRECTION_BIT       (1<<13)
+// support Robust Location
+#define   LOCATION_CAPABILITIES_CONFORMITY_INDEX_BIT              (1<<14)
+// support precise location edgnss
+#define   LOCATION_CAPABILITIES_EDGNSS_BIT                        (1<<15)
+// Modem supports Carrier Phase for Precise Positioning
+// Measurement Engine (PPME).
+#define   LOCATION_CAPABILITIES_QWES_CARRIER_PHASE_BIT            (1<<16)
+// Modem supports SV Polynomial for tightly coupled external
+// DR support. This is a Standalone Feature.
+#define   LOCATION_CAPABILITIES_QWES_SV_POLYNOMIAL_BIT            (1<<17)
+// Modem supports SV Ephemeris for tightly coupled external
+// PPE engines. This is a Standalone Feature.
+#define   LOCATION_CAPABILITIES_QWES_SV_EPHEMERIS_BIT            (1<<18)
+// Modem supports GNSS Single Frequency feature. This is a
+// Standalone Feature.
+#define   LOCATION_CAPABILITIES_QWES_GNSS_SINGLE_FREQUENCY       (1<<19)
+// Modem supports GNSS Multi Frequency feature. Multi Frequency
+// enables Single frequency also.
+#define   LOCATION_CAPABILITIES_QWES_GNSS_MULTI_FREQUENCY        (1<<20)
+// This mask indicates VPe license bundle is enabled. VEPP
+// bundle include Carrier Phase and SV Polynomial features.
+#define   LOCATION_CAPABILITIES_QWES_VPE                         (1<<21)
+// This mask indicates support for CV2X Location basic features.
+// This bundle includes features for GTS Time & Freq, C-TUNC
+// (Constrained Time uncertainity.
+#define   LOCATION_CAPABILITIES_QWES_CV2X_LOCATION_BASIC         (1<<22)
+// This mask indicates support for CV2X Location premium features.
+// This bundle includes features for CV2X Location Basic features,
+// QDR3 feature, and PACE. (Position Assisted Clock Estimator.
+#define   LOCATION_CAPABILITIES_QWES_CV2X_LOCATION_PREMIUM       (1<<23)
+// This mask indicates that PPE (Precise Positioning Engine)
+// library is enabled or Precise Positioning Framework (PPF)
+// is available. This bundle includes features for Carrier
+// Phase and SV Ephermeris.
+#define   LOCATION_CAPABILITIES_QWES_PPE                         (1<<24)
+// This mask indicates QDR2_C license bundle is enabled. This
+// bundle includes features for SV Polynomial.
+#define   LOCATION_CAPABILITIES_QWES_QDR2                        (1<<25)
+// This mask indicates QDR3_C license bundle is enabled. This
+// bundle includes features for SV Polynomial.
+#define   LOCATION_CAPABILITIES_QWES_QDR3                        (1<<26)
+// This mask indicates DGNSS license bundle is enabled.
+#define   LOCATION_CAPABILITIES_QWES_DGNSS                       (1<<27)
+// This mask indicates Antenna info is enabled.
+#define   LOCATION_CAPABILITIES_ANTENNA_INFO                     (1<<28)
+// This mask indicates qppe or qfe library is presented.
+#define   LOCATION_CAPABILITIES_PRECISE_LIB_PRESENT              (1<<29)
+// This mask indicates wifi RSSI positioning is
+// enabled by QWES license.
+#define   LOCATION_CAPABILITIES_QWES_WIFI_RSSI_POSITIONING            (1ULL<<30)
+// This mask indicates wifi RTT positioning is
+// enabled by QWES license.
+#define   LOCATION_CAPABILITIES_QWES_WIFI_RTT_POSITIONING             (1ULL<<31)
+// This mask indicates wifi RSSI positioning is supported.
+#define   LOCATION_CAPABILITIES_WIFI_RSSI_POSITIONING                          (1ULL<<32)
+// This mask indicates wifi RTT positioning is supported.
+#define   LOCATION_CAPABILITIES_WIFI_RTT_POSITIONING                           (1ULL<<33)
+
+typedef uint8_t LocationQwesFeatureType;
 typedef enum {
-    // supports startTracking API with minInterval param
-    LOCATION_CAPABILITIES_TIME_BASED_TRACKING_BIT           = (1<<0),
-    // supports startBatching API with minInterval param
-    LOCATION_CAPABILITIES_TIME_BASED_BATCHING_BIT           = (1<<1),
-    // supports startTracking API with minDistance param
-    LOCATION_CAPABILITIES_DISTANCE_BASED_TRACKING_BIT       = (1<<2),
-    // supports startBatching API with minDistance param
-    LOCATION_CAPABILITIES_DISTANCE_BASED_BATCHING_BIT       = (1<<3),
-    // supports addGeofences API
-    LOCATION_CAPABILITIES_GEOFENCE_BIT                      = (1<<4),
-    // supports GnssMeasurementsCallback
-    LOCATION_CAPABILITIES_GNSS_MEASUREMENTS_BIT             = (1<<5),
-    // supports startTracking/startBatching API with LocationOptions.mode of MSB (Ms Based)
-    LOCATION_CAPABILITIES_GNSS_MSB_BIT                      = (1<<6),
-    // supports startTracking/startBatching API with LocationOptions.mode of MSA (MS Assisted)
-    LOCATION_CAPABILITIES_GNSS_MSA_BIT                      = (1<<7),
-    // supports debug nmea sentences in the debugNmeaCallback
-    LOCATION_CAPABILITIES_DEBUG_NMEA_BIT                    = (1<<8),
-    // support outdoor trip batching
-    LOCATION_CAPABILITIES_OUTDOOR_TRIP_BATCHING_BIT         = (1<<9),
-    // support constellation enablement
-    LOCATION_CAPABILITIES_CONSTELLATION_ENABLEMENT_BIT      = (1<<10),
-    // support agpm
-    LOCATION_CAPABILITIES_AGPM_BIT                          = (1<<11),
-    // support location privacy
-    LOCATION_CAPABILITIES_PRIVACY_BIT                       = (1<<12),
-    // support measurement corrections
-    LOCATION_CAPABILITIES_MEASUREMENTS_CORRECTION_BIT       = (1<<13),
-    // support Robust Location
-    LOCATION_CAPABILITIES_CONFORMITY_INDEX_BIT               = (1<<14),
-    // support precise location edgnss
-    LOCATION_CAPABILITIES_EDGNSS_BIT                        = (1<<15),
-} LocationCapabilitiesBits;
+    // Modem supports Carrier Phase for Precise Positioning
+    // Measurement Engine (PPME).
+    LOCATION_QWES_FEATURE_TYPE_CARRIER_PHASE                 = 1,
+    // Modem supports SV Polynomial for tightly coupled external
+    // DR support. This is a Standalone Feature.
+    LOCATION_QWES_FEATURE_TYPE_SV_POLYNOMIAL,
+    // Modem supports SV Ephemeris for tightly coupled external
+    // PPE support. This is a Standalone Feature.
+    LOCATION_QWES_FEATURE_TYPE_SV_EPH,
+    // Modem supports GNSS Single Frequency feature. This is a
+    // Standalone Feature.
+    LOCATION_QWES_FEATURE_TYPE_GNSS_SINGLE_FREQUENCY,
+    // Modem supports GNSS Multi Frequency feature. Multi Frequency
+    // enables Single frequency also.
+    LOCATION_QWES_FEATURE_TYPE_GNSS_MULTI_FREQUENCY,
+    // This indicates Time and Frequency status.
+    LOCATION_QWES_FEATURE_TYPE_TIME_FREQUENCY,
+    // This indicates Time Uncertainty  status.
+    LOCATION_QWES_FEATURE_TYPE_TIME_UNCERTAINTY,
+    // This indicates Clock Estimate status.
+    LOCATION_QWES_FEATURE_TYPE_CLOCK_ESTIMATE,
+    // This mask indicates that PPE (Precise Positioning Engine)
+    // library is enabled or Precise Positioning Framework (PPF)
+    // is available. This bundle includes features for Carrier
+    // Phase and SV Ephermeris.
+    LOCATION_QWES_FEATURE_TYPE_PPE,
+    // This indicates QDR2_C license bundle is enabled. This
+    // bundle includes features for SV Polynomial.
+    LOCATION_QWES_FEATURE_TYPE_QDR2,
+    // This indicates QDR3_C license bundle is enabled. This
+    // bundle includes features for SV Polynomial.
+    LOCATION_QWES_FEATURE_TYPE_QDR3,
+    // This indicates VEPP license bundle is enabled. VEPP
+    // bundle include Carrier Phase and SV Polynomial features.
+    LOCATION_QWES_FEATURE_TYPE_VPE,
+    // This indicates DGNSS license is enabled.
+    LOCATION_QWES_FEATURE_TYPE_DGNSS,
+    // This indicates DLP feature is enabled by QESDK APP
+    // license
+    LOCATION_QWES_FEATURE_TYPE_DLP_QESDK,
+    // This indicates wifi RSSI positioning is
+    // enabled by QWES license.
+    LOCATION_QWES_FEATURE_TYPE_RSSI_POSITIONING,
+    // This indicates wifi RTT positioning is
+    // enabled by QWES license.
+    LOCATION_QWES_FEATURE_TYPE_RTT_POSITIONING,
+    // Max value
+    LOCATION_QWES_FEATURE_TYPE_MAX
+} LocationQwesFeatureTypes;
+
+typedef uint64_t LocationHwCapabilitiesMask;
+typedef enum {
+    // This indicates wifi HW has RSSI capability.
+    LOCATION_WIFI_CAPABILITY_RSSI = (1<<0),
+    // This indicates wifi HW has RTT capability.
+    LOCATION_WIFI_CAPABILITY_RTT  = (1<<1)
+} LocationHwCapabilitiesBits;
 
 typedef enum {
     LOCATION_TECHNOLOGY_TYPE_GNSS = 0,
@@ -717,10 +869,22 @@ typedef uint32_t PositioningEngineMask;
 typedef enum {
     STANDARD_POSITIONING_ENGINE = (1 << 0),
     DEAD_RECKONING_ENGINE       = (1 << 1),
-    PRECISE_POSITIONING_ENGINE  = (1 << 2)
+    PRECISE_POSITIONING_ENGINE  = (1 << 2),
+    VP_POSITIONING_ENGINE  = (1 << 3)
 } PositioningEngineBits;
 #define POSITION_ENGINE_MASK_ALL \
-        (STANDARD_POSITIONING_ENGINE|DEAD_RECKONING_ENGINE|PRECISE_POSITIONING_ENGINE)
+        (STANDARD_POSITIONING_ENGINE|DEAD_RECKONING_ENGINE| \
+        PRECISE_POSITIONING_ENGINE|VP_POSITIONING_ENGINE)
+
+/** Specify the position engine running state. <br/> */
+enum LocEngineRunState {
+    /** Request the position engine to be put into resume state.
+     *  <br/> */
+    LOC_ENGINE_RUN_STATE_PAUSE   = 1,
+    /** Request the position engine to be put into resume state.
+     *  <br/> */
+    LOC_ENGINE_RUN_STATE_RESUME   = 2,
+};
 
 typedef uint64_t GnssDataMask;
 typedef enum {
@@ -821,6 +985,7 @@ typedef enum {
     LOC_REQ_ENGINE_FUSED_BIT = (1<<0),
     LOC_REQ_ENGINE_SPE_BIT   = (1<<1),
     LOC_REQ_ENGINE_PPE_BIT   = (1<<2),
+    LOC_REQ_ENGINE_VPE_BIT   = (1<<3)
 } LocReqEngineTypeMask;
 
 typedef enum {
@@ -829,6 +994,7 @@ typedef enum {
     LOC_OUTPUT_ENGINE_SPE     = 1,
     /** This is the GNSS fix with correction PPP/RTK correction */
     LOC_OUTPUT_ENGINE_PPE     = 2,
+    LOC_OUTPUT_ENGINE_VPE = 3,
     LOC_OUTPUT_ENGINE_COUNT,
 } LocOutputEngineType;
 
@@ -1087,6 +1253,12 @@ typedef struct {
     float altitude;  // altitude wrt to ellipsoid
 } LLAInfo;
 
+enum loc_sess_status {
+    LOC_SESS_SUCCESS,
+    LOC_SESS_INTERMEDIATE,
+    LOC_SESS_FAILURE
+};
+
 typedef struct {
     uint32_t size;                      // set to sizeof(GnssLocationInfo)
     Location location;                  // basic locaiton info, latitude, longitude, and etc
@@ -1127,7 +1299,7 @@ typedef struct {
     // location engine type. When the fix. when the type is set to
     // LOC_ENGINE_SRC_FUSED, the fix is the propagated/aggregated
     // reports from all engines running on the system (e.g.:
-    // DR/SPE/PPE). To check which location engine contributes to
+    // DR/SPE/PPE/VPE). To check which location engine contributes to
     // the fused output, check for locOutputEngMask.
     LocOutputEngineType locOutputEngType;
     // when loc output eng type is set to fused, this field
@@ -1144,6 +1316,10 @@ typedef struct {
     // VRR-based east, north, and up velocity
     float enuVelocityVRPBased[3];
     DrSolutionStatusMask drSolutionStatusMask;
+    // true: altitude is assumed, false: altitude is calculated
+    bool altitudeAssumed;
+    // location session status
+    loc_sess_status sessionStatus;
 } GnssLocationInfoNotification;
 
 typedef struct {
@@ -1201,6 +1377,7 @@ typedef struct {
     float carrierFrequencyHz; // carrier frequency of the signal tracked
     GnssSignalTypeMask gnssSignalTypeMask; // Specifies GNSS signal type
     double basebandCarrierToNoiseDbHz; // baseband signal strength
+    uint16_t  gloFrequency; // GLONASS Frequency channel number
 } GnssSv;
 
 struct GnssConfigSetAssistanceServer {
@@ -1612,6 +1789,11 @@ struct LocationSystemInfo {
     LeapSecondSystemInfo   leapSecondSysInfo;
 };
 
+// Specify the set of terrestrial technologies
+enum TerrestrialTechMask {
+    TERRESTRIAL_TECH_GTP_WWAN = 1 << 0,
+};
+
 // Specify parameters related to lever arm
 struct LeverArmParams {
     // Offset along the vehicle forward axis
@@ -1933,4 +2115,30 @@ typedef struct {
     uint32_t port;
     bool useSSL;
 } GnssNtripConnectionParams;
+
+typedef struct {
+    uint64_t meQtimer1;
+    uint64_t meQtimer2;
+    uint64_t meQtimer3;
+    uint64_t peQtimer1;
+    uint64_t peQtimer2;
+    uint64_t peQtimer3;
+    uint64_t smQtimer1;
+    uint64_t smQtimer2;
+    uint64_t smQtimer3;
+    uint64_t locMwQtimer;
+    uint64_t hlosQtimer1;
+    uint64_t hlosQtimer2;
+    uint64_t hlosQtimer3;
+    uint64_t hlosQtimer4;
+    uint64_t hlosQtimer5;
+} GnssLatencyInfo;
+
+enum {
+    NON_EMERGENCY_ODCPI = (1<<0),
+    EMERGENCY_ODCPI =     (1<<1)
+} OdcpiCallbackTypeMaskBits;
+
+typedef uint16_t OdcpiCallbackTypeMask;
+
 #endif /* LOCATIONDATATYPES_H */

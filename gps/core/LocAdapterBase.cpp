@@ -26,6 +26,43 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
+/*
+Changes from Qualcomm Innovation Center are provided under the following license:
+
+Copyright (c) 2022, 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted (subject to the limitations in the
+disclaimer below) provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+
+    * Neither the name of Qualcomm Innovation Center, Inc. nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE
+GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 #define LOG_NDEBUG 0
 #define LOG_TAG "LocSvc_LocAdapterBase"
 
@@ -45,10 +82,10 @@ LocAdapterBase::LocAdapterBase(const LOC_API_ADAPTER_EVENT_MASK_T mask,
                                ContextBase* context, bool isMaster,
                                LocAdapterProxyBase *adapterProxyBase,
                                bool waitForDoneInit) :
-    mIsMaster(isMaster), mEvtMask(mask), mContext(context),
-    mLocApi(context->getLocApi()), mLocAdapterProxyBase(adapterProxyBase),
-    mMsgTask(context->getMsgTask()),
-    mIsEngineCapabilitiesKnown(ContextBase::sIsEngineCapabilitiesKnown)
+    mIsMaster(isMaster),
+    mIsEngineCapabilitiesKnown(ContextBase::sIsEngineCapabilitiesKnown),
+    mEvtMask(mask), mContext(context), mLocApi(context->getLocApi()),
+    mLocAdapterProxyBase(adapterProxyBase), mMsgTask(context->getMsgTask())
 {
     LOC_LOGd("waitForDoneInit: %d", waitForDoneInit);
     if (!waitForDoneInit) {
@@ -88,8 +125,8 @@ void LocAdapterBase::
                         const GpsLocationExtended& locationExtended,
                         enum loc_sess_status status,
                         LocPosTechMask loc_technology_mask,
-                        GnssDataNotification* pDataNotify,
-                        int msInWeek)
+                        GnssDataNotification* pDataNotify __unused,
+                        int msInWeek __unused)
 {
     if (mLocAdapterProxyBase != NULL) {
         mLocAdapterProxyBase->reportPositionEvent((UlpLocation&)location,
@@ -162,7 +199,7 @@ DEFAULT_IMPL(false)
 bool LocAdapterBase::
     requestNiNotifyEvent(const GnssNiNotification &/*notify*/,
                          const void* /*data*/,
-                         const LocInEmergency emergencyState)
+                         const LocInEmergency /*emergencyState*/)
 DEFAULT_IMPL(false)
 
 void LocAdapterBase::
@@ -322,6 +359,19 @@ LocAdapterBase::getCapabilities()
         if (ContextBase::isFeatureSupported(LOC_SUPPORTED_FEATURE_EDGNSS)) {
             mask |= LOCATION_CAPABILITIES_EDGNSS_BIT;
         }
+        if ((ContextBase::getQwesFeatureStatus() & LOCATION_CAPABILITIES_QWES_PPE)) {
+            mask |= LOCATION_CAPABILITIES_QWES_PPE;
+        }
+        //Get QWES feature status mask
+        mask |= ContextBase::getQwesFeatureStatus();
+        //Get HW feature status mask
+        LocationHwCapabilitiesMask hwMask = ContextBase::getHwCapabilitiesMask();
+        if ((hwMask & LOCATION_WIFI_CAPABILITY_RTT) != 0) {
+            mask |= LOCATION_CAPABILITIES_WIFI_RTT_POSITIONING;
+        }
+        if ((hwMask & LOCATION_WIFI_CAPABILITY_RSSI) != 0) {
+            mask |= LOCATION_CAPABILITIES_WIFI_RSSI_POSITIONING;
+        }
     } else {
         LOC_LOGE("%s]: attempt to get capabilities before they are known.", __func__);
     }
@@ -344,7 +394,7 @@ LocAdapterBase::updateClientsEventMask()
 DEFAULT_IMPL()
 
 void
-LocAdapterBase::stopClientSessions(LocationAPI* client)
+LocAdapterBase::stopClientSessions(LocationAPI* /*client*/)
 DEFAULT_IMPL()
 
 void
@@ -427,5 +477,13 @@ LocAdapterBase::requestCapabilitiesCommand(LocationAPI* client)
 
     sendMsg(new MsgRequestCapabilities(*this, client));
 }
+
+void
+LocAdapterBase::reportLatencyInfoEvent(const GnssLatencyInfo& /*gnssLatencyInfo*/)
+DEFAULT_IMPL()
+
+bool LocAdapterBase::
+    reportQwesCapabilities(const std::unordered_map<LocationQwesFeatureType, bool> &/*featureMap*/)
+DEFAULT_IMPL(false)
 
 } // namespace loc_core

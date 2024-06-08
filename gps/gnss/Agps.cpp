@@ -448,7 +448,7 @@ void AgpsStateMachine::setAPN(char* apn, unsigned int len){
         mAPN  = NULL;
     }
 
-    if (NULL == apn || len <= 0 || len > MAX_APN_LEN || strlen(apn) != len) {
+    if (NULL == apn || len > MAX_APN_LEN || strlen(apn) != len) {
         LOC_LOGD("Invalid apn len (%d) or null apn", len);
         mAPN = NULL;
         mAPNLen = 0;
@@ -590,7 +590,7 @@ void AgpsManager::requestATL(int connHandle, AGpsExtType agpsType,
     sm->setApnTypeMask(apnTypeMask);
 
     /* Invoke AGPS SM processing */
-    AgpsSubscriber subscriber(connHandle, false, false, apnTypeMask);
+    AgpsSubscriber subscriber(connHandle, true, false, apnTypeMask);
     sm->setCurrentSubscriber(&subscriber);
     /* Send subscriber event */
     sm->processAgpsEvent(AGPS_EVENT_SUBSCRIBE);

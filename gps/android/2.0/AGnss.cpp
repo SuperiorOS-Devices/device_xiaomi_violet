@@ -84,8 +84,11 @@ void AGnss::statusCb(AGpsExtType type, LocAGpsStatusValue status) {
         return;
     }
 
-    if (mAGnssCbIface != nullptr) {
-        auto r = mAGnssCbIface->agnssStatusCb(aType, aStatus);
+    mMutex.lock();
+    auto aGnssCbIface = mAGnssCbIface;
+    mMutex.unlock();
+    if (aGnssCbIface != nullptr) {
+        auto r = aGnssCbIface->agnssStatusCb(aType, aStatus);
         if (!r.isOk()) {
             LOC_LOGw("Error invoking AGNSS status cb %s", r.description().c_str());
         }
@@ -103,7 +106,9 @@ Return<void> AGnss::setCallback(const sp<V2_0::IAGnssCallback>& callback) {
     }
 
     // Save the interface
+    mMutex.lock();
     mAGnssCbIface = callback;
+    mMutex.unlock();
 
     AgpsCbInfo cbInfo = {};
     cbInfo.statusV4Cb = (void*)agnssStatusIpV4Cb;

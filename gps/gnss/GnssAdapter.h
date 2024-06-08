@@ -39,6 +39,10 @@
 #include <XtraSystemStatusObserver.h>
 #include <map>
 #include <functional>
+#include <loc_misc_utils.h>
+#include <queue>
+#include <NativeAgpsHandler.h>
+#include <unordered_map>
 
 #define MAX_URL_LEN 256
 #define NMEA_SENTENCE_MAX_LENGTH 200
@@ -146,6 +150,7 @@ typedef struct {
     TuncConfigInfo tuncConfigInfo;
     PaceConfigInfo paceConfigInfo;
     RobustLocationConfigInfo robustLocationConfigInfo;
+    LeverArmConfigInfo  leverArmConfigInfo;
 } LocIntegrationConfigInfo;
 
 using namespace loc_core;
@@ -164,13 +169,10 @@ typedef std::function<void(
 )> QDgnssSessionActiveCb;
 
 struct CdfwInterface {
-    void (*startDgnssApiService)();
-
+    void (*startDgnssApiService)(const MsgTask& msgTask);
     QDgnssListenerHDL (*createUsableReporter)(
             QDgnssSessionActiveCb sessionActiveCb);
-
     void (*destroyUsableReporter)(QDgnssListenerHDL handle);
-
     void (*reportUsable)(QDgnssListenerHDL handle, bool usable);
 };
 
@@ -178,6 +180,23 @@ typedef uint16_t  DGnssStateBitMask;
 #define DGNSS_STATE_ENABLE_NTRIP_COMMAND      0X01
 #define DGNSS_STATE_NO_NMEA_PENDING           0X02
 #define DGNSS_STATE_NTRIP_SESSION_STARTED     0X04
+
+class GnssReportLoggerUtil {
+public:
+    typedef void (*LogGnssLatency)(const GnssLatencyInfo& gnssLatencyMeasInfo);
+
+    GnssReportLoggerUtil() : mLogLatency(nullptr) {
+        const char* libname = "liblocdiagiface.so";
+        void* libHandle = nullptr;
+        mLogLatency = (LogGnssLatency)dlGetSymFromLib(libHandle, libname, "LogGnssLatency");
+    }
+
+    bool isLogEnabled();
+    void log(const GnssLatencyInfo& gnssLatencyMeasInfo);
+
+private:
+    LogGnssLatency mLogLatency;
+};
 
 class GnssAdapter : public LocAdapterBase {
 
@@ -240,10 +259,17 @@ class GnssAdapter : public LocAdapterBase {
     OdcpiRequestCallback mOdcpiRequestCb;
     bool mOdcpiRequestActive;
     OdcpiPrioritytype mCallbackPriority;
+	typedef uint8_t OdcpiStateMask;
+	OdcpiStateMask mOdcpiStateMask;
+	typedef enum {
+        ODCPI_REQ_ACTIVE = (1<<0),
+        CIVIC_ADDRESS_REQ_ACTIVE = (1<<1)
+    } OdcpiStateBits;
     OdcpiTimer mOdcpiTimer;
     OdcpiRequestInfo mOdcpiRequest;
+    std::unordered_map<OdcpiPrioritytype, OdcpiRequestCallback> mNonEsOdcpiReqCbMap;
     void odcpiTimerExpire();
-
+	std::function<void(const Location&)> mAddressRequestCb;
     /* ==== DELETEAIDINGDATA =============================================================== */
     int64_t mLastDeleteAidingDataTime;
 
@@ -260,6 +286,12 @@ class GnssAdapter : public LocAdapterBase {
     BlockCPIInfo mBlockCPIInfo;
     bool mPowerOn;
     uint32_t mAllowFlpNetworkFixes;
+    std::queue<GnssLatencyInfo> mGnssLatencyInfoQueue;
+    GnssReportLoggerUtil mLogger;
+    bool mDreIntEnabled;
+
+    /* === NativeAgpsHandler ======================================================== */
+    NativeAgpsHandler mNativeAgpsHandler;
 
     /* === Misc callback from QMI LOC API ============================================== */
     GnssEnergyConsumedCallback mGnssEnergyConsumedCb;
@@ -268,16 +300,28 @@ class GnssAdapter : public LocAdapterBase {
     /*==== CONVERSION ===================================================================*/
     static void convertOptions(LocPosMode& out, const TrackingOptions& trackingOptions);
     static void convertLocation(Location& out, const UlpLocation& ulpLocation,
-                                const GpsLocationExtended& locationExtended,
-                                const LocPosTechMask techMask);
+                                const GpsLocationExtended& locationExtended);
     static void convertLocationInfo(GnssLocationInfoNotification& out,
-                                    const GpsLocationExtended& locationExtended);
+                                    const GpsLocationExtended& locationExtended,
+                                    loc_sess_status status);
     static uint16_t getNumSvUsed(uint64_t svUsedIdsMask,
                                  int totalSvCntInThisConstellation);
 
     /* ======== UTILITIES ================================================================== */
-    inline void initOdcpi(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority);
+    inline void initOdcpi(const OdcpiRequestCallback& callback,
+                          OdcpiPrioritytype priority,
+                          OdcpiCallbackTypeMask typeMask);
+    inline void deRegisterOdcpi(OdcpiPrioritytype priority, OdcpiCallbackTypeMask typeMask) {
+        if (typeMask & NON_EMERGENCY_ODCPI) {
+            mNonEsOdcpiReqCbMap.erase(priority);
+        }
+    }
     inline void injectOdcpi(const Location& location);
+    void fireOdcpiRequest(const OdcpiRequestInfo& request);
+    //inline void setAddressRequestCb(const std::function<void(const Location&)>& addressRequestCb)
+    //{ mAddressRequestCb = addressRequestCb;}
+    //inline void injectLocationAndAddr(const Location& location, const GnssCivicAddress& addr)
+    //{ mLocApi->injectPositionAndCivicAddress(location, addr);}
     static bool isFlpClient(LocationCallbacks& locationCallbacks);
 
     /*==== DGnss Ntrip Source ==========================================================*/
@@ -293,9 +337,10 @@ protected:
     /* ==== CLIENT ========================================================================= */
     virtual void updateClientsEventMask();
     virtual void stopClientSessions(LocationAPI* client);
+    inline void setNmeaReportRateConfig();
+    void logLatencyInfo();
 
 public:
-
     GnssAdapter();
     virtual inline ~GnssAdapter() { }
 
@@ -383,6 +428,8 @@ public:
     void deleteAidingData(const GnssAidingData &data, uint32_t sessionId);
     void gnssUpdateXtraThrottleCommand(const bool enabled);
     std::vector<LocationError> gnssUpdateConfig(const std::string& oldMoServerUrl,
+            const std::string& moServerUrl,
+            const std::string& serverUrl,
             GnssConfig& gnssConfigRequested,
             GnssConfig& gnssConfigNeedEngineUpdate, size_t count = 0);
 
@@ -437,10 +484,16 @@ public:
     inline void antennaInfoCloseCommand() { mIsAntennaInfoInterfaceOpened = false; }
     uint32_t configMinGpsWeekCommand(uint16_t minGpsWeek);
     uint32_t configDeadReckoningEngineParamsCommand(const DeadReckoningEngineConfig& dreConfig);
+    uint32_t configEngineRunStateCommand(PositioningEngineMask engType,
+                                         LocEngineRunState engState);
 
     /* ========= ODCPI ===================================================================== */
+	
     /* ======== COMMANDS ====(Called from Client Thread)==================================== */
-    void initOdcpiCommand(const OdcpiRequestCallback& callback, OdcpiPrioritytype priority);
+    void initOdcpiCommand(const OdcpiRequestCallback& callback,
+                          OdcpiPrioritytype priority,
+                          OdcpiCallbackTypeMask typeMask);
+    void deRegisterOdcpiCommand(OdcpiPrioritytype priority, OdcpiCallbackTypeMask typeMask);
     void injectOdcpiCommand(const Location& location);
     /* ======== RESPONSES ================================================================== */
     void reportResponse(LocationError err, uint32_t sessionId);
@@ -492,6 +545,13 @@ public:
     virtual bool reportGnssAdditionalSystemInfoEvent(
             GnssAdditionalSystemInfo& additionalSystemInfo);
     virtual void reportNfwNotificationEvent(GnssNfwNotification& notification);
+    virtual void reportLatencyInfoEvent(const GnssLatencyInfo& gnssLatencyInfo);
+    virtual bool reportQwesCapabilities
+    (
+        const std::unordered_map<LocationQwesFeatureType, bool> &featureMap
+    );
+    void reportPdnTypeFromWds(int pdnType, AGpsExtType agpsType, std::string apnName,
+            AGpsBearerType bearerType);
 
     /* ======== UTILITIES ================================================================= */
     bool needReportForGnssClient(const UlpLocation& ulpLocation,
@@ -567,6 +627,8 @@ public:
     static void convertGnssSvIdMaskToList(
             uint64_t svIdMask, std::vector<GnssSvIdSource>& svIds,
             GnssSvId initialSvId, GnssSvType svType);
+    static void computeVRPBasedLla(const UlpLocation& loc, GpsLocationExtended& locExt,
+                                   const LeverArmConfigInfo& leverArmConfigInfo);
 
     void injectLocationCommand(double latitude, double longitude, float accuracy);
     void injectLocationExtCommand(const GnssLocationInfoNotification &locationInfo);

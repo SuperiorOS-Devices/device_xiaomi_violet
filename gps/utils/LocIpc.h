@@ -45,7 +45,6 @@ namespace loc_util {
 
 class LocIpcRecver;
 class LocIpcSender;
-class LocIpcRunnable;
 
 class ILocIpcListener {
 protected:
@@ -83,13 +82,13 @@ public:
     }
     virtual void onServiceStatusChange(int sericeId, int instanceId, ServiceStatus status,
                                        const LocIpcSender& sender) = 0;
-    inline virtual void onClientGone(int nodeId, int portId) {}
+    inline virtual void onClientGone(int nodeId __unused, int portId __unused) {}
     inline const unordered_set<int>& getServicesToWatch() { return mServicesToWatch; }
 };
 
 class LocIpc {
 public:
-    inline LocIpc() : mRunnable(nullptr) {}
+    inline LocIpc() = default;
     inline virtual ~LocIpc() {
         stopNonBlockingListening();
     }
@@ -151,7 +150,6 @@ public:
 
 private:
     LocThread mThread;
-    LocIpcRunnable *mRunnable;
 };
 
 /* this is only when client needs to implement Sender / Recver that are not already provided by
@@ -168,10 +166,10 @@ public:
     inline bool sendData(const uint8_t data[], uint32_t length, int32_t msgId) const {
         return isSendable() && (send(data, length, msgId) > 0);
     }
-    virtual unique_ptr<LocIpcRecver> getRecver(const shared_ptr<ILocIpcListener>& listener) {
+    virtual unique_ptr<LocIpcRecver> getRecver(const shared_ptr<ILocIpcListener>& listener __unused) {
         return nullptr;
     }
-    inline virtual void copyDestAddrFrom(const LocIpcSender& otherSender) {}
+    inline virtual void copyDestAddrFrom(const LocIpcSender& otherSender __unused) {}
 };
 
 class LocIpcRecver {

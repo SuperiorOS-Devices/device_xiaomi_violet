@@ -1,4 +1,4 @@
-/* Copyright (c) 2015-2017 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,56 +26,39 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+#ifndef NATIVEAGPSHANDLER_H
+#define NATIVEAGPSHANDLER_H
 
-#ifndef __DATAITEMID_H__
-#define __DATAITEMID_H__
+#include <cinttypes>
+#include <string.h>
+#include <gps_extended_c.h>
+#include <IDataItemObserver.h>
+#include <IDataItemCore.h>
+#include <IOsObserver.h>
 
-/**
- * Enumeration of Data Item types
- * When add/remove/update changes are made to Data Items, this file needs to be updated
- * accordingly
- */
-typedef enum e_DataItemId {
-    INVALID_DATA_ITEM_ID = -1,
-    // 0 - 4
-    AIRPLANEMODE_DATA_ITEM_ID,
-    ENH_DATA_ITEM_ID,
-    GPSSTATE_DATA_ITEM_ID,
-    NLPSTATUS_DATA_ITEM_ID,
-    WIFIHARDWARESTATE_DATA_ITEM_ID,
-    // 5 - 9
-    NETWORKINFO_DATA_ITEM_ID,
-    RILVERSION_DATA_ITEM_ID,
-    RILSERVICEINFO_DATA_ITEM_ID,
-    RILCELLINFO_DATA_ITEM_ID,
-    SERVICESTATUS_DATA_ITEM_ID,
-    // 10 - 14
-    MODEL_DATA_ITEM_ID,
-    MANUFACTURER_DATA_ITEM_ID,
-    VOICECALL_DATA_ITEM,
-    ASSISTED_GPS_DATA_ITEM_ID,
-    SCREEN_STATE_DATA_ITEM_ID,
-    // 15 - 19
-    POWER_CONNECTED_STATE_DATA_ITEM_ID,
-    TIMEZONE_CHANGE_DATA_ITEM_ID,
-    TIME_CHANGE_DATA_ITEM_ID,
-    WIFI_SUPPLICANT_STATUS_DATA_ITEM_ID,
-    SHUTDOWN_STATE_DATA_ITEM_ID,
-    // 20 - 24
-    TAC_DATA_ITEM_ID,
-    MCCMNC_DATA_ITEM_ID,
-    BTLE_SCAN_DATA_ITEM_ID,
-    BT_SCAN_DATA_ITEM_ID,
-    OEM_GTP_UPLOAD_TRIGGER_READY_ITEM_ID,
+using namespace std;
+using loc_core::IOsObserver;
+using loc_core::IDataItemObserver;
+using loc_core::IDataItemCore;
 
-    MAX_DATA_ITEM_ID,
+class GnssAdapter;
 
-    // 26 -
-    BATTERY_LEVEL_DATA_ITEM_ID,
-    IN_EMERGENCY_CALL_DATA_ITEM_ID,
-    LOC_FEATURE_STATUS_DATA_ITEM_ID,
+class NativeAgpsHandler : public IDataItemObserver {
+public:
+    NativeAgpsHandler(IOsObserver* sysStatObs, GnssAdapter& adapter);
+    ~NativeAgpsHandler();
+    AgpsCbInfo getAgpsCbInfo();
+    // IDataItemObserver overrides
+    virtual void notify(const list<IDataItemCore*>& dlist);
+    inline virtual void getName(string& name);
+private:
+    static NativeAgpsHandler* sLocalHandle;
+    static void agnssStatusIpV4Cb(AGnssExtStatusIpV4 statusInfo);
+    void processATLRequestRelease(AGnssExtStatusIpV4 statusInfo);
+    IOsObserver* mSystemStatusObsrvr;
+    bool mConnected;
+    string mApn;
+    GnssAdapter& mAdapter;
+};
 
-    MAX_DATA_ITEM_ID_1_1,
-} DataItemId;
-
-#endif // #ifndef __DATAITEMID_H__
+#endif // NATIVEAGPSHANDLER_H

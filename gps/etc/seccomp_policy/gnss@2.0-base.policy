@@ -93,3 +93,27 @@ sendmsg: 1
 sendto: 1
 recvfrom: 1
 
+getsockname: 1
+nanosleep: 1
+clone: 1
+setsockopt: 1
+getsockopt: 1
+madvise: 1
+
+getitimer: 1
+setitimer: 1
+getpid: 1
+bind: 1
+listen: 1
+getpeername: 1
+socketpair: 1
+wait4: 1
+chown: 1
+fchown: 1
+lchown: 1
+umask: 1
+mmap2: 1
+fstat64: 1
+fstatat64: 1
+_llseek: 1
+geteuid: 1

@@ -231,15 +231,6 @@ on boot
     # Load WLAN driver
     chown wifi wifi /sys/module/wlan/parameters/fwpath
 
-    # USB controller configuration
-    setprop vendor.usb.rndis.func.name "gsi"
-    setprop vendor.usb.rmnet.func.name "gsi"
-    setprop vendor.usb.rmnet.inst.name "rmnet"
-    setprop vendor.usb.dpl.inst.name "dpl"
-    setprop vendor.usb.qdss.inst.name "qdss"
-    setprop vendor.usb.controller a600000.dwc3
-    setprop sys.usb.configfs 1
-
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
@@ -460,7 +451,6 @@ on charger
     start vendor.power_off_alarm
     setprop sys.usb.controller a600000.dwc3
     setprop vendor.usb.controller a600000.dwc3
-    setprop sys.usb.configfs 1
     setprop vendor.setup.power 1
     chown system system /sys/class/leds/red/brightness
     write /sys/class/leds/red/brightness 255

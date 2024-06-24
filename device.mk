@@ -285,7 +285,7 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.lights-service.xiaomi_sm6150
+    android.hardware.light-service.xiaomi
 
 # Media
 PRODUCT_PACKAGES += \
@@ -398,7 +398,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
-    hardware/google/pixel
+    hardware/google/pixel \
+    hardware/xiaomi
 
 # Telephony
 PRODUCT_PACKAGES += \

@@ -31,8 +31,8 @@
 
 # HALs
 /vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.2-service\.xiaomi_sm6150                   u:object_r:hal_fingerprint_default_exec:s0
-/vendor/bin/hw/android\.hardware\.lights-service\.xiaomi_sm6150                                         u:object_r:hal_light_default_exec:s0
 /vendor/bin/hw/android\.hardware\.power-service\.sm6150-libperfmgr                                      u:object_r:hal_power_default_exec:s0
+/vendor/bin/hw/android\.hardware\.light-service\.xiaomi                                         u:object_r:hal_light_default_exec:s0
 
 # Health
 /sys/devices/platform/soc/soc:maxim_ds28e16/power_supply/batt_verify/(/.*)?                                                                         u:object_r:sysfs_battery_supply:s0

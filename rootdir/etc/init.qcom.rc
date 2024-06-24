@@ -218,6 +218,12 @@ on boot
     chown system system /sys/class/thermal/thermal_message/sconfig
     write /sys/class/thermal/thermal_message/sconfig 10
 
+    # Backlight
+    chown system system /sys/class/backlight/panel0-backlight/brightness
+    chown system system /sys/class/backlight/panel0-backlight/max_brightness
+    chmod 0644 /sys/class/backlight/panel0-backlight/brightness
+    chmod 0644 /sys/class/backlight/panel0-backlight/max_brightness
+
     # Change owner of white led
     chown system system /sys/class/leds/white/brightness
     chown system system /sys/class/leds/white/breath

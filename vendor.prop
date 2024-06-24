@@ -220,7 +220,8 @@ renderthread.skia.reduceopstasksplitting=true
 persist.sys.binary_xml=false
 
 # USB
-vendor.usb.use_ffs_mtp=0
+vendor.usb.use_ffs_mtp=1
+sys.usb.mtp.batchcancel=1
 
 # VoLTE
 persist.dbg.volte_avail_ovr=1

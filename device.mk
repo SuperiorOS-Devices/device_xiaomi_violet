@@ -423,6 +423,9 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     libtinyxml2
 
+# Update
+AB_OTA_UPDATER := false
+
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.3-service.dual_role_usb

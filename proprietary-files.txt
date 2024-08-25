@@ -350,11 +350,11 @@ system_ext/framework/vendor.qti.hardware.data.connection-V1.1-java.jar|c8e157f2f
 system_ext/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar|f4e09b305c8ac9a1497cbdfd856ae3fc8eabb790
 system_ext/framework/vendor.qti.hardware.data.iwlan-V1.0-java.jar|1135a9886b40f81c37d5fe3e9d1d472446a8ecac
 system_ext/framework/vendor.qti.hardware.data.qmi-V1.0-java.jar|af63b51876055618faa33eaafd501908937d9b5e
--system_ext/lib64/com.quicinc.cne.api@1.0.so|6bce2af7deb1c3d2598854404a166a99d4d6becb
--system_ext/lib64/com.quicinc.cne.api@1.1.so|612ab9e7062080d649a7eec1578cb4579c5f991f
--system_ext/lib64/com.quicinc.cne.constants@1.0.so|f76f263827ff7674a1a6d0460614de21a9b869fd
--system_ext/lib64/com.quicinc.cne.constants@2.0.so|0645c2e1ecea7028f037666adb6bb9d3fa30ec73
--system_ext/lib64/com.quicinc.cne.constants@2.1.so|c3c529a042edffec2299e3e9cc35d3be3c1921c1
+system_ext/lib64/com.quicinc.cne.api@1.0.so|6bce2af7deb1c3d2598854404a166a99d4d6becb
+system_ext/lib64/com.quicinc.cne.api@1.1.so|612ab9e7062080d649a7eec1578cb4579c5f991f
+system_ext/lib64/com.quicinc.cne.constants@1.0.so|f76f263827ff7674a1a6d0460614de21a9b869fd
+system_ext/lib64/com.quicinc.cne.constants@2.0.so|0645c2e1ecea7028f037666adb6bb9d3fa30ec73
+system_ext/lib64/com.quicinc.cne.constants@2.1.so|c3c529a042edffec2299e3e9cc35d3be3c1921c1
 
 # CNE (vendor) - from LA.UM.9.1.r1-12900-SMxxx0.0
 vendor/app/CneApp/CneApp.apk|345dc6c677e9bd7a7d36033b8955e90d2a1594d5
@@ -492,7 +492,7 @@ vendor/lib64/libssd.so|a00caa9a0bdf44bafbb18856a7ef3f54014e3941
 # DRM - Widevine - from davinci-user 11 RKQ1.200826.002 21.6.11 release-keys
 vendor/bin/hw/android.hardware.drm@1.3-service.widevine|07ac13a602f25788e54c1500c2957f561dd9f90a
 vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc|c35e1a6f9a6faff19064a81e07c4be82ceaf4bb5
--vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml|ebebcf8f367641480cf7d512fc06e6ab777527be
+vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml|ebebcf8f367641480cf7d512fc06e6ab777527be
 vendor/lib/libbase64.so|73d04f085db31cf16cd24be608f503b9d6ace1e1
 vendor/lib/libcppf.so|70d5c828d409ea0580d087cca937ae956715c821
 vendor/lib/librmp.so|329fdbba89b4cf2633809bd2b350aade192fb56e

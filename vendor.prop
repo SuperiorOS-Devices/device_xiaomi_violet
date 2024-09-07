@@ -176,7 +176,6 @@ ro.hardware.keystore_desede=true
 
 # Media
 audio.offload.video=true
-debug.stagefright.omx_default_rank=0
 vendor.media.target.version=2
 
 # Netmgr

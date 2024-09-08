@@ -67,7 +67,6 @@ vendor.audio.feature.usb_offload_sidetone_volume.enable=false
 vendor.audio.feature.usb_offload.enable=true
 vendor.audio.feature.vbat.enable=true
 vendor.audio.feature.wsa.enable=false
-vendor.audio.flac.sw.decoder.24bit=true
 vendor.audio.noisy.broadcast.delay=600
 vendor.audio.offload.buffer.size.kb=256
 vendor.audio.offload.gapless.enabled=true

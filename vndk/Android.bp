@@ -8,3 +8,21 @@ cc_prebuilt_library_shared {
         srcs: ["libc++.so"],
         check_elf_files: false,
 }
+
+cc_prebuilt_library_shared {
+    name: "libcrypto-v34",
+    vendor: true,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm: {
+            srcs: ["v34/arm/libcrypto-v34.so"],
+        },
+        android_arm64: {
+            srcs: ["v34/arm64/libcrypto-v34.so"],
+        },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+}

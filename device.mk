@@ -140,6 +140,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service_64 \
     libc29.vendor \
+    libc++.vendor \
     libdng_sdk.vendor \
     libgui.vendor \
     libxml2 \

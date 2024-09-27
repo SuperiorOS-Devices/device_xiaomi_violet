@@ -1,6 +1,3 @@
-# Dirac
-vendor_internal_prop(dirac_prop)
-
 # Fingerprint
 vendor_public_prop(vendor_fp_prop)
 

@@ -1,5 +1,3 @@
-get_prop(vendor_init, dirac_prop)
-set_prop(vendor_init, dirac_prop)
 set_prop(vendor_init, vendor_alarm_boot_prop)
 set_prop(vendor_init, vendor_fp_prop)
 set_prop(vendor_init, vendor_video_prop)

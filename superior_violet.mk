@@ -12,9 +12,7 @@ $(call inherit-product, device/xiaomi/violet/device.mk)
 $(call inherit-product, vendor/superior/config/common.mk)
 SUPERIOR_OFFICIAL := true
 TARGET_BOOT_ANIMATION_RES := 1080
-TARGET_INCLUDE_MATLOG := true
 TARGET_INCLUDE_PIXEL_CHARGER := true
-USE_MOTO_CALCULATOR := true
 
 # MiuiCamera
 $(call inherit-product, vendor/MiuiCamera/config.mk)

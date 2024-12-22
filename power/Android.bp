@@ -5,7 +5,7 @@ cc_library_static {
         "power-mode.cpp",
     ],
     shared_libs: [
-        "android.hardware.power-V4-ndk",
+        "android.hardware.power-V5-ndk",
         "libbase",
     ],
 }

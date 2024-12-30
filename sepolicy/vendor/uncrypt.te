@@ -1,2 +1,5 @@
+allow uncrypt cache_file:dir rw_dir_perms;
+allow uncrypt cache_file:file create_file_perms;
+
 # OTA with encrypted f2fs
 allow uncrypt self:capability sys_admin;

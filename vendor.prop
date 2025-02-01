@@ -132,6 +132,9 @@ persist.vendor.dpmhalservice.enable=1
 # DRM
 drm.service.enabled=true
 
+# Fingerprint
+persist.vendor.fingerprint.type=rear
+
 # FM
 vendor.hw.fm.init=0
 

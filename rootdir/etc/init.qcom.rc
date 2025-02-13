@@ -32,6 +32,9 @@ on early-init
     # Disable EAS
     write /proc/sys/kernel/sched_energy_aware 0
     mount_all /vendor/etc/fstab.persist --early
+    
+    # Set ro.boot.hardware.revision property
+    setprop ro.boot.hardware.revision ${ro.boot.hwc}_${ro.boot.hwlevel}_${ro.boot.hwversion}
 
     # Change ownership of hw_recovery related nodes
     chown system graphics /sys/kernel/debug/dri/0/debug/dump

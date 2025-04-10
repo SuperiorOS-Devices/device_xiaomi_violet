@@ -282,13 +282,13 @@ vendor/lib64/camera/fdconfigpreview.bin
 vendor/lib64/camera/fdconfigpreviewlite.bin
 vendor/lib64/camera/fdconfigvideo.bin
 vendor/lib64/camera/fdconfigvideolite.bin
-vendor/lib64/hw/camera.qcom.so
+vendor/lib64/hw/camera.qcom.so;DISABLE_CHECKELF
 vendor/lib64/hw/com.qti.chi.override.so
 vendor/lib64/hw/com.qti.chi.override_moorea.so
 vendor/lib64/libFaceGrade.so
 vendor/lib64/libMegviiFacepp-0.5.2.so
 vendor/lib64/libSNPE.so
-vendor/lib64/libVDSuperPhotoAPI.so
+vendor/lib64/libVDSuperPhotoAPI.so;DISABLE_CHECKELF
 vendor/lib64/libXMFD_AgeGender.so
 vendor/lib64/libarcsoft_beautyshot.so
 vendor/lib64/libarcsoft_dualcam_refocus.so
@@ -442,7 +442,7 @@ vendor/lib64/libtinyxml2_1.so|ff32deb110acb02cb5def5f3404f9064c1276483
 # Dirac - from Xiaomi
 vendor/etc/diracmobile.config|d781cd6798a7481a8f7128d144abfb2b8794212d
 vendor/lib/libDiracAPI_SHARED.so|42b49679d38eca93fead05ea06ddbdc8108fd4b1
-vendor/lib/soundfx/libdirac.so|f63826a905b520fa524e4c1b147be7cf65240953
+vendor/lib/soundfx/libdirac.so;DISABLE_CHECKELF|f63826a905b520fa524e4c1b147be7cf65240953
 
 # DPM (system) - from LA.QSSI.14.0.r1-13500-qssi.0
 system/framework/tcmclient.jar|4e1dfaa243c67fec31b5a44086c9c417892761ae
@@ -496,11 +496,11 @@ vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml
 vendor/lib/libbase64.so|73d04f085db31cf16cd24be608f503b9d6ace1e1
 vendor/lib/libcppf.so|70d5c828d409ea0580d087cca937ae956715c821
 vendor/lib/librmp.so|329fdbba89b4cf2633809bd2b350aade192fb56e
-vendor/lib/mediadrm/libwvdrmengine.so|806d77bbc52945bdf75a642f854d1d8a4ad71624
+vendor/lib/mediadrm/libwvdrmengine.so;DISABLE_CHECKELF|806d77bbc52945bdf75a642f854d1d8a4ad71624
 vendor/lib64/libbase64.so|7affa7459f91bec1a7f5aeab83c0cc6349354853
 vendor/lib64/libcpion.so|103e6756e87912b34d910d424f2658580fea025c
 vendor/lib64/librmp.so|2e84f3e665bbce083aefb5eaf9fcc4fbcd17ec31
-vendor/lib64/mediadrm/libwvdrmengine.so|0e5c72671cb891d80d88bdd449c04ce1e5ba94cd
+vendor/lib64/mediadrm/libwvdrmengine.so;DISABLE_CHECKELF|0e5c72671cb891d80d88bdd449c04ce1e5ba94cd
 
 # DRM - HDCP - from davinci-user 11 RKQ1.200826.002 21.6.11 release-keys
 vendor/lib/libhdcp1prov.so|60587bccb6b9625d15307ec9d7fd5549d59c7823
@@ -518,9 +518,9 @@ vendor/lib64/libspl.so|e2b3e2dd28b0eee567d72de696cd1e01288ae06f
 
 # DRM - Widevine -L1 - from DAVINCIGLOBAL
 vendor/lib/liboemcrypto.so|b349d1d049709bbdff15a133698264dc8c01db14
-vendor/lib/libwvhidl.so|dd599b1055d1faf025d60bc4f702f9ae11123c30
+vendor/lib/libwvhidl.so;DISABLE_CHECKELF|dd599b1055d1faf025d60bc4f702f9ae11123c30
 vendor/lib64/liboemcrypto.so|2cee717b25559030a61709e826b4a5dae6043c20
-vendor/lib64/libwvhidl.so|a1eebbae3b2f6fbaf55d2c6d87dde86bb60fbff9
+vendor/lib64/libwvhidl.so;DISABLE_CHECKELF|a1eebbae3b2f6fbaf55d2c6d87dde86bb60fbff9
 
 # DSP HAL Service - from LA.UM.9.1.r1-12900-SMxxx0.0
 vendor/bin/dspservice|a7344fc3d27a49df30858ebc3f73ee5818e752d4

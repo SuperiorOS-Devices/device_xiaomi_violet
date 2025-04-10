@@ -56,10 +56,10 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/lib64/mediadrm/libwvdrmengine.so':
         blob_fixup().replace_needed('libcrypto.so', 'libcrypto-v34.so'),
     'vendor/lib64/libvidhance.so':
-        blob_fixup().add_needed('libc++demangle.so')
+        blob_fixup().add_needed('libdemangle.so')
                     .add_needed('libcomparetf2.so'),
     'vendor/lib64/camera/components/com.vidhance.node.eis.so':
-        blob_fixup().add_needed('libc++demangle.so')
+        blob_fixup().add_needed('libdemangle.so')
                     .add_needed('libcomparetf2.so'),
     'vendor/lib64/camera/components/com.vidhance.stats.aec_dmbr.so':
         blob_fixup().add_needed('libcomparetf2.so'),

@@ -272,6 +272,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
+# Kernel
+PRODUCT_ENABLE_UFFD_GC := true
+
 # Keyhandler
 PRODUCT_PACKAGES += \
     KeyHandler
@@ -420,9 +423,6 @@ PRODUCT_BOOT_JARS += \
 # Touchscreen
 PRODUCT_PACKAGES += \
     libtinyxml2
-
-# UFFD GC
-OVERRIDE_ENABLE_UFFD_GC := false
 
 # Update
 AB_OTA_UPDATER := false

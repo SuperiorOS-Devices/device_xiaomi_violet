@@ -1,10 +1,7 @@
-
 cc_library_shared {
 
     name: "libgps.utils",
     vendor: true,
-
-
 
     //# Libs
     shared_libs: [

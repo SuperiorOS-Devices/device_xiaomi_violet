@@ -8,7 +8,7 @@ android_app {
     name: "XiaomiParts",
 
     srcs: ["src/**/*.java"],
-    resource_dirs: ["res"],
+
     certificate: "platform",
     platform_apis: true,
     system_ext_specific: true,

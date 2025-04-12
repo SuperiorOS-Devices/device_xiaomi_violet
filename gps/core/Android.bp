@@ -1,10 +1,7 @@
-
 cc_library_shared {
 
     name: "libloc_core",
     vendor: true,
-
-
 
     shared_libs: [
         "liblog",

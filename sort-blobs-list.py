@@ -5,7 +5,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-import re, sys
+import re
+import sys
 from functools import cmp_to_key
 from locale import LC_ALL, setlocale, strcoll
 from pathlib import Path

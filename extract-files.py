@@ -4,6 +4,10 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+import extract_utils.tools
+
+extract_utils.tools.DEFAULT_PATCHELF_VERSION = '0_9'
+
 from extract_utils.fixups_blob import (
     blob_fixup,
     blob_fixups_user_type,

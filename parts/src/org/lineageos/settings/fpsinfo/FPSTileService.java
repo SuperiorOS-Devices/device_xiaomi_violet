@@ -18,7 +18,6 @@ package org.lineageos.settings.fpsinfo;
 
 import android.app.ActivityManager;
 import android.content.Intent;
-import android.os.Handler;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 

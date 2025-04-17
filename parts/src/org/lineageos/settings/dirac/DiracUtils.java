@@ -17,14 +17,14 @@
 package org.lineageos.settings.dirac;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.UserHandle;
-import android.os.SystemClock;
-import android.view.KeyEvent;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.os.UserHandle;
+import android.view.KeyEvent;
+
 import java.util.List;
 
 public final class DiracUtils {

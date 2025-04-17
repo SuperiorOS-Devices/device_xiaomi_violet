@@ -10,8 +10,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.view.KeyEvent;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.android.internal.os.DeviceKeyHandler;
 

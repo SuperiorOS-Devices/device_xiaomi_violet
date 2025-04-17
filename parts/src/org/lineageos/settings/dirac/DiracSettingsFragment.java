@@ -16,24 +16,19 @@
 
 package org.lineageos.settings.dirac;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import androidx.preference.Preference;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference.OnPreferenceChangeListener;
-import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceFragment;
-import androidx.preference.SwitchPreference;
 
-import org.lineageos.settings.R;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.Preference.OnPreferenceChangeListener;
+import androidx.preference.PreferenceFragment;
 
 import com.android.settingslib.widget.MainSwitchPreference;
+
+import org.lineageos.settings.R;
 
 public class DiracSettingsFragment extends PreferenceFragment implements
         OnPreferenceChangeListener, OnCheckedChangeListener {

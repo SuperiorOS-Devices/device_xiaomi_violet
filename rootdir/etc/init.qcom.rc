@@ -51,6 +51,12 @@ on init
     # Loading kernel modules in background
     start insmod_sh
 
+    # Goodix fingerprint
+    chmod 0666 /dev/goodix_fp
+    chown system system /dev/goodix_fp
+    chmod 0664 /dev/fortsense_fp
+    chown system system /dev/fortsense_fp
+
     # Disable powersaving
     write /sys/module/lpm_levels/parameters/sleep_disabled 1
 
@@ -228,6 +234,12 @@ on boot
     chown system system /sys/class/leds/white/brightness
     chown system system /sys/class/leds/white/breath
 
+    # Fingerprint
+    chown system system /sys/bus/platform/devices/soc/soc:fpc1020/irq
+    chown system system /sys/bus/platform/devices/soc/soc:fpc1020/wakeup_enable
+    chown system system /sys/bus/platform/devices/soc/soc:fpc1020/hw_reset
+    chown system system /sys/bus/platform/devices/soc/soc:fpc1020/fingerdown_wait
+
     # Load WLAN driver
     chown wifi wifi /sys/module/wlan/parameters/fwpath
 
@@ -342,6 +354,14 @@ on post-fs-data
 
     # Create folder of camera
     mkdir /data/vendor/camera 0770 camera camera
+
+    # Create folder for fingerprint
+    mkdir /data/vendor/fortsense 0770 system system
+    mkdir /data/vendor/fpc 0770 system system
+    mkdir /data/vendor/goodix 0770 system system
+    mkdir /mnt/vendor/persist/fpc 0770 system system
+    mkdir /data/vendor/fpdump 0770 system system
+    chown system system /data/vendor
 
     # Create directory for tftp
     mkdir /data/vendor/tombstones/rfs 0771 system system

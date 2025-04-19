@@ -1,5 +1,5 @@
 # Dirac
-type dirac_prop, property_type;
+vendor_internal_prop(dirac_prop)
 
 # Fingerprint
 vendor_public_prop(vendor_fp_prop)

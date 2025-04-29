@@ -530,9 +530,9 @@ vendor/lib/vendor.qti.hardware.dsp@1.0.so|8fcb647d22144c0ce005eae37e05e786d2b045
 vendor/lib64/vendor.qti.hardware.dsp@1.0.so|223a9268bd92bd80dab3df02fbef38ea86bcbadd
 
 # EIS - from VIOLET_V12.5.4.0.QFHCNXM
-vendor/lib64/camera/components/com.vidhance.node.eis.so|c6c921333b45ee9973f34795f0b4bce93837922e
+vendor/lib64/camera/components/com.vidhance.node.eis.so|42dab65b0a539581f4c51c2c2f2b19bee7c0b285
 vendor/lib64/camera/components/com.vidhance.stats.aec_dmbr.so|2ea88db3607472df31e0da37f3cd190e67d031e8
-vendor/lib64/libvidhance.so|abf2e69921e18fc627a3e6bacc91affeaba16bcf
+vendor/lib64/libvidhance.so|329a6da91bda43ea58f20bebca452a3356a61ee9
 
 # Fingerprint
 vendor/lib/vendor.qti.hardware.fingerprint@1.0.so

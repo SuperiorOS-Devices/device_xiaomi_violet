@@ -6,7 +6,7 @@
 
 import extract_utils.tools
 
-extract_utils.tools.DEFAULT_PATCHELF_VERSION = '0_9'
+extract_utils.tools.DEFAULT_PATCHELF_VERSION = '0_17_2'
 
 from extract_utils.fixups_blob import (
     blob_fixup,

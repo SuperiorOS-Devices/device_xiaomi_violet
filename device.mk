@@ -157,6 +157,8 @@ PRODUCT_PACKAGES += \
     libxml2 \
     vendor.qti.hardware.camera.device@1.0.vendor
 
+$(call soong_config_set,camera,override_format_from_reserved,true)
+
 # Config Store
 PRODUCT_PACKAGES += \
     disable_configstore

@@ -57,8 +57,6 @@ on init
     # Goodix fingerprint
     chmod 0666 /dev/goodix_fp
     chown system system /dev/goodix_fp
-    chmod 0664 /dev/fortsense_fp
-    chown system system /dev/fortsense_fp
 
     # Disable powersaving
     write /sys/module/lpm_levels/parameters/sleep_disabled 1
@@ -359,7 +357,6 @@ on post-fs-data
     mkdir /data/vendor/camera 0770 camera camera
 
     # Create folder for fingerprint
-    mkdir /data/vendor/fortsense 0770 system system
     mkdir /data/vendor/fpc 0770 system system
     mkdir /data/vendor/goodix 0770 system system
     mkdir /mnt/vendor/persist/fpc 0770 system system

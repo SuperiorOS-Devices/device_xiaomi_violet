@@ -68,9 +68,6 @@ vendor/etc/init/vendor.qti.hardware.alarm@1.0-service.rc|a03a9a1c818595b19272ea6
 vendor/lib64/hw/vendor.qti.hardware.alarm@1.0-impl.so|4129558506dc078c03679ba362acda4755457742
 vendor/lib64/vendor.qti.hardware.alarm@1.0.so|dcfdc04b4e0c6e6a4ffa60e1694268bd0327e65c
 
-# ANT+ - from LA.UM.9.1.r1-12900-SMxxx0.0
-vendor/lib64/hw/com.dsi.ant@1.0-impl.so|87dc1a131534659173e71e108e7a3ffe6325845f
-
 # Audio - from LA.UM.9.1.r1-12900-SMxxx0.0
 vendor/lib/libadiertac.so|c62f6a29ecd5c13564196beb058a128782f68532
 vendor/lib/libaudcal.so|bbf771ba8f765b433f9709d73437c4a5eeb7692b

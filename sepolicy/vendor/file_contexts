@@ -31,8 +31,7 @@
 
 # HALs
 /vendor/bin/hw/android\.hardware\.biometrics\.fingerprint-service\.xiaomi                  u:object_r:hal_fingerprint_default_exec:s0
-/vendor/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.xiaomi_sm6150                                 u:object_r:hal_lineage_livedisplay_qti_exec:s0
-/vendor/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.xiaomi_sm6150                                 u:object_r:hal_lineage_livedisplay_qti_exec:s0
+/vendor/bin/hw/vendor\.lineage\.livedisplay-service\.xiaomi_sm6150                                 u:object_r:hal_lineage_livedisplay_qti_exec:s0
 
 # Health
 /sys/devices/platform/soc/soc:maxim_ds28e16/power_supply/batt_verify/(/.*)?                                                                         u:object_r:sysfs_battery_supply:s0

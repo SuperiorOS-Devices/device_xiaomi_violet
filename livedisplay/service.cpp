@@ -14,40 +14,46 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "vendor.lineage.livedisplay@2.1-service.xiaomi_sm6150"
+#define LOG_TAG "vendor.lineage.livedisplay-service.xiaomi_sm6150"
 
 #include <android-base/logging.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
 #include <binder/ProcessState.h>
-#include <hidl/HidlTransportSupport.h>
+#include <livedisplay/sdm/PictureAdjustment.h>
 
 #include "SunlightEnhancement.h"
-#include "livedisplay/sdm/SDMController.h"
 
-using android::OK;
-using android::sp;
-using android::status_t;
-
-using ::vendor::lineage::livedisplay::V2_0::sdm::SDMController;
-using ::vendor::lineage::livedisplay::V2_1::ISunlightEnhancement;
-using ::vendor::lineage::livedisplay::V2_1::implementation::SunlightEnhancement;
+using ::aidl::vendor::lineage::livedisplay::SunlightEnhancement;
+using ::aidl::vendor::lineage::livedisplay::sdm::PictureAdjustment;
+using ::aidl::vendor::lineage::livedisplay::sdm::SDMController;
 
 int main() {
-    status_t status = OK;
-    std::shared_ptr<SDMController> controller = std::make_shared<SDMController>();
-    sp<SunlightEnhancement> se = new SunlightEnhancement();
-    android::hardware::configureRpcThreadpool(1, true /*callerWillJoin*/);
+    android::ProcessState::self()->setThreadPoolMaxThreadCount(1);
+    android::ProcessState::self()->startThreadPool();
 
-    // SunlightEnhancement service
-    status = se->registerAsService();
-    if (status != OK) {
-        LOG(ERROR) << "Could not register service for LiveDisplay HAL SunlightEnhancement Iface ("
-                   << status << ")";
+    std::shared_ptr<SDMController> controller = std::make_shared<SDMController>();
+
+    std::shared_ptr<PictureAdjustment> pictureAdjustment =
+            ndk::SharedRefBase::make<PictureAdjustment>(controller);
+    std::string instance = std::string() + PictureAdjustment::descriptor + "/default";
+    if (AServiceManager_addService(pictureAdjustment->asBinder().get(), instance.c_str()) !=
+        STATUS_OK) {
+        LOG(ERROR) << "Cannot register picture adjustment HAL service.";
         return 1;
     }
 
-    LOG(INFO) << "LiveDisplay HAL service ready.";
+    std::shared_ptr<SunlightEnhancement> sunlightEnhancement =
+            ndk::SharedRefBase::make<SunlightEnhancement>();
+    instance = std::string() + SunlightEnhancement::descriptor + "/default";
+    if (AServiceManager_addService(sunlightEnhancement->asBinder().get(), instance.c_str()) !=
+        STATUS_OK) {
+        LOG(ERROR) << "Cannot register sunlight enhancement HAL service.";
+        return 1;
+    }
+    LOG(INFO) << "LiveDisplay HAL service is ready.";
 
-    android::hardware::joinRpcThreadpool();
+    ABinderProcess_joinThreadPool();
 
     LOG(ERROR) << "LiveDisplay HAL service failed to join thread pool.";
     return 1;

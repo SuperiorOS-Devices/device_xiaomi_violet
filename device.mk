@@ -188,6 +188,9 @@ PRODUCT_PACKAGES += \
 
 $(call soong_config_set,qtidisplay,gralloc_handle_has_reserved_size,true)
 
+# Dolby
+$(call inherit-product, hardware/dolby/dolby.mk)
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.4.vendor \

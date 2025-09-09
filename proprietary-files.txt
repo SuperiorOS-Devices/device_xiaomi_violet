@@ -663,15 +663,10 @@ vendor/lib/librice.so
 vendor/lib/libsmwrapper.so
 
 # Media
-vendor/bin/hw/vendor.qti.media.c2@1.0-service
 vendor/bin/vppservice
 vendor/etc/configstore/vpp.configstore.xml
-vendor/etc/init/vendor.qti.media.c2@1.0-service.rc
 vendor/etc/init/vppservice.rc
-vendor/etc/seccomp_policy/codec2.vendor.base.policy
-vendor/etc/seccomp_policy/codec2.vendor.ext.policy
 vendor/lib/libmmosal.so;MODULE_SUFFIX=_vendor
-vendor/lib/libqcodec2.so
 vendor/lib/libvppclient.so
 vendor/lib/libvpphvx.so
 vendor/lib/libvpplibrary.so
@@ -684,6 +679,19 @@ vendor/lib64/libvpplibrary.so
 vendor/lib64/vendor.qti.hardware.vpp@1.1.so
 vendor/lib64/vendor.qti.hardware.vpp@1.2.so
 vendor/lib64/vendor.qti.hardware.vpp@1.3.so
+
+# Media (Codec2) - from munch-user V816.0.9.0.ULMMIXM
+vendor/bin/hw/vendor.qti.media.c2@1.0-service|c170ebc5a0416f609186639125132b87a5650ef8
+vendor/etc/init/vendor.qti.media.c2@1.0-service.rc|03588c8be2ed0c97a3c440bc7f227ce80c2ab7ba
+vendor/etc/seccomp_policy/codec2.vendor.base-arm.policy|9f6a77271971618b555d41d83e5c55f3cff684d2
+vendor/etc/seccomp_policy/codec2.vendor.ext-arm.policy|a134d3d5d74294ca8164056b42389b1c7dbb2b65
+vendor/etc/vintf/manifest/c2_manifest_vendor.xml|0e532bf1c7d6a0ee2e7e03a9cc3283a5bffc7f8e
+vendor/lib/libqcodec2_base.so|5bec0dec355c90d2a9739105b6d9810291ab9995
+vendor/lib/libqcodec2_basecodec.so|a517b6a89bf54d58c46758621c6dce9056cb92f7
+vendor/lib/libqcodec2_core.so|b92991b36af312411eb4779fea1a5c22550c1d56
+vendor/lib/libqcodec2_platform.so|fccd9c509fbfda6a72299d90d8d680885a1238ec
+vendor/lib/libqcodec2_utils.so|485acb30246d20a1cfb0c91a9b3e185338d41d17
+vendor/lib/libqcodec2_v4l2codec.so|67057e81477e4b3432997b9d269e3db39c50e421
 
 # Peripheral Manager
 vendor/bin/pm-proxy

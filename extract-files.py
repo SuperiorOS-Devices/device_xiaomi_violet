@@ -67,7 +67,7 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/lib64/camera/components/com.vidhance.stats.aec_dmbr.so':
         blob_fixup().add_needed('libcomparetf2.so'),
     'vendor/lib64/hw/camera.qcom.so':
-        blob_fixup().binary_regex_replace(b'libc\+\+.so', 'libc29.so'),
+        blob_fixup().binary_regex_replace(b'libc\\+\\+.so', b'libc29.so'),
     'vendor/bin/mlipayd@1.1':
         blob_fixup().remove_needed('vendor.xiaomi.hardware.mtdservice@1.0.so'),
     'vendor/lib64/libmlipay.so':

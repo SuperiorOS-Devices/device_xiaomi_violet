@@ -6,7 +6,7 @@
 
 import extract_utils.tools
 
-extract_utils.tools.DEFAULT_PATCHELF_VERSION = '0_17_2'
+extract_utils.tools.DEFAULT_PATCHELF_VERSION = '0_9'
 
 from extract_utils.fixups_blob import (
     blob_fixup,
@@ -63,7 +63,8 @@ blob_fixups: blob_fixups_user_type = {
                     .add_needed('libcomparetf2.so'),
     'vendor/lib64/camera/components/com.vidhance.node.eis.so':
         blob_fixup().add_needed('libdemangle.so')
-                    .add_needed('libcomparetf2.so'),
+                    .add_needed('libcomparetf2.so')
+                    .replace_needed('libui.so', 'libui-v34.so'),
     'vendor/lib64/camera/components/com.vidhance.stats.aec_dmbr.so':
         blob_fixup().add_needed('libcomparetf2.so'),
     'vendor/lib64/hw/camera.qcom.so':

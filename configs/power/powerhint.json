@@ -63,17 +63,6 @@
       "ResetOnInit": true
     },
     {
-      "Name": "GPUBusMinFreq",
-      "Path": "/sys/class/devfreq/soc:qcom,gpubw/min_freq",
-      "Values": [
-        "6881",
-        "5931",
-        "3879",
-        "0"
-      ],
-      "ResetOnInit": true
-    },
-    {
       "Name": "GPUForceRailOn",
       "Path": "/sys/class/kgsl/kgsl-3d0/force_rail_on",
       "Values": [

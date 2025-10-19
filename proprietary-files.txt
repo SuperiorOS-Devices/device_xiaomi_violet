@@ -432,13 +432,15 @@ vendor/etc/init/dpmQmiMgr.rc
 vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libdpmqmihal.so
 
+# DRM (QSEECom) - from munch-user RKQ1.211001.001 V816.0.9.0.ULMMIXM
+vendor/bin/qseecomd|f42ffd948df4d29d75364e81ab7f5b2bd50d437a
+vendor/lib64/libQSEEComAPI.so|7e52f5f978861fb993955653c4d289d62937504e
+
 # DRM
-vendor/bin/qseecomd
 vendor/etc/init/qseecomd.rc
 vendor/etc/gpfspath_oem_config.xml
 vendor/lib64/libGPreqcancel.so
 vendor/lib64/libGPreqcancel_svc.so
-vendor/lib64/libQSEEComAPI.so
 vendor/lib64/libcpion.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so

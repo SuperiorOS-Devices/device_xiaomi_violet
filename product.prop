@@ -59,6 +59,8 @@ debug.cpurend.vsync=false
 
 # Graphics
 debug.hwui.renderer=skiagl
+debug.sf.latch_unsignaled=1
+debug.sf.disable_backpressure=1
 debug.sf.disable_client_composition_cache=1
 persist.hwc.enable_vds=1
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true

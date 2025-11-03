@@ -13,6 +13,7 @@ $(call inherit-product, vendor/superior/config/common_full_phone.mk)
 
 # SuperiorOS flags
 TARGET_ENABLE_BLUR := false
+SUPERIOR_BUILDTYPE := OFFICIAL
 
 # Inherit MiuiCamera
 $(call inherit-product-if-exists, vendor/MiuiCamera/config.mk)

@@ -1,0 +1,45 @@
+From 402eebc97fa3b421e2544de9b068477c0a810b02 Mon Sep 17 00:00:00 2001
+From: Joker-V2 <nipinna0@gmail.com>
+Date: Sat, 8 Nov 2025 06:18:14 +0100
+Subject: [PATCH] services: surfaceflinger : Force disable hw overlays
+
+Change-Id: I1d20f59690df856ff22dc75c8dde437bf72128ce
+---
+ services/surfaceflinger/SurfaceFlinger.cpp | 3 ++-
+ services/surfaceflinger/SurfaceFlinger.h   | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 64102feb15..30aa4225dc 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -6704,7 +6704,7 @@ status_t SurfaceFlinger::onTransact(uint32_t code, const Parcel& data, Parcel* r
+             case 1007: // Unused.
+                 return NAME_NOT_FOUND;
+             case 1008: // Toggle forced GPU composition.
+-                sfdo_forceClientComposition(data.readInt32() != 0);
++                // sfdo_forceClientComposition(data.readInt32() != 0);
+                 return NO_ERROR;
+             case 1009: // Toggle use of transform hint.
+                 mDebugDisableTransformHint = data.readInt32() != 0;
+@@ -8868,6 +8868,7 @@ void SurfaceFlinger::sfdo_scheduleCommit() {
+ }
+ 
+ void SurfaceFlinger::sfdo_forceClientComposition(bool enabled) {
++    enabled = true;
+     mDebugDisableHWC = enabled;
+     scheduleRepaint();
+ }
+diff --git a/services/surfaceflinger/SurfaceFlinger.h b/services/surfaceflinger/SurfaceFlinger.h
+index e85b9e97ea..b033374773 100644
+--- a/services/surfaceflinger/SurfaceFlinger.h
++++ b/services/surfaceflinger/SurfaceFlinger.h
+@@ -1363,7 +1363,7 @@ class SurfaceFlinger : public BnSurfaceComposer,
+     } mVirtualDisplayIdGenerators;
+ 
+     std::atomic_uint mDebugFlashDelay = 0;
+-    std::atomic_bool mDebugDisableHWC = false;
++    std::atomic_bool mDebugDisableHWC = true;
+     std::atomic_bool mDebugDisableTransformHint = false;
+     std::atomic<nsecs_t> mDebugInTransaction = 0;
+     std::atomic_bool mForceFullDamage = false;

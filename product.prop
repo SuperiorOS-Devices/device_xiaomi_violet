@@ -59,11 +59,11 @@ debug.cpurend.vsync=false
 
 # Graphics
 debug.hwui.renderer=skiagl
-debug.sf.latch_unsignaled=1
-debug.sf.disable_backpressure=1
-debug.sf.disable_client_composition_cache=1
+debug.sf.latch_unsignaled=0
+debug.sf.disable_backpressure=0
+debug.sf.disable_client_composition_cache=0
 persist.hwc.enable_vds=1
-ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
+ro.surface_flinger.force_hwc_copy_for_virtual_displays=false
 ro.surface_flinger.has_HDR_display=true
 ro.surface_flinger.has_wide_color_display=true
 ro.surface_flinger.max_frame_buffer_acquired_buffers=3

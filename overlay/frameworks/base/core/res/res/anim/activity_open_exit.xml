@@ -26,7 +26,7 @@
         android:fillEnabled="true"
         android:fillBefore="true"
         android:fillAfter="true"
-        android:interpolator="@android:interpolator/standard_accelerate"
+        android:interpolator="@android:interpolator/linear"
         android:startOffset="0"
         android:duration="450" />
 

@@ -28,7 +28,7 @@
         android:fillAfter="true"
         android:interpolator="@android:interpolator/linear"
         android:startOffset="35"
-        android:duration="83" />
+        android:duration="160" />
 
     <translate
         android:fromXDelta="0"

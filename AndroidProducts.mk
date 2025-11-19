@@ -6,9 +6,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/superior_violet.mk
+    $(LOCAL_DIR)/mica_violet.mk
 
 COMMON_LUNCH_CHOICES := \
-    superior_violet-eng \
-    superior_violet-userdebug \
-    superior_violet-user
+    mica_violet-eng \
+    mica_violet-userdebug \
+    mica_violet-user

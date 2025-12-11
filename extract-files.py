@@ -52,6 +52,8 @@ lib_fixups: lib_fixups_user_type = {
 blob_fixups: blob_fixups_user_type = {
     'vendor/lib/libwvhidl.so':
         blob_fixup().replace_needed('libcrypto.so', 'libcrypto-v34.so'),
+    'vendor/lib64/libdpps.so':
+        blob_fixup().replace_needed('libtinyxml2.so', 'libtinyxml2-v34.so'),
     'vendor/lib/mediadrm/libwvdrmengine.so':
         blob_fixup().replace_needed('libcrypto.so', 'libcrypto-v34.so'),
     'vendor/lib64/libwvhidl.so':

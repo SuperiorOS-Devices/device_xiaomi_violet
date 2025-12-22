@@ -20,20 +20,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.PreferenceFragment;
-
 import com.android.settingslib.widget.MainSwitchPreference;
-
 import org.lineageos.settings.R;
 
-public class DiracSettingsFragment extends PreferenceFragment implements
-        OnPreferenceChangeListener, OnCheckedChangeListener {
-
-
+public class DiracSettingsFragment
+        extends PreferenceFragment implements OnPreferenceChangeListener, OnCheckedChangeListener {
     private static final String PREF_HEADSET = "dirac_headset_pref";
     private static final String PREF_PRESET = "dirac_preset_pref";
     private static final String PREF_ENABLE = "dirac_enable";
@@ -49,7 +44,7 @@ public class DiracSettingsFragment extends PreferenceFragment implements
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.dirac_settings);
 
-	DiracUtils.initialize(getActivity());
+        DiracUtils.initialize(getActivity());
         boolean enhancerEnabled = DiracUtils.isDiracEnabled();
 
         mSwitchBar = (MainSwitchPreference) findPreference(PREF_ENABLE);
@@ -74,7 +69,8 @@ public class DiracSettingsFragment extends PreferenceFragment implements
             case PREF_PRESET:
                 DiracUtils.setLevel(String.valueOf(newValue));
                 return true;
-            default: return false;
+            default:
+                return false;
         }
     }
 
@@ -82,7 +78,7 @@ public class DiracSettingsFragment extends PreferenceFragment implements
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         DiracUtils.setEnabled(isChecked);
         mSwitchBar.setChecked(isChecked);
-        if (isChecked){
+        if (isChecked) {
             mSwitchBar.setEnabled(false);
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -90,7 +86,7 @@ public class DiracSettingsFragment extends PreferenceFragment implements
                     try {
                         mSwitchBar.setEnabled(true);
                         setEnabled(isChecked);
-                    } catch(Exception ignored) {
+                    } catch (Exception ignored) {
                     }
                 }
             }, 1020);
@@ -99,7 +95,7 @@ public class DiracSettingsFragment extends PreferenceFragment implements
         }
     }
 
-    private void setEnabled(boolean enabled){
+    private void setEnabled(boolean enabled) {
         mSwitchBar.setChecked(enabled);
         mHeadsetType.setEnabled(enabled);
         mPreset.setEnabled(enabled);

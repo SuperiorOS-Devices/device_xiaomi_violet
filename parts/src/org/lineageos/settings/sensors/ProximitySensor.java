@@ -23,15 +23,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
-
-import org.lineageos.settings.doze.DozeUtils;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import org.lineageos.settings.doze.DozeUtils;
 
 public class ProximitySensor implements SensorEventListener {
-
     private static final boolean DEBUG = false;
     private static final String TAG = "ProximitySensor";
 
@@ -56,9 +53,7 @@ public class ProximitySensor implements SensorEventListener {
         mExecutorService = Executors.newSingleThreadExecutor();
     }
 
-    private Future<?> submit(Runnable runnable) {
-        return mExecutorService.submit(runnable);
-    }
+    private Future<?> submit(Runnable runnable) { return mExecutorService.submit(runnable); }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -76,8 +71,8 @@ public class ProximitySensor implements SensorEventListener {
     private boolean shouldPulse(long timestamp) {
         long delta = timestamp - mInPocketTime;
 
-        if (DozeUtils.isHandwaveGestureEnabled(mContext) &&
-                DozeUtils.isPocketGestureEnabled(mContext)) {
+        if (DozeUtils.isHandwaveGestureEnabled(mContext)
+                && DozeUtils.isPocketGestureEnabled(mContext)) {
             return true;
         } else if (DozeUtils.isHandwaveGestureEnabled(mContext)) {
             return delta < HANDWAVE_MAX_DELTA_NS;
@@ -93,17 +88,16 @@ public class ProximitySensor implements SensorEventListener {
     }
 
     public void enable() {
-        if (DEBUG) Log.d(TAG, "Enabling");
+        if (DEBUG)
+            Log.d(TAG, "Enabling");
         submit(() -> {
-            mSensorManager.registerListener(this, mSensor,
-                    SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         });
     }
 
     public void disable() {
-        if (DEBUG) Log.d(TAG, "Disabling");
-        submit(() -> {
-            mSensorManager.unregisterListener(this, mSensor);
-        });
+        if (DEBUG)
+            Log.d(TAG, "Disabling");
+        submit(() -> { mSensorManager.unregisterListener(this, mSensor); });
     }
 }

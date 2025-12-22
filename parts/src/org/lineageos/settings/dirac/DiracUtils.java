@@ -24,11 +24,9 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.view.KeyEvent;
-
 import java.util.List;
 
 public final class DiracUtils {
-
     protected static DiracSound mDiracSound;
     private static boolean mInitialized;
     private static MediaSessionManager mMediaSessionManager;
@@ -38,22 +36,22 @@ public final class DiracUtils {
     public static void initialize(Context context) {
         if (!mInitialized) {
             mContext = context;
-            mMediaSessionManager = (MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE);
+            mMediaSessionManager =
+                    (MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE);
             mDiracSound = new DiracSound(0, 0);
-	    mInitialized = true;
+            mInitialized = true;
         }
     }
 
-    protected static void refreshPlaybackIfNecessary(){
+    protected static void refreshPlaybackIfNecessary() {
         if (mMediaSessionManager == null) {
-            mMediaSessionManager = (MediaSessionManager) mContext.getSystemService(Context.MEDIA_SESSION_SERVICE);
+            mMediaSessionManager =
+                    (MediaSessionManager) mContext.getSystemService(Context.MEDIA_SESSION_SERVICE);
         }
-        final List<MediaController> sessions
-                = mMediaSessionManager.getActiveSessionsForUser(
-                null, UserHandle.ALL);
+        final List<MediaController> sessions =
+                mMediaSessionManager.getActiveSessionsForUser(null, UserHandle.ALL);
         for (MediaController aController : sessions) {
-            if (PlaybackState.STATE_PLAYING ==
-                    getMediaControllerPlaybackState(aController)) {
+            if (PlaybackState.STATE_PLAYING == getMediaControllerPlaybackState(aController)) {
                 triggerPlayPause(aController);
                 break;
             }
@@ -62,9 +60,11 @@ public final class DiracUtils {
 
     private static void triggerPlayPause(MediaController controller) {
         long when = SystemClock.uptimeMillis();
-        final KeyEvent evDownPause = new KeyEvent(when, when, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PAUSE, 0);
+        final KeyEvent evDownPause =
+                new KeyEvent(when, when, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PAUSE, 0);
         final KeyEvent evUpPause = KeyEvent.changeAction(evDownPause, KeyEvent.ACTION_UP);
-        final KeyEvent evDownPlay = new KeyEvent(when, when, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY, 0);
+        final KeyEvent evDownPlay =
+                new KeyEvent(when, when, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY, 0);
         final KeyEvent evUpPlay = KeyEvent.changeAction(evDownPlay, KeyEvent.ACTION_UP);
         mHandler.post(new Runnable() {
             @Override
@@ -104,7 +104,7 @@ public final class DiracUtils {
     protected static void setEnabled(boolean enable) {
         mDiracSound.setEnabled(enable);
         mDiracSound.setMusic(enable ? 1 : 0);
-        if (enable){
+        if (enable) {
             refreshPlaybackIfNecessary();
         }
     }
@@ -121,7 +121,5 @@ public final class DiracUtils {
         }
     }
 
-    protected static void setHeadsetType(int paramInt) {
-         mDiracSound.setHeadsetType(paramInt);
-    }
+    protected static void setHeadsetType(int paramInt) { mDiracSound.setHeadsetType(paramInt); }
 }

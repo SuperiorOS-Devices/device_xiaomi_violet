@@ -22,9 +22,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import org.lineageos.settings.dirac.DiracActivity;
 
 public class TileEntryActivity extends Activity {

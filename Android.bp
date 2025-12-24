@@ -5,7 +5,6 @@
 
 soong_namespace {
     imports: [
-        "bootable/deprecated-ota",
         "hardware/google/interfaces",
         "hardware/google/pixel",
         "vendor/qcom/opensource/commonsys/display",

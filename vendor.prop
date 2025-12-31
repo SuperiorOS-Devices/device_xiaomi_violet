@@ -218,6 +218,10 @@ ro.telephony.default_cdma_sub=0
 ro.telephony.default_network=22,22
 telephony.lteOnCdmaDevice=1
 
+# ScrollOptimizer
+persist.sys.perf.scroll_opt=true
+persist.sys.perf.scroll_opt.heavy_app=1
+
 # System
 persist.sys.binary_xml=false
 

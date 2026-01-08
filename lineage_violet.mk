@@ -24,6 +24,7 @@ GPU_MIN_FREQ_PATH := /sys/class/kgsl/kgsl-3d0/devfreq/min_freq
 PERF_GOV_SUPPORTED := true
 PERF_DEFAULT_GOV := schedutil
 TARGET_ENABLE_BLUR := true
+LINEAGE_VERSION_APPEND_TIME_OF_DAY := true
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := lineage_violet

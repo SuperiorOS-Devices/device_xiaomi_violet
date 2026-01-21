@@ -1,0 +1,14 @@
+[
+  {
+    "repository" : "vendor_xiaomi_violet",
+    "target_path": "vendor/xiaomi/violet",
+    "branch": "16.2",
+    "remote": "SuperiorOS-Devices"
+  },
+  {
+    "repository": "Joker-V2/kernel_xiaomi_violet",
+    "target_path": "kernel/xiaomi/violet",
+    "branch":"sixteen",
+    "remote":"github"
+  }
+]

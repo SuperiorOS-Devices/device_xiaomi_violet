@@ -124,7 +124,7 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 57453555712
 PRODUCT_FS_COMPRESSION := 1
 
--include vendor/lineage/config/BoardConfigReservedSize.mk
+-include vendor/superior/config/BoardConfigReservedSize.mk
 
 BOARD_USES_METADATA_PARTITION := true
 

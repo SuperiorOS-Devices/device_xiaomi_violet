@@ -12,6 +12,7 @@ $(call inherit-product, device/xiaomi/violet/device.mk)
 $(call inherit-product, vendor/superior/config/common_full_phone.mk)
 SUPERIOR_BUILDTYPE := OFFICIAL
 TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_SUPPORTS_OMX_SERVICE := false
 WITH_GAPPS := false
 
 # Inherit MiuiCamera

@@ -1,7 +1,6 @@
 # All unpinned blobs were pulled from VIOLET_V12.5.4.0.QFHCNXM
 # Current blobs with ELF checks disabled:
 # imsdatadaemon, libcne, libwqe, lowi-server depend on libwpa_client, which is a gnu makefile target
-# libOmxVpp depends on libOmxCore, which is a gnu makefile target
 
 # ACDB
 vendor/etc/acdbdata/IDP/IDP_Bluetooth_cal.acdb
@@ -700,7 +699,6 @@ vendor/etc/configstore/vpp.configstore.xml|ed961545186c66fd9523f25866c74f2e11ee6
 vendor/etc/init/vppservice.rc|24c089e0e413cbb3fa6daaf0af4215870bdf1b8e
 vendor/lib/libFileMux_proprietary.so|1e125137fcc2c1843cc14e3ec34fc1068fc6bc14
 vendor/lib/libI420colorconvert.so|09a63a93d9cf2f78e31cb996a617071572e4f3db
-vendor/lib/libOmxVpp.so;DISABLE_CHECKELF|010378466ccb164d9aee0ea47e19fd0ab43917a8
 vendor/lib/libmm-color-convertor.so|904f9daeca6323b7d240c2f640a92852bac88146
 vendor/lib/libmmosal.so;MODULE_SUFFIX=_vendor|04a064cd6867ebba2c623a84606f76dbeea9d58e
 vendor/lib/libmmrtpdecoder_proprietary.so|227a26b9ec9ee6f2dc95de47b713b215e8b6c93e
@@ -714,7 +712,6 @@ vendor/lib/vendor.qti.hardware.vpp@1.1.so|3e0467d0c30bb6cccab12d2e67dacc5ea852b3
 vendor/lib/vendor.qti.hardware.vpp@1.2.so|d1226cfbeee864b7cac52bcee37fdf4524892fd6
 vendor/lib/vendor.qti.hardware.vpp@1.3.so|6ff4979c9632ce9f244aeba7a0804332328f3fa9
 vendor/lib64/libI420colorconvert.so|ea24367de946f2c2a7f81b78c0a805edf8fd2d64
-vendor/lib64/libOmxVpp.so;DISABLE_CHECKELF|e10d0e04a35e7d517fb6554b3a3a8d777404052a
 vendor/lib64/libmm-color-convertor.so|ade617dc02ec472e68755568d6295ab328aa97be
 vendor/lib64/libstagefright_soft_qtiflacdec.so|136d3bf28ab3b38bfb38a07cfaff08e728a886ec
 vendor/lib64/libvppclient.so|e63252fe6692c05bb4192cdf2054fc252f9d2f9f
@@ -724,6 +721,14 @@ vendor/lib64/libvpptestutils.so|5e2b2b2b4c9e52effb6931496e83ba019de50a56
 vendor/lib64/vendor.qti.hardware.vpp@1.1.so|e336f4a3d0a50ee985639db6a8a70ec9817144ee
 vendor/lib64/vendor.qti.hardware.vpp@1.2.so|7ae61a9c75d4a17f0aad5969ce1a27cd5b0552ae
 vendor/lib64/vendor.qti.hardware.vpp@1.3.so|85a4e2ca843525db5c76486dbee4c5c7a672ee8d
+
+# Media (Codec2) - from davinci-user-11-RKQ1.200826.002-V12.1.4.0.RFJMIXM-release-keys
+vendor/bin/hw/vendor.qti.media.c2@1.0-service|434bd2feb1846a7e02441be2213bac8d2e22c3f7
+vendor/etc/init/vendor.qti.media.c2@1.0-service.rc|11209316ba8aae64b689217bc13b0804f6620678
+vendor/etc/seccomp_policy/codec2.vendor.base.policy|05b0779b5da2ea640984d46a46a796edeaab5fab
+vendor/etc/seccomp_policy/codec2.vendor.ext.policy|6a9a9eb3261048f02805261568097410e1a23b2d
+vendor/lib/libqcodec2.so|3b4b80521b67112fcf0c1e41ef242aad8d8db733
+vendor/lib64/libqcodec2.so|78b98f6a971c5d449fc234509394250513039e89
 
 # Mlipay
 vendor/bin/mlipayd@1.1

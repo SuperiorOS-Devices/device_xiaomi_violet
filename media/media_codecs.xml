@@ -16,7 +16,6 @@
 -->
 
 <MediaCodecs>
-    <Include href="media_codecs_dolby_audio.xml" />
     <Include href="media_codecs_c2.xml" />
     <Settings>
         <Setting name="max-video-encoder-input-buffers" value="11" />

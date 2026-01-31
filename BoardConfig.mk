@@ -98,9 +98,6 @@ HWUI_COMPILE_FOR_PERF := true
 # GPS
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
 
-# Graphics
-USE_OPENGL_RENDERER := true
-
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     $(DEVICE_PATH)/framework_compatibility_matrix.xml

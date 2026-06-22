@@ -1,0 +1,35 @@
+--- a/smali/com/qualcomm/wfd/ExtendedRemoteDisplay.smali
++++ b/smali/com/qualcomm/wfd/ExtendedRemoteDisplay.smali
+@@ -1561,6 +1561,32 @@
+     throw v3
+ .end method
+ 
++.method public static blacklist listen(Ljava/lang/String;Landroid/media/RemoteDisplay$Listener;Landroid/os/Handler;Landroid/content/Context;)Lcom/qualcomm/wfd/ExtendedRemoteDisplay;
++    .locals 2
++    .param p0, "iface"    # Ljava/lang/String;
++    .param p1, "listener"    # Landroid/media/RemoteDisplay$Listener;
++    .param p2, "handler"    # Landroid/os/Handler;
++    .param p3, "context"    # Landroid/content/Context;
++
++    move-object v0, p0
++
++    move-object v1, p1
++
++    move-object p0, p2
++
++    move-object p1, p3
++
++    const/4 p2, 0x0
++
++    const-string p3, ""
++
++    invoke-static/range {v0 .. v5}, Lcom/qualcomm/wfd/ExtendedRemoteDisplay;->listen(Ljava/lang/String;Landroid/media/RemoteDisplay$Listener;Landroid/os/Handler;Landroid/content/Context;ILjava/lang/String;)Lcom/qualcomm/wfd/ExtendedRemoteDisplay;
++
++    move-result-object v0
++
++    return-object v0
++.end method
++
+ .method public static blacklist listen(Ljava/lang/String;Landroid/media/RemoteDisplay$Listener;Landroid/os/Handler;Landroid/content/Context;ILjava/lang/String;)Lcom/qualcomm/wfd/ExtendedRemoteDisplay;
+     .locals 8
+     .param p0, "iface"    # Ljava/lang/String;

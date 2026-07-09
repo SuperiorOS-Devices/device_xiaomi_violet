@@ -1,6 +1,3 @@
-# Data files
-type per_boot_file, file_type, data_file_type, core_data_file_type;
-
 # Torch
 type sysfs_torch, fs_type, sysfs_type;
 

@@ -162,6 +162,7 @@ VENDOR_SECURITY_PATCH := 2021-08-01
 
 # Sepolicy
 TARGET_SEPOLICY_DIR := msmsteppe
+include device/lineage/sepolicy/libion/sepolicy.mk
 include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 include device/qcom/sepolicy_vndr/SEPolicy.mk
 

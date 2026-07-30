@@ -14,7 +14,7 @@ SUPERIOR_BUILDTYPE := OFFICIAL
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_FACE_UNLOCK_SUPPORTED := true
 TARGET_SUPPORTS_OMX_SERVICE := false
-WITH_GAPPS := false
+WITH_GAPPS := true
 
 # Inherit MiuiCamera
 $(call inherit-product-if-exists, vendor/MiuiCamera/config.mk)

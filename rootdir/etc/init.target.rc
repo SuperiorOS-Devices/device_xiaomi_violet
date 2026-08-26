@@ -122,6 +122,10 @@ on boot
     mkdir /mnt/vendor/persist/goodix 0770 system system
     mkdir /mnt/vendor/persist/fpc 0770 system system
 
+    # Lineage Health
+    chmod 0660 /sys/class/power_supply/battery/charging_enabled
+    chown system system /sys/class/power_supply/battery/charging_enabled
+
     # Touchpanel
     chmod 0664 /sys/devices/virtual/touch/touch_dev/double_tap
     chown system system /sys/devices/virtual/touch/touch_dev/double_tap

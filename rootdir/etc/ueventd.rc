@@ -183,9 +183,6 @@ firmware_directories /vendor/firmware_mnt/image/
 # socinfo
 /sys/devices/soc0        serial_number   0000    root      root
 
-# Charger
-/sys/class/power_supply/battery charging_enabled   0660    system  system
-
 # Torch control
 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:switch_2 brightness 0660 cameraserver camera
 /sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-05/c440000.qcom,spmi:qcom,pm6150l@5:qcom,leds@d300/leds/led:torch_0 brightness 0660 cameraserver camera

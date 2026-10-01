@@ -1,0 +1,50 @@
+{
+	"Video": {
+		"Features": {
+            // This is used for encoder color space conversion with custom matrix.
+            // custom matrix is defined in kernel driver
+            // this triggers to enable CSC to 709LR with custom matrix
+			"enc_csc_custom_matrix": false,
+            // this enables adaptive blur if possible by encoder.
+            // this is preprocessing of encoder input YUV buffers
+			"enc_auto_blur": true,
+            // target supports cvp for all encode usecases.
+			"enc_cvp_enable": true
+		},
+		"Presets": {
+            // this control enables default b frame encoding
+            // if it is within capability of B frame encode case
+            // this is used only in MediaRecorder path
+            // max B frame count between two P
+			"enc_default_bframe_count": 1,
+            // maximum MB/sec for default B frame enablement case
+            // With B-frame enabled, Hana allows resolutions up to 1920x1088@60fps
+			"enc_max_mbs_per_sec": 489600, //7833600
+            // maximum decoder output rate if it is Nuplayer path and
+            // player sets max refresh rate
+            "max_supported_render_rate": 60,
+            // control to force enable linear color format for encoder
+            // if this is enable, then encoder will ask camera via
+            // consumer flag to inform usage of linear color format.
+            // it is used only for camera path. can't be used for non-camera producer case
+            // it is bitmask:
+            //  0x0: no override,
+            //  0x1: enable 8 bit: linear format. 10 bit: compressed format
+            //  0x2: 8 bit: compressed format. 10 bit: linear format
+            //  0x3: 8 bit: linear format. 10 bit: linear format
+			"enc_linear_color_format": 0,
+            // WARNING:
+            //    Please DON'T change these values, if you don't know what you are doing.
+            // These are the Video HAL capabilities. Video HAL may not function properly with wrong values.
+            // below are various capability used
+            // video driver version capability used for skype MediaCodec
+            "vt_driver_version": 534123018,
+            // maximum LTR cont for encoder
+            "ltr_max_count": 2,
+            // Encoder preprocessing: maximum encoder downscalar factor possible in width or height or both direction
+            "preprocess_max_downscale_factor": 8,
+            // encoder support rotation as preprocessing
+            "preprocess_rotation": 1
+		}
+	}
+}

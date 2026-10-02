@@ -32,7 +32,7 @@
             //  0x1: enable 8 bit: linear format. 10 bit: compressed format
             //  0x2: 8 bit: compressed format. 10 bit: linear format
             //  0x3: 8 bit: linear format. 10 bit: linear format
-			"enc_linear_color_format": 0,
+			"enc_linear_color_format": 3,
             // WARNING:
             //    Please DON'T change these values, if you don't know what you are doing.
             // These are the Video HAL capabilities. Video HAL may not function properly with wrong values.

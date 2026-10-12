@@ -90,7 +90,7 @@ BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 
 # Partitions
--include vendor/lineage/config/BoardConfigReservedSize.mk
+-include vendor/superior/config/BoardConfigReservedSize.mk
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456

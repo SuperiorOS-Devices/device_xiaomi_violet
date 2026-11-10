@@ -13,6 +13,9 @@
 /dev/block/platform/soc/7c4000\.sdhci/by-name/system                 u:object_r:system_block_device:s0
 /dev/block/platform/soc/7c4000\.sdhci/by-name/vendor                 u:object_r:system_block_device:s0
 
+# RPMB (4.19 registers the eMMC RPMB partition as a character device)
+/dev/mmcblk0rpmb                                                     u:object_r:vendor_rpmb_device:s0
+
 # Camera
 /mnt/vendor/persist/camera(/.*)?                                     u:object_r:vendor_persist_camera_file:s0
 

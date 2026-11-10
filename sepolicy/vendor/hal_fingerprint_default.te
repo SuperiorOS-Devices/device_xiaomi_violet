@@ -32,3 +32,7 @@ hal_client_domain(hal_fingerprint_default, vendor_hal_perf)
 add_hwservice(hal_fingerprint_default, hal_fingerprint_hwservice_xiaomi)
 add_hwservice(hal_fingerprint_default, hal_swfingerprint_hwservice)
 add_service(hal_fingerprint_default, hal_fingerprint_service_xiaomi)
+
+# The 4.19 kernel exposes the RTC alarm timer the HAL looks up
+allow hal_fingerprint_default sysfs_rtc:dir r_dir_perms;
+allow hal_fingerprint_default sysfs_rtc:file r_file_perms;

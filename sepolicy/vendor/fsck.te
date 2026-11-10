@@ -1,0 +1,2 @@
+# f2fs-tools reads the block queue and partition attributes
+allow fsck sysfs:file r_file_perms;

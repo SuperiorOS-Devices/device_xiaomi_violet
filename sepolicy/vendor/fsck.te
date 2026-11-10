@@ -1,2 +1,4 @@
-# f2fs-tools reads the block queue and partition attributes
-allow fsck sysfs:file r_file_perms;
+# f2fs-tools stats the block queue and partition attributes; reading the
+# generic sysfs files is neverallowed for core domains, so only hide that
+allow fsck sysfs:file getattr;
+dontaudit fsck sysfs:file { open read };

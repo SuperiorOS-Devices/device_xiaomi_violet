@@ -7,9 +7,9 @@
 			"enc_csc_custom_matrix": false,
             // this enables adaptive blur if possible by encoder.
             // this is preprocessing of encoder input YUV buffers
-			"enc_auto_blur": true,
+			"enc_auto_blur": false,
             // target supports cvp for all encode usecases.
-			"enc_cvp_enable": true
+			"enc_cvp_enable": false
 		},
 		"Presets": {
             // this control enables default b frame encoding
@@ -44,7 +44,7 @@
             // Encoder preprocessing: maximum encoder downscalar factor possible in width or height or both direction
             "preprocess_max_downscale_factor": 8,
             // encoder support rotation as preprocessing
-            "preprocess_rotation": 1
+            "preprocess_rotation": 0
 		}
 	}
 }

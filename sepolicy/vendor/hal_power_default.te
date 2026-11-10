@@ -5,3 +5,6 @@ allow hal_power_default vendor_latency_device:chr_file rw_file_perms;
 
 allow hal_power_default sysfs_touchpanel:dir search;
 allow hal_power_default sysfs_touchpanel:{ file lnk_file } rw_file_perms;
+
+# 4.19 requires CAP_SYS_ADMIN to write /proc/sys/kernel/sched_energy_aware
+allow hal_power_default self:capability sys_admin;
